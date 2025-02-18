@@ -11,7 +11,7 @@ const Tags = ({ tags, setTags, default_value }: IPropType) => {
     if (default_value) {
       setTags(default_value);
     }
-  }, [default_value, setTags]);
+  }, []);
   return (
     <div className="mb-5 tp-product-tags">
       <TagsInput

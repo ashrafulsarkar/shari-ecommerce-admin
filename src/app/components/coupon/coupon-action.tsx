@@ -12,12 +12,11 @@ type IPropType = {
   setOpenSidebar?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const CouponAction = ({ id,setOpenSidebar }: IPropType) => {
+const CouponAction = ({ id }: IPropType) => {
   const [showEdit, setShowEdit] = useState<boolean>(false);
   const [showDelete, setShowDelete] = useState<boolean>(false);
 
-  const [deleteCoupon, { data: delData, error: delErr }] =
-    useDeleteCouponMutation();
+  const [deleteCoupon] = useDeleteCouponMutation();
 
   // handle Delete
   const handleDelete = async (delId: string) => {

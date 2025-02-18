@@ -16,8 +16,10 @@ const useCloudinary = (
 
   // set image url
   useEffect(() => {
-    setItem({url:file.url,id:file.id})
-  },[file.id, file.url])
+    if (file.url !== item.url || file.id !== item.id) {
+      setItem({url:file.url,id:file.id})
+    }
+  },[file.id, file.url, item.url, item.id])
 
   // update state when delData was changes
   useEffect(() => {

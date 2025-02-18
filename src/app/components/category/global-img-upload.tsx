@@ -10,11 +10,10 @@ type IPropType = {
   setImage: React.Dispatch<React.SetStateAction<string>>;
   isSubmitted: boolean;
   default_img?: string;
-  image?: string;
   setIsSubmitted?:React.Dispatch<React.SetStateAction<boolean>>
 };
 
-const GlobalImgUpload = ({setImage,isSubmitted,default_img,image,setIsSubmitted}: IPropType) => {
+const GlobalImgUpload = ({setImage,isSubmitted,default_img,setIsSubmitted}: IPropType) => {
   const { handleImageUpload, uploadData, isError, isLoading } = useUploadImage();
   const showDefaultImage = !uploadData && !isLoading && !isError && default_img;
 

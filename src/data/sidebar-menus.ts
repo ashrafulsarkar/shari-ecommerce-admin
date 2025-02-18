@@ -1,16 +1,13 @@
 import { ISidebarMenus } from "./../types/menu-types";
 import {
   Dashboard,
-  Categories,
-  Coupons,
   Customers,
   Orders,
   Products,
-  Profile,
   Reviews,
   Setting,
   Leaf,
-  StuffUser,
+  Pages,
 } from "@/svg";
 
 const sidebar_menu: Array<ISidebarMenus> = [
@@ -27,62 +24,60 @@ const sidebar_menu: Array<ISidebarMenus> = [
     title: "Products",
     subMenus: [
       { title: "All Products", link: "/products" },
-      { title: "Add Product", link: "/add-product" }
+      { title: "Add Product", link: "/add-product" },
+      { title: "Brands", link: "/brands" },
+      { title: "Types", link: "/types" },
+      { title: "Categories", link: "/category" },
+      { title: "Coupons", link: "/coupon" },
     ],
   },
   {
     id: 3,
-    icon: Categories,
-    link: "/category",
-    title: "Category",
+    icon: Pages,
+    link: "/blogs",
+    title: "Blogs",
+    subMenus: [
+      { title: "All Blogs", link: "/blogs" },
+      { title: "Add Blog", link: "/add-blog" },
+      { title: "Categories", link: "/blog-category" },
+      { title: "Tags", link: "/tags" }
+    ],
   },
   {
-    id: 4,
+    id: 5,
     icon: Orders,
     link: "/orders",
     title: "Orders",
   },
   {
-    id: 5,
-    icon: Leaf,
-    link: "/brands",
-    title: "Brand",
-  },
-  {
-    id: 6,
+    id: 7,
     icon: Reviews,
     link: "/reviews",
     title: "Reviews",
   },
   {
-    id: 7,
-    icon: Coupons,
-    link: "/coupon",
-    title: "Coupons",
-  },
-  {
-    id: 8,
+    id: 9,
     icon: Customers,
     link: "/customers",
     title: "Customers",
   },
   {
-    id: 9,
-    icon: Profile,
-    link: "/profile",
-    title: "Profile",
-  },
-  {
-    id: 10,
-    icon: Setting,
-    link: "#",
-    title: "Online store",
-  },
-  {
     id: 11,
-    icon: StuffUser,
-    link: "/our-staff",
-    title: "Our Staff",
+    icon: Leaf,
+    link: "/reports",
+    title: "Reports",
+  },
+  {
+    id: 12,
+    icon: Setting,
+    link: "/settings",
+    title: "Settings",
+    subMenus: [
+      { title: "All Settings", link: "/settings" },
+      { title: "Nav Menu", link: "/menu" },
+      { title: "Our Staff", link: "/our-staff" },
+      { title: "Profile", link: "/profile" },
+    ],
   },
 ];
 

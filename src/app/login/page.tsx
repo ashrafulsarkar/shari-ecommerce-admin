@@ -1,6 +1,5 @@
 import LoginForm from '@/forms/login-form';
 import login_bg from '@assets/img/bg/login-bg.jpg';
-import Link from 'next/link';
 
 const LoginPage = () => {
   return (
@@ -13,12 +12,7 @@ const LoginPage = () => {
             </div>
             <div className="col-span-12 lg:col-span-6 md:w-[500px] mx-auto my-auto  pt-[50px] py-[60px] px-5 md:px-[60px]">
               <div className="text-center">
-                <h4 className="text-[24px] mb-1">Login Now.</h4>
-                <p>{"Don't"} have an account?  
-                 <span> 
-                    <Link href="/register" className="text-theme">Sign Up</Link> 
-                  </span>
-                </p>
+                <h4 className="text-[24px] mb-1">Login</h4>
               </div>
               <div className="">
                 <LoginForm/>

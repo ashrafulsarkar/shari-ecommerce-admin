@@ -1,4 +1,4 @@
-import React,{useEffect} from "react";
+import React, { useLayoutEffect } from "react";
 import ReactSelect from "react-select";
 import { FieldErrors, Controller, Control } from "react-hook-form";
 import ErrorMsg from "../../common/error-msg";
@@ -22,7 +22,7 @@ const ProductType = ({
     setSelectProductType(value);
   };
   // set default product
-  useEffect(() => {
+  useLayoutEffect(() => {
     if(default_value){
       setSelectProductType(default_value)
     }

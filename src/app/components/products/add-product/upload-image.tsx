@@ -13,6 +13,14 @@ type IPropType = {
 };
 const UploadImage = ({ file,setFormData,setImgUrl,isCenter=false }: IPropType) => {
   const {handleDeleteImg,item} = useCloudinary(file,setFormData,setImgUrl);
+  
+  React.useEffect(() => {
+    // Initialize item state with file
+    if (file && file.url) {
+      setImgUrl?.(file.url);
+    }
+  }, [file, setImgUrl]);
+
   return (
     <>
       {item.url && (

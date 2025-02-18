@@ -26,7 +26,7 @@ const OfferDatePicker = ({
   isRange = true,
 }: IPropType) => {
   const handleValueChange = (newValue: any) => {
-    setOfferDate(newValue);
+    setOfferDate((prevOfferDate) => newValue);
   };
 
   return (

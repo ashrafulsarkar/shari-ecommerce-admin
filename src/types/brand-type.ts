@@ -8,6 +8,7 @@ export interface Brand {
   website?: string;
   location?: string;
   description?: string;
+  status?: string;
 }
 
 export interface BrandResponse {

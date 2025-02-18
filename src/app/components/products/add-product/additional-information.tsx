@@ -1,5 +1,4 @@
 import { SmClose } from "@/svg";
-import { notifySuccess } from "@/utils/toast";
 import { useState, ChangeEvent, SetStateAction, useEffect } from "react";
 
 interface FormData {
@@ -45,8 +44,9 @@ const AdditionalInformation = ({
   const handleAddField = () => {
     const lastField = formData[formData.length - 1];
     if (lastField.key.trim() !== "" || lastField.value.trim() !== "") {
-      setFormData([...formData, { key: "", value: "" }]);
-      setAdditionalInformation([...formData]);
+      const newFormData = [...formData, { key: "", value: "" }];
+      setFormData(newFormData);
+      setAdditionalInformation(formData);
     }
   };
   // handleRemoveField

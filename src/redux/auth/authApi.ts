@@ -6,38 +6,7 @@ import { IAddStuff, IAdminGetRes, IAdminLoginAdd, IAdminLoginRes, IAdminRegister
 export const authApi = apiSlice.injectEndpoints({
   overrideExisting: true,
   endpoints: (builder) => ({
-    // registerAdmin
-    registerAdmin: builder.mutation<IAdminRegisterRes, IAdminRegisterAdd>({
-      query: (data) => ({
-        url: "api/admin/register",
-        method: "POST",
-        body: data,
-      }),
-
-      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
-        try {
-          const result = await queryFulfilled;
-          const { token, ...others } = result.data;
-          Cookies.set(
-            "admin",
-            JSON.stringify({
-              accessToken: token,
-              user: others
-            }),
-            { expires: 0.5 }
-          );
-
-          dispatch(
-            userLoggedIn({
-              accessToken: token,
-              user: others
-            })
-          );
-        } catch (err) {
-          // do nothing
-        }
-      },
-    }),
+    
     // login
     loginAdmin: builder.mutation<IAdminLoginRes, IAdminLoginAdd>({
       query: (data) => ({
@@ -161,7 +130,6 @@ export const authApi = apiSlice.injectEndpoints({
 
 export const {
   useLoginAdminMutation,
-  useRegisterAdminMutation,
   useForgetPasswordMutation,
   useAdminConfirmForgotPasswordMutation,
   useAdminChangePasswordMutation,

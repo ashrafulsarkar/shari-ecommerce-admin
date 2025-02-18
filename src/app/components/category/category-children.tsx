@@ -18,7 +18,7 @@ const CategoryChildren = ({
     if (default_value) {
       setCategoryChildren(default_value);
     }
-  }, [default_value, setCategoryChildren]);
+  }, []); // Run only once on mount
   console.log('default-value',default_value)
   return (
     <div className="mb-6">

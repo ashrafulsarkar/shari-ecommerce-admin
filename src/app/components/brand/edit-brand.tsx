@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import useBrandSubmit from "@/hooks/useBrandSubmit";
-import CategoryImgUpload from "../category/global-img-upload";
 import ErrorMsg from "../common/error-msg";
 import BrandTables from "./brand-table";
 import { useGetBrandQuery } from "@/redux/brand/brandApi";
@@ -15,11 +14,9 @@ const EditBrand = ({id}:{id:string}) => {
     errors,
     handleSubmit,
     register,
-    setLogo,
     setStatus,
     handleSubmitEditBrand,
     isSubmitted,
-    setIsSubmitted,
   } = useBrandSubmit();
   // get brand 
   const {data:brand,isLoading,isError,error} = useGetBrandQuery(id)
@@ -42,29 +39,16 @@ const EditBrand = ({id}:{id:string}) => {
       <div className="col-span-12 lg:col-span-4">
         <form onSubmit={handleSubmit((data) => handleSubmitEditBrand(data, id))}>
           <div className="mb-6 bg-white px-8 py-8 rounded-md">
-            {/* brand image upload */}
-            <CategoryImgUpload
-              isSubmitted={isSubmitted}
-              setImage={setLogo}
-              image={brand.logo ? brand.logo : ''}
-              setIsSubmitted={setIsSubmitted}
-              default_img={brand.logo}
-            />
-            {/* brand image upload */}
-
+            
             {/* Form Field */}
             <BrandFormField default_val={brand.name} register={register} errors={errors} name="Name" isReq={true} />
-            <BrandFormField default_val={brand.email} register={register} errors={errors} name="Email" isReq={true} />
-            <BrandFormField default_val={brand.website} register={register} errors={errors} name="Website" isReq={false} />
-            <BrandFormField default_val={brand.location} register={register} errors={errors} name="Location" isReq={false} />
             {/* Form Field */}
 
             {/* description start */}
-            <BrandDesc register={register}/>
+            <BrandDesc register={register} default_val={brand.description}/>
             {/* description end */}
 
-            {/* brand status start */}
-            <BrandStatus handleChange={handleChange} />
+            <BrandStatus handleChange={handleChange} default_val={brand.status} />
             {/* brand status end */}
 
             <button className="tp-btn px-7 py-2">Edit Brand</button>

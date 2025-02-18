@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Loading from "../../common/loading";
-import { useUploadImageMutation } from "@/redux/cloudinary/cloudinaryApi";
 import UploadImage from "./upload-image";
 import DefaultUploadImg from "./default-upload-img";
 import useUploadImage from "@/hooks/useUploadImg";
@@ -19,8 +18,7 @@ const ProductImgUpload = ({
   default_img,
 }: IPropType) => {
   const [initialLoad, setInitialLoad] = useState(true);
-  const {handleImageUpload,uploadData,isError,error,isLoading} = useUploadImage();
-
+  const {handleImageUpload,uploadData,isError,isLoading} = useUploadImage();
   useEffect(() => {
     if (uploadData && !isError) {
       setImgUrl(uploadData.data.url);

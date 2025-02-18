@@ -1,10 +1,10 @@
 "use client";
 import Image from "next/image";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import React, { useRef, useState, useEffect } from "react";
-import { Menu, Search } from "@/svg";
+import { Menu } from "@/svg";
 import { RootState } from "@/redux/store";
 import default_user from "@assets/img/users/user-10.jpg";
 import NotificationArea from "./component/notification-area";
@@ -17,7 +17,6 @@ type IProps = {
 
 const Header = ({ setSideMenu }: IProps) => {
   const { user } = useSelector((state: RootState) => state.auth);
-  const [searchOverlay, setSearchOverlay] = useState<boolean>(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const [notificationOpen, setNotificationOpen] = useState(false);
   const pRef = useRef<HTMLDivElement>(null);
@@ -58,8 +57,7 @@ const Header = ({ setSideMenu }: IProps) => {
       <header className="relative z-10 bg-white border-b border-gray border-solid py-5 px-8 pr-8">
         <div className="flex justify-between">
           <div className="flex items-center space-x-6 lg:space-x-0">
-            <button
-              onClick={() => setSideMenu((prev) => !prev)}
+            <button  onClick={() => setSideMenu((prev) => !prev)}
               type="button"
               className="block lg:hidden text-2xl text-black"
             >

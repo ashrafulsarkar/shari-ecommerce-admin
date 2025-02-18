@@ -43,13 +43,16 @@ const ProductTypeBrand = ({
     if (
       default_value?.product_type &&
       default_value.brand &&
-      !hasDefaultValues
+      !hasDefaultValues &&
+      brands?.result
     ) {
-      const brand = brands?.result.find((b) => b.name === default_value.brand);
+      const brand = brands.result.find((b) => b.name === default_value.brand);
       if (brand) {
-        setSelectBrand({ id: brand._id as string, name: default_value.brand });
-        setSelectProductType(default_value.product_type);
-        setHasDefaultValues(true);
+        setTimeout(() => {
+          setSelectBrand({ id: brand._id as string, name: default_value.brand });
+          setSelectProductType(default_value.product_type);
+          setHasDefaultValues(true);
+        }, 0);
       }
     }
   }, [

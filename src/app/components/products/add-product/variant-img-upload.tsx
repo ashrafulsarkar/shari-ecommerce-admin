@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Drug } from "@/svg";
 import Loading from "../../common/loading";
 import { useUploadImageMutation } from "@/redux/cloudinary/cloudinaryApi";
@@ -24,7 +24,7 @@ const VariantImgUpload = ({
   setIsSubmitField,
   setImageURLs,
 }: IPropType) => {
-  const [uploadImage, { data: uploadData, isError, isLoading, error }] =
+  const [uploadImage, { data: uploadData, isError, isLoading }] =
     useUploadImageMutation();
 
   // handle image upload

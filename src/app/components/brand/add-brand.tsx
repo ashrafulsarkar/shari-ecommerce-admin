@@ -2,7 +2,6 @@
 import React from "react";
 import ReactSelect from "react-select";
 import useBrandSubmit from "@/hooks/useBrandSubmit";
-import GlobalImgUpload from "../category/global-img-upload";
 import BrandTables from "./brand-table";
 import BrandFormField from "./form-field-two";
 import BrandDesc from "./brand-desc";
@@ -13,11 +12,9 @@ const AddBrand = () => {
     errors,
     handleSubmit,
     register,
-    setLogo,
     setStatus,
     handleSubmitBrand,
     isSubmitted,
-    setIsSubmitted,
   } = useBrandSubmit();
 
 
@@ -31,20 +28,8 @@ const AddBrand = () => {
       <div className="col-span-12 lg:col-span-4">
         <form onSubmit={handleSubmit(handleSubmitBrand)}>
           <div className="mb-6 bg-white px-8 py-8 rounded-md">
-            {/* brand image upload */}
-            <GlobalImgUpload
-              isSubmitted={isSubmitted}
-              setImage={setLogo}
-              image=""
-              setIsSubmitted={setIsSubmitted}
-            />
-            {/* brand image upload */}
-
             {/* Form Field */}
             <BrandFormField register={register} errors={errors} name="Name" isReq={true} />
-            <BrandFormField register={register} errors={errors} name="Email" isReq={true} />
-            <BrandFormField register={register} errors={errors} name="Website" isReq={false} />
-            <BrandFormField register={register} errors={errors} name="Location" isReq={false} />
             {/* Form Field */}
 
             {/* description start */}

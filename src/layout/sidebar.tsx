@@ -20,13 +20,13 @@ export default function Sidebar({sideMenu,setSideMenu}:IProps) {
   const router = useRouter();
 
   // handle active menu
-  const handleMenuActive = (title: string) => {
+  const handleMenuActive = React.useCallback((title: string) => {
     if (title === isDropdown) {
       setIsDropDown("");
     } else {
       setIsDropDown(title);
     }
-  };
+  }, [isDropdown]);
 
    // handle logout
    const handleLogOut = () => {

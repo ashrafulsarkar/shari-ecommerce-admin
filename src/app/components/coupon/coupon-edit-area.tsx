@@ -39,17 +39,6 @@ const CouponEditArea = ({ id }: { id: string }) => {
         <div className="col-span-12 lg:col-span-4">
           <form onSubmit={handleSubmit((data) => handleSubmitEditCoupon(data,id))}>
             <div className="mb-6 bg-white px-8 py-8 rounded-md">
-              {/* coupon image upload */}
-              <div className="bg-white">
-                <GlobalImgUpload
-                  isSubmitted={isSubmitted}
-                  setImage={setLogo}
-                  image={logo}
-                  setIsSubmitted={setIsSubmitted}
-                  default_img={coupon.logo}
-                />
-              </div>
-              {/* coupon image upload */}
               <CouponFormField
                 register={register}
                 errors={errors}
@@ -67,7 +56,7 @@ const CouponEditArea = ({ id }: { id: string }) => {
               <CouponFormField
                 register={register}
                 errors={errors}
-                name="endTime"
+                name="EndTime"
                 isReq={true}
                 type="date"
                 default_val={coupon.endTime}
@@ -75,32 +64,17 @@ const CouponEditArea = ({ id }: { id: string }) => {
               <CouponFormField
                 register={register}
                 errors={errors}
-                name="discountPercentage"
+                name="DiscountPercentage"
                 isReq={true}
                 default_val={coupon.discountPercentage}
               />
               <CouponFormField
                 register={register}
                 errors={errors}
-                name="minimumAmount"
+                name="MinimumAmount"
                 isReq={true}
                 default_val={coupon.minimumAmount}
               />
-
-              {/* product type */}
-              <div className="mb-6">
-                <p className="mb-0 text-base text-black">Product Type</p>
-                <div className="category-add-select select-bordered">
-                  <ProductType
-                    setSelectProductType={setSelectProductType}
-                    control={control}
-                    errors={errors}
-                    default_value={coupon.productType}
-                  />
-                </div>
-              </div>
-              {/* product type */}
-
               <button className="tp-btn px-7 py-2">Edit Coupon</button>
             </div>
           </form>

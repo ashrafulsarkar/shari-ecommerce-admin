@@ -1,7 +1,6 @@
 "use client";
 import React, { useState } from "react";
 import ErrorMsg from "../common/error-msg";
-import Image from "next/image";
 import Pagination from "../ui/Pagination";
 import { useGetAllBrandsQuery } from "@/redux/brand/brandApi";
 import BrandEditDelete from "./brand-edit-del";
@@ -10,7 +9,9 @@ import usePagination from "@/hooks/use-pagination";
 const BrandTables = () => {
   const { data: brands, isError, isLoading } = useGetAllBrandsQuery();
   const paginationData = usePagination(brands?.result || [], 5);
+  
   const { currentItems, handlePageClick, pageCount } = paginationData;
+  console.log(currentItems);
   // decide what to render
   let content = null;
 
@@ -21,7 +22,7 @@ const BrandTables = () => {
     content = <ErrorMsg msg="There was an error" />;
   }
   if (!isLoading && !isError && brands?.result.length === 0) {
-    content = <ErrorMsg msg="No Category Found" />;
+    content = <ErrorMsg msg="No Brands Found" />;
   }
 
   if (!isLoading && !isError && currentItems) {
@@ -35,12 +36,6 @@ const BrandTables = () => {
                 <tr className="border-b border-gray6 text-tiny">
                   <th
                     scope="col"
-                    className="pr-8 py-3 text-tiny text-text2 uppercase font-semibold"
-                  >
-                    ID
-                  </th>
-                  <th
-                    scope="col"
                     className="px-3 py-3 text-tiny text-text2 uppercase font-semibold w-[170px]"
                   >
                     Name
@@ -49,19 +44,13 @@ const BrandTables = () => {
                     scope="col"
                     className="px-3 py-3 text-tiny text-text2 uppercase font-semibold w-[150px] text-end"
                   >
-                    Email
+                    Description
                   </th>
                   <th
                     scope="col"
                     className="px-3 py-3 text-tiny text-text2 uppercase font-semibold w-[150px] text-end"
                   >
-                    Website
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-3 py-3 text-tiny text-text2 uppercase font-semibold w-[150px] text-end"
-                  >
-                    Location
+                    Status
                   </th>
                   <th
                     scope="col"
@@ -77,33 +66,14 @@ const BrandTables = () => {
                       key={item._id}
                       className="bg-white border-b border-gray6 last:border-0 text-start mx-9"
                     >
-                      <td className="px-3 py-3 pl-0 font-normal text-[#55585B]">
-                        #{item._id.slice(2, 10)}
-                      </td>
-                      <td className="pr-8 py-5 whitespace-nowrap">
-                        <a href="#" className="flex items-center space-x-5">
-                          {item.logo && (
-                            <Image
-                              className="w-10 h-10 rounded-full object-contain"
-                              src={item.logo}
-                              alt="image"
-                              width={40}
-                              height={40}
-                            />
-                          )}
-                          <span className="font-medium text-heading text-hover-primary transition">
-                            {item.name}
-                          </span>
-                        </a>
+                      <td className="pr-8 py-5 whitespace-nowrap font-medium text-heading">
+                        {item.name}
                       </td>
                       <td className="px-3 py-3 font-normal text-[#55585B] text-end">
-                        {item.email}
+                        {item.description}
                       </td>
                       <td className="px-3 py-3 font-normal text-[#55585B] text-end">
-                        {item.website}
-                      </td>
-                      <td className="px-3 py-3 font-normal text-[#55585B] text-end">
-                        {item.location}
+                        {item.status}
                       </td>
                       <td className="px-9 py-3 text-end">
                         <div className="flex items-center justify-end space-x-2">

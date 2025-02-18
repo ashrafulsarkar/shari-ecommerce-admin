@@ -50,10 +50,6 @@ export default function ProductCategory({
   // handleCategory
   const handleCategory = (value: string, title: string) => {
     setOpen(open === value ? "" : value);
-    if (value && title) {
-      setCategory({ id: value, name: title });
-      setParent(title);
-    }
     if (title) {
       if (selectedCategory.includes(title)) {
         setSelectedCategory(selectedCategory.filter((c) => c !== title));
@@ -62,6 +58,17 @@ export default function ProductCategory({
       }
     }
   };
+
+  useEffect(() => {
+    const lastCategory = selectedCategory[selectedCategory.length - 1];
+    if (lastCategory) {
+      const matchingItem = categories?.result.find(item => item.parent === lastCategory);
+      if (matchingItem) {
+        setCategory({ id: matchingItem._id, name: lastCategory });
+        setParent(lastCategory);
+      }
+    }
+  }, [selectedCategory]);
 
   // handle sub category
   const handleSubCategory = (subCate: string) => {

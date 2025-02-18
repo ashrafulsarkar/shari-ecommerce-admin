@@ -1,5 +1,5 @@
 "use client"
-import React,{useEffect} from 'react';
+import React, { useLayoutEffect } from 'react';
 import ReactSelect from "react-select";
 
 // prop type 
@@ -9,7 +9,7 @@ type IPropType = {
   setRole?:React.Dispatch<React.SetStateAction<string>>;
 }
 const AdminRole = ({handleChange,default_value,setRole}:IPropType) => {
-  useEffect(() => {
+  useLayoutEffect(() => {
     if(default_value && setRole){
       setRole(default_value)
     }

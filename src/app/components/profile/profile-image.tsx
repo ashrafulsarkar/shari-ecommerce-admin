@@ -11,12 +11,11 @@ import Loading from "../common/loading";
 // prop type
 type IPropType = {
   setProfileImg: React.Dispatch<React.SetStateAction<string>>;
-  updateData: IAdminUpdateRes | undefined;
 };
 
-const ProfileImage = ({ setProfileImg, updateData }: IPropType) => {
+const ProfileImage = ({ setProfileImg }: IPropType) => {
   const { user } = useSelector((state: RootState) => state.auth);
-  const { handleImageUpload, uploadData, isError, isLoading } =
+  const { handleImageUpload, uploadData, isLoading } =
     useUploadImage();
 
   useEffect(() => {

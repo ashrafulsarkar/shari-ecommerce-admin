@@ -30,19 +30,19 @@ type IPropType = {
 };
 
 const CouponTable = ({cls,setOpenSidebar,selectValue,searchValue}: IPropType) => {
-  const { data: coupons, isError, isLoading, error } = useGetAllCouponsQuery();
-  const paginationData = usePagination(coupons || [], 5);
+  const { data: couponData, isError: couponError, isLoading: couponLoading } = useGetAllCouponsQuery();
+  const paginationData = usePagination(couponData || [], 5);
   const { currentItems, handlePageClick, pageCount } = paginationData;
   // decide to render
   let content = null;
-  if (isLoading) {
-    content = <Loading loading={isLoading} spinner="bar" />;
+  if (couponLoading) {
+    content = <Loading loading={couponLoading} spinner="bar" />;
   }
-  if (isError && !coupons) {
+  if (couponError && !couponData) {
     content = <ErrorMsg msg="There was an error" />;
   }
-  if (!isError && coupons) {
-    let coupon_items = [...currentItems];
+  if (!couponError && couponData) {
+    let coupon_items = [...paginationData.currentItems];
     // search value filtering if search value true
     if (searchValue) {
       coupon_items = coupon_items.filter((c) =>
@@ -86,19 +86,8 @@ const CouponTable = ({cls,setOpenSidebar,selectValue,searchValue}: IPropType) =>
                   className="bg-white border-b border-gray6 last:border-0 text-start mx-9"
                 >
                   <td className="pr-8 py-5 whitespace-nowrap">
-                    <div className="flex items-center space-x-5">
-                      {coupon?.logo && (
-                        <Image
-                          className="w-[60px] h-[60px] rounded-md"
-                          src={coupon.logo}
-                          alt="logo"
-                          width={60}
-                          height={60}
-                        />
-                      )}
-                      <span className="font-medium text-heading">
+                    <div className="font-medium text-heading flex items-center space-x-5">
                         {coupon.title}
-                      </span>
                     </div>
                   </td>
                   <td className="px-3 py-3 text-black font-normal text-end">
@@ -146,7 +135,7 @@ const CouponTable = ({cls,setOpenSidebar,selectValue,searchValue}: IPropType) =>
               {
                 currentItems.length
               }{" "}
-              of {coupons?.length}
+              of {couponData?.length}
             </p>
             <div className="pagination py-3 flex justify-end items-center mx-8 pagination">
               <Pagination
