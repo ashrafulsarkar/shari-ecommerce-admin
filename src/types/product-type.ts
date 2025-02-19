@@ -47,7 +47,6 @@ export interface IProduct {
   img: string;
   title: string;
   slug?: string;
-  unit?: string;
   imageURLs: ImageURL[];
   parent: string;
   children: string;
@@ -83,7 +82,6 @@ export interface IAddProduct {
   img: string;
   title: string;
   slug?: string;
-  unit: string;
   imageURLs: {
     color: {
       name?: string;

@@ -19,6 +19,10 @@ type IBrand = {
   name: string;
   id: string;
 };
+type IType = {
+  name: string;
+  id: string;
+};
 type ICategory = {
   name: string;
   id: string;
@@ -31,7 +35,6 @@ const useProductSubmit = () => {
   const [img, setImg] = useState<string>("");
   const [title, setTitle] = useState<string>("");
   const [slug, setSlug] = useState<string>("");
-  const [unit, setUnit] = useState<string>("");
   const [imageURLs, setImageURLs] = useState<ImageURL[]>([]);
   const [parent, setParent] = useState<string>("");
   const [children, setChildren] = useState<string>("");
@@ -39,6 +42,7 @@ const useProductSubmit = () => {
   const [discount, setDiscount] = useState<number>(0);
   const [quantity, setQuantity] = useState<number>(0);
   const [brand, setBrand] = useState<IBrand>({ name: "", id: "" });
+  const [type, setType] = useState<IType>({ name: "", id: "" });
   const [category, setCategory] = useState<ICategory>({ name: "", id: "" });
   const [status, setStatus] = useState<status>("in-stock");
   const [productType, setProductType] = useState<string>("");
@@ -85,7 +89,6 @@ const useProductSubmit = () => {
     setImg("");
     setTitle("");
     setSlug("");
-    setUnit("");
     setImageURLs([]);
     setParent("");
     setChildren("");
@@ -93,6 +96,7 @@ const useProductSubmit = () => {
     setDiscount(0);
     setQuantity(0);
     setBrand({ name: "", id: "" });
+    setType({ name: "", id: "" });
     setCategory({ name: "", id: "" });
     setStatus("in-stock");
     setProductType("");
@@ -118,7 +122,6 @@ const useProductSubmit = () => {
       img: img,
       title: data.title,
       slug: slugify(data.title, { replacement: "-", lower: true }),
-      unit: data.unit,
       imageURLs: imageURLs,
       parent: parent,
       children: children,
@@ -126,6 +129,7 @@ const useProductSubmit = () => {
       discount: data.discount_percentage,
       quantity: data.quantity,
       brand: brand,
+      type: type,
       category: category,
       status: status,
       offerDate: {
@@ -175,7 +179,6 @@ const useProductSubmit = () => {
       img: img,
       title: data.title,
       slug: slugify(data.title, { replacement: "-", lower: true }),
-      unit: data.unit,
       imageURLs: imageURLs,
       parent: parent,
       children: children,
@@ -183,6 +186,7 @@ const useProductSubmit = () => {
       discount: data.discount_percentage,
       quantity: data.quantity,
       brand: brand,
+      type: type,
       category: category,
       status: status,
       offerDate: {
@@ -221,8 +225,6 @@ const useProductSubmit = () => {
     setTitle,
     slug,
     setSlug,
-    unit,
-    setUnit,
     imageURLs,
     setImageURLs,
     parent,
@@ -237,6 +239,7 @@ const useProductSubmit = () => {
     setQuantity,
     brand,
     setBrand,
+    setType,
     category,
     setCategory,
     status,

@@ -2,8 +2,8 @@
 import React from "react";
 import useProductSubmit from "@/hooks/useProductSubmit";
 import DescriptionTextarea from "./description-textarea";
-import OfferDatePicker from "./offer-date-picker";
-import ProductTypeBrand from "./product-type-brand";
+import ProductBrand from "./product-brand";
+import ProductType from "./product-type";
 import AdditionalInformation from "./additional-information";
 import ProductVariants from "./product-variants";
 import ProductImgUpload from "./product-img-upload";
@@ -27,10 +27,8 @@ const ProductSubmit = () => {
     setImg,
     img,
     setBrand,
-    setProductType,
+    setType,
     setImageURLs,
-    offerDate,
-    setOfferDate,
     isSubmitted,
     additionalInformation,
     imageURLs,
@@ -56,7 +54,7 @@ const ProductSubmit = () => {
           </div>
 
           <div className="bg-white px-8 py-8 rounded-md mb-6">
-            <div className="grid sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-x-6">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-3 gap-x-6">
               <FormField
                 title="price"
                 isRequired={true}
@@ -67,8 +65,26 @@ const ProductSubmit = () => {
                 errors={errors}
               />
               <FormField
+                title="discount percentage"
+                type="number"
+                isRequired={false}
+                placeHolder="Discount"
+                bottomTitle="Set the product Discount."
+                register={register}
+                errors={errors}
+              />
+              <FormField
+                title="count"
+                isRequired={false}
+                placeHolder="Count"
+                bottomTitle="Enter the product count."
+                type="number"
+                register={register}
+                errors={errors}
+              />
+              <FormField
                 title="SKU"
-                isRequired={true}
+                isRequired={false}
                 placeHolder="SKU"
                 bottomTitle="Enter the product SKU."
                 register={register}
@@ -83,54 +99,28 @@ const ProductSubmit = () => {
                 register={register}
                 errors={errors}
               />
-              <FormField
-                title="discount percentage"
-                type="number"
-                isRequired={false}
-                placeHolder="Discount"
-                bottomTitle="Set the product Discount."
-                register={register}
-                errors={errors}
-              />
             </div>
           </div>
-
           <div className="bg-white px-8 py-8 rounded-md mb-6">
             <div className="grid sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2 gap-x-6">
-              <FormField
-                title="youtube video Id"
-                isRequired={false}
-                placeHolder="video id"
-                bottomTitle="Set the video id of product."
+              <ProductBrand
                 register={register}
                 errors={errors}
+                control={control}
+                setSelectBrand={setBrand}
               />
-              {/* date picker start */}
-              <div>
-                <p className="mb-0 text-base text-black capitalize">
-                  start and end date
-                </p>
-                <OfferDatePicker
-                  offerDate={offerDate}
-                  setOfferDate={setOfferDate}
-                />
-                <span className="text-tiny leading-4">
-                  set the product offer and end date
-                </span>
-              </div>
-              {/* date picker start */}
+              {/* product brands end */}
+              {/* product type start */}
+              <ProductType
+                register={register}
+                errors={errors}
+                control={control}
+                setSelectType={setType}
+              />
+              {/* product type end */}
             </div>
+            {/* product brands start */}
           </div>
-
-          {/* product type and brands start */}
-          <ProductTypeBrand
-            register={register}
-            errors={errors}
-            control={control}
-            setSelectBrand={setBrand}
-            setSelectProductType={setProductType}
-          />
-          {/* product type and brands end */}
 
           {/* additional information page start */}
           <AdditionalInformation

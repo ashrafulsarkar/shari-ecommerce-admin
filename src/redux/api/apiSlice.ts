@@ -37,6 +37,8 @@ export const apiSlice = createApi({
     "AllCoupons",
     "Coupon",
     "AllStaff",
-    "Stuff"
+    "Stuff",
+    "AllTypes",
+    "getType",
   ],
 });

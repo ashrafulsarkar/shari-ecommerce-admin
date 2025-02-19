@@ -6,7 +6,7 @@ import FormField from "../form-field";
 import DescriptionTextarea from "../add-product/description-textarea";
 import { useGetProductQuery } from "@/redux/product/productApi";
 import OfferDatePicker from "../add-product/offer-date-picker";
-import ProductTypeBrand from "../add-product/product-type-brand";
+import ProductBrand from "../add-product/product-brand";
 import AdditionalInformation from "../add-product/additional-information";
 import ProductVariants from "../add-product/product-variants";
 import ProductImgUpload from "../add-product/product-img-upload";
@@ -148,7 +148,7 @@ const EditProductSubmit = ({ id }: { id: string }) => {
             </div>
 
             {/* product type and brands start */}
-            <ProductTypeBrand
+            <ProductBrand
               register={register}
               errors={errors}
               control={control}

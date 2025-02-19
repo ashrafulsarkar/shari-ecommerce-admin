@@ -10,28 +10,22 @@ import { useGetAllBrandsQuery } from "@/redux/brand/brandApi";
 import ReactSelect, { GroupBase } from "react-select";
 import ErrorMsg from "../../common/error-msg";
 import Loading from "../../common/loading";
-import ProductType from "./product-type";
 // prop type
 type IPropType = {
   register: UseFormRegister<any>;
   errors: FieldErrors<any>;
   control: Control;
-  setSelectProductType: React.Dispatch<React.SetStateAction<string>>;
   setSelectBrand: React.Dispatch<
     React.SetStateAction<{ name: string; id: string }>
   >;
   default_value?: {
     brand: string;
-    product_type: string;
-    unit: string;
   };
 };
 
-const ProductTypeBrand = ({
-  register,
+const ProductBrand = ({
   errors,
   control,
-  setSelectProductType,
   setSelectBrand,
   default_value,
 }: IPropType) => {
@@ -41,8 +35,7 @@ const ProductTypeBrand = ({
   // default value set
   useEffect(() => {
     if (
-      default_value?.product_type &&
-      default_value.brand &&
+      default_value?.brand &&
       !hasDefaultValues &&
       brands?.result
     ) {
@@ -50,7 +43,6 @@ const ProductTypeBrand = ({
       if (brand) {
         setTimeout(() => {
           setSelectBrand({ id: brand._id as string, name: default_value.brand });
-          setSelectProductType(default_value.product_type);
           setHasDefaultValues(true);
         }, 0);
       }
@@ -60,7 +52,6 @@ const ProductTypeBrand = ({
     brands,
     hasDefaultValues,
     setSelectBrand,
-    setSelectProductType,
   ]);
 
   // decide what to render
@@ -131,41 +122,10 @@ const ProductTypeBrand = ({
     );
   }
   return (
-    <div className="bg-white px-8 py-8 rounded-md mb-6">
-      <div className="grid sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-3 gap-x-6">
-        <div className="mb-5">
-          <p className="mb-0 text-base text-black">ProductType</p>
-          <ProductType
-            control={control}
-            errors={errors}
-            default_value={default_value?.product_type}
-            setSelectProductType={setSelectProductType}
-          />
-          <span className="text-tiny leading-4">
-            Set the product ProductType.
-          </span>
-        </div>
-
+      <div>
         {content}
-
-        <div className="mb-5">
-          <p className="mb-0 text-base text-black">
-            Unit <span className="text-red">*</span>
-          </p>
-          <input
-            id="unit"
-            {...register("unit", { required: `unit is required!` })}
-            defaultValue={default_value?.unit}
-            className="input w-full h-[44px] rounded-md border border-gray6 px-6 text-base"
-            type="text"
-            placeholder="Product unit"
-          />
-          <ErrorMsg msg={errors?.unit?.message as string} />
-          <span className="text-tiny leading-4">Set the unit of product.</span>
-        </div>
       </div>
-    </div>
   );
 };
 
-export default ProductTypeBrand;
+export default ProductBrand;

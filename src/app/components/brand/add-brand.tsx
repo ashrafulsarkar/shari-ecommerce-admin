@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import ReactSelect from "react-select";
 import useBrandSubmit from "@/hooks/useBrandSubmit";
 import BrandTables from "./brand-table";
 import BrandFormField from "./form-field-two";
