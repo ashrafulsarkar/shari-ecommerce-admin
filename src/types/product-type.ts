@@ -49,7 +49,7 @@ export interface IProduct {
   slug?: string;
   imageURLs: ImageURL[];
   parent: string;
-  children: string;
+  children: string[];
   price: number;
   discount?: number;
   quantity: number;
@@ -78,10 +78,11 @@ export interface ProductResponse {
 
 // IAddProduct
 export interface IAddProduct {
-  sku: string;
-  img: string;
   title: string;
   slug?: string;
+  description: string;
+  img: string;
+  sku: string;
   imageURLs: {
     color: {
       name?: string;
@@ -90,16 +91,15 @@ export interface IAddProduct {
     img: string;
     sizes?: string[];
   }[];
-  parent: string;
-  children: string;
   price: number;
   discount: number;
   quantity: number;
   brand: { name: string, id: string };
-  category: { name: string, id: string };
+  type: { name: string, id: string };
   status: 'in-stock' | 'out-of-stock' | 'discontinued';
-  productType: string;
-  description: string;
+  category: { name: string, id: string };
+  parent: string;
+  children: string;
   videoId?: string;
   additionalInformation?: {
     key: string;
@@ -107,10 +107,6 @@ export interface IAddProduct {
   }[];
   tags?: string[];
   sizes?: string[];
-  offerDate?: {
-    startDate: string | null,
-    endDate: string | null
-  },
 }
 
 // review product response 

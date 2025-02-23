@@ -1,18 +1,22 @@
 import React, { useState, useEffect } from "react";
+import { FieldErrors } from "react-hook-form";
 import Sizes from "./sizes";
 import { ImageURL } from "@/hooks/useProductSubmit";
 import { notifyError, notifySuccess } from "@/utils/toast";
 import VariantImgUpload from "./variant-img-upload";
 import { SmClose } from "@/svg";
+import ErrorMsg from "../../common/error-msg";
 
 // prop type
 type IPropType = {
+  errors: FieldErrors<any>;
   isSubmitted: boolean;
   setImageURLs: React.Dispatch<React.SetStateAction<ImageURL[]>>;
   default_value?: ImageURL[];
 };
 
 const ProductVariants = ({
+  errors,
   isSubmitted,
   setImageURLs,
   default_value,
@@ -64,20 +68,6 @@ const ProductVariants = ({
     setFormData(updatedFormData);
     setImageURLs(updatedFormData);
   };
-  // handle submit field
-  // const handleSubmitField = () => {
-  //   const allFieldsValid = formData.every((field) => field.img?.trim() !== "");
-  //   if (allFieldsValid) {
-  //     setImageURLs(formData);
-  //     notifySuccess("variant field added");
-  //     setIsSubmitField(true);
-  //     setFormData([{ color: { clrCode: "", name: "" }, img: "", sizes: [] }]);
-  //   } else {
-  //     notifyError("Image required");
-  //   }
-  // };
-  // col
-  const col = formData.length > 1 ? 3 : 2;
 
   return (
     <div className="bg-white px-8 py-8 rounded-md mb-6">
@@ -151,6 +141,15 @@ const ProductVariants = ({
               field={field}
               index={i}
             />
+
+
+
+
+
+
+
+
+            
             <VariantImgUpload
               setFormData={setFormData}
               setImageURLs={setImageURLs}
@@ -172,13 +171,6 @@ const ProductVariants = ({
         >
           Add Field
         </button>
-        {/* <button
-          className="tp-btn px-5 py-2 mt-5"
-          type="button"
-          onClick={handleSubmitField}
-        >
-          Submit Field
-        </button> */}
       </div>
     </div>
   );

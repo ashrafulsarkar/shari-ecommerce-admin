@@ -39,6 +39,7 @@ const AdditionalInformation = ({
     const updatedFormData = [...formData];
     updatedFormData[index] = { ...updatedFormData[index], [name]: value };
     setFormData(updatedFormData);
+    setAdditionalInformation(updatedFormData);
   };
   // handle add field
   const handleAddField = () => {

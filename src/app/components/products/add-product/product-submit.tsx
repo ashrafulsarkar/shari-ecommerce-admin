@@ -20,6 +20,7 @@ const ProductSubmit = () => {
     tags,
     setTags,
     setAdditionalInformation,
+    additionalInformation,
     control,
     setCategory,
     setParent,
@@ -30,11 +31,10 @@ const ProductSubmit = () => {
     setType,
     setImageURLs,
     isSubmitted,
-    additionalInformation,
     imageURLs,
   } = useProductSubmit();
 
-  console.log('additionalInformation--->',additionalInformation,'imageURLs--->',imageURLs)
+  // console.log('additionalInformation--->',additionalInformation)
 
   return (
     <form onSubmit={handleSubmit(handleSubmitProduct)}>
@@ -65,11 +65,11 @@ const ProductSubmit = () => {
                 errors={errors}
               />
               <FormField
-                title="discount percentage"
+                title="discount"
                 type="number"
                 isRequired={false}
                 placeHolder="Discount"
-                bottomTitle="Set the product Discount."
+                bottomTitle="Product Discount Percentage."
                 register={register}
                 errors={errors}
               />
@@ -109,17 +109,13 @@ const ProductSubmit = () => {
                 control={control}
                 setSelectBrand={setBrand}
               />
-              {/* product brands end */}
-              {/* product type start */}
               <ProductType
                 register={register}
                 errors={errors}
                 control={control}
                 setSelectType={setType}
               />
-              {/* product type end */}
             </div>
-            {/* product brands start */}
           </div>
 
           {/* additional information page start */}
@@ -132,6 +128,7 @@ const ProductSubmit = () => {
           <ProductVariants
             isSubmitted={isSubmitted}
             setImageURLs={setImageURLs}
+            errors={errors}
           />
           {/* product variations end */}
         </div>
@@ -145,7 +142,7 @@ const ProductSubmit = () => {
           />
 
           <div className="bg-white px-8 py-8 rounded-md mb-6">
-            <p className="mb-5 text-base text-black">Product Category</p>
+            <p className="mb-5 text-base text-black">Product Category <span className="text-red">*</span></p>
             {/* category start */}
             <div className="grid grid-cols-1 sm:grid-cols-1 gap-3 mb-5">
               <ProductCategory

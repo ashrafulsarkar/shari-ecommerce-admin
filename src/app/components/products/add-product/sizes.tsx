@@ -1,28 +1,28 @@
-import { ImageURL } from "@/hooks/useProductSubmit";
-import { TagsInput } from "react-tag-input-component";
+import React from "react";
 
-const Sizes = ({
-  field,
-  handleSizeChange,
-  index,
-}: {
+type SizesProps = {
   handleSizeChange: (sizes: string[], index: number) => void;
-  index:number;
-  field:ImageURL
-}) => {
+  field: any;
+  index: number;
+};
+
+const Sizes: React.FC<SizesProps> = ({ handleSizeChange, field, index }) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const sizes = e.target.value.split(",").map((size) => size.trim());
+    handleSizeChange(sizes, index);
+  };
+
   return (
     <div className="mb-5">
       <p className="mb-0 text-base text-black">Sizes</p>
-      <TagsInput
-        value={field.sizes}
-        onChange={(sizes) => handleSizeChange(sizes, index)}
-        name={`sizes-${index}`}
-        placeHolder="enter sizes"
+      <input
+        className="input w-full h-[44px] rounded-md border border-gray6 px-6 text-base"
+        type="text"
+        placeholder="Sizes"
+        value={field.sizes.join(", ")}
+        onChange={handleChange}
       />
-      {/* <em>press enter or comma to add new size</em> */}
-      <span className="text-tiny leading-4">
-        press enter to add new size
-      </span>
+      <span className="text-tiny leading-4">Enter sizes separated by commas.</span>
     </div>
   );
 };

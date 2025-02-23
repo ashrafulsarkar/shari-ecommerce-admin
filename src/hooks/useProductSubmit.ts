@@ -31,10 +31,10 @@ type ICategory = {
 type status = "in-stock" | "out-of-stock" | "discontinued";
 
 const useProductSubmit = () => {
-  const [sku, setSku] = useState<string>("");
-  const [img, setImg] = useState<string>("");
   const [title, setTitle] = useState<string>("");
   const [slug, setSlug] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
+  const [img, setImg] = useState<string>("");
   const [imageURLs, setImageURLs] = useState<ImageURL[]>([]);
   const [parent, setParent] = useState<string>("");
   const [children, setChildren] = useState<string>("");
@@ -44,17 +44,9 @@ const useProductSubmit = () => {
   const [brand, setBrand] = useState<IBrand>({ name: "", id: "" });
   const [type, setType] = useState<IType>({ name: "", id: "" });
   const [category, setCategory] = useState<ICategory>({ name: "", id: "" });
+  const [sku, setSku] = useState<string>("");
+  const [count, setCount] = useState<string>("");
   const [status, setStatus] = useState<status>("in-stock");
-  const [productType, setProductType] = useState<string>("");
-  const [description, setDescription] = useState<string>("");
-  const [videoId, setVideoId] = useState<string>("");
-  const [offerDate, setOfferDate] = useState<{
-    startDate: null;
-    endDate: null;
-  }>({
-    startDate: null,
-    endDate: null,
-  });
   const [additionalInformation, setAdditionalInformation] = useState<
     {
       key: string;
@@ -62,7 +54,6 @@ const useProductSubmit = () => {
     }[]
   >([]);
   const [tags, setTags] = useState<string[]>([]);
-  const [sizes, setSizes] = useState<string[]>([]);
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
 
   const router = useRouter();
@@ -86,6 +77,7 @@ const useProductSubmit = () => {
   // resetForm
   const resetForm = () => {
     setSku("");
+    setCount("");
     setImg("");
     setTitle("");
     setSlug("");
@@ -99,16 +91,9 @@ const useProductSubmit = () => {
     setType({ name: "", id: "" });
     setCategory({ name: "", id: "" });
     setStatus("in-stock");
-    setProductType("");
     setDescription("");
-    setVideoId("");
-    setOfferDate({
-      startDate: null,
-      endDate: null,
-    });
     setAdditionalInformation([]);
     setTags([]);
-    setSizes([]);
     reset();
   };
 
@@ -118,32 +103,27 @@ const useProductSubmit = () => {
 
     // product data
     const productData = {
-      sku: data.SKU,
-      img: img,
       title: data.title,
       slug: slugify(data.title, { replacement: "-", lower: true }),
+      img: img,
       imageURLs: imageURLs,
       parent: parent,
       children: children,
       price: data.price,
-      discount: data.discount_percentage,
+      discount: data.discount,
       quantity: data.quantity,
       brand: brand,
       type: type,
       category: category,
+      sku: data.SKU,
+      count: data.count,
       status: status,
-      offerDate: {
-        startDate: offerDate.startDate,
-        endDate: offerDate.endDate,
-      },
-      productType: productType,
       description: data.description,
-      videoId: data.youtube_video_Id,
       additionalInformation: additionalInformation,
       tags: tags,
     };
 
-    console.log('productData-------------------..>',productData)
+    // console.log('productData-------------------..>',productData)
 
 
     if (!img) {
@@ -175,27 +155,22 @@ const useProductSubmit = () => {
   const handleEditProduct = async (data: any, id: string) => {
     // product data
     const productData = {
-      sku: data.SKU,
-      img: img,
       title: data.title,
-      slug: slugify(data.title, { replacement: "-", lower: true }),
+      img: img,
+      description: data.description,
       imageURLs: imageURLs,
+      slug: slugify(data.title, { replacement: "-", lower: true }),
       parent: parent,
       children: children,
       price: data.price,
-      discount: data.discount_percentage,
+      discount: data.discount,
       quantity: data.quantity,
       brand: brand,
       type: type,
       category: category,
+      sku: data.SKU,
+      count: data.count,
       status: status,
-      offerDate: {
-        startDate: offerDate.startDate,
-        endDate: offerDate.endDate,
-      },
-      productType: productType,
-      description: data.description,
-      videoId: data.youtube_video_Id,
       additionalInformation: additionalInformation,
       tags: tags,
     };
@@ -219,6 +194,8 @@ const useProductSubmit = () => {
   return {
     sku,
     setSku,
+    count,
+    setCount,
     img,
     setImg,
     title,
@@ -239,31 +216,24 @@ const useProductSubmit = () => {
     setQuantity,
     brand,
     setBrand,
+    type,
     setType,
     category,
     setCategory,
     status,
     setStatus,
-    productType,
-    setProductType,
     description,
     setDescription,
-    videoId,
-    setVideoId,
     additionalInformation,
     setAdditionalInformation,
     tags,
     setTags,
-    sizes,
-    setSizes,
     handleSubmitProduct,
     handleEditProduct,
     register,
     handleSubmit,
     errors,
     control,
-    offerDate,
-    setOfferDate,
     setIsSubmitted,
     isSubmitted,
   };

@@ -11,11 +11,11 @@ type IPropType = {
 const DescriptionTextarea = ({ register, errors, defaultValue }: IPropType) => {
   return (
     <div className="mb-5">
-      <p className="mb-0 text-base text-black">Description</p>
+      <p className="mb-0 text-base text-black">Description <span className="text-red">*</span></p>
       <div id="editor" className="text-base">
         <textarea
           {...register("description", {
-            required: `description is required!`,
+            required: `Description is required!`,
           })}
           placeholder="Your Description"
           className="input h-[120px] resize-none w-full py-3 text-base"

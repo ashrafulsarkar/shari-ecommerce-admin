@@ -86,7 +86,7 @@ const ProductBrand = ({
 
     content = (
       <div className="mb-5">
-        <p className="mb-0 text-base text-black">Brands</p>
+        <p className="mb-0 text-base text-black">Brands <span className="text-red">*</span></p>
         <Controller
           name="brand"
           control={control}
