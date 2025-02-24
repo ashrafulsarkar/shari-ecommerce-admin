@@ -93,6 +93,7 @@ export interface IAddProduct {
   }[];
   price: number;
   discount: number;
+  count: number;
   quantity: number;
   brand: { name: string, id: string };
   type: { name: string, id: string };
@@ -100,13 +101,11 @@ export interface IAddProduct {
   category: { name: string, id: string };
   parent: string;
   children: string;
-  videoId?: string;
   additionalInformation?: {
     key: string;
     value: string;
   }[];
   tags?: string[];
-  sizes?: string[];
 }
 
 // review product response 

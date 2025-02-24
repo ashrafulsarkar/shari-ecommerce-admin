@@ -5,7 +5,7 @@ import {
   Controller,
   Control,
 } from "react-hook-form";
-import { useGetAllBrandsQuery } from "@/redux/brand/brandApi";
+import { useGetAllTypesQuery } from "@/redux/type/typeApi";
 
 import ReactSelect, { GroupBase } from "react-select";
 import ErrorMsg from "../../common/error-msg";
@@ -15,41 +15,43 @@ type IPropType = {
   register: UseFormRegister<any>;
   errors: FieldErrors<any>;
   control: Control;
-  setSelectBrand: React.Dispatch<
+  setSelectType: React.Dispatch<
     React.SetStateAction<{ name: string; id: string }>
   >;
-  default_value?: { brand: string; } | null;
+  default_value?: {
+    type: string;
+  };
 };
 
-const ProductBrand = ({
+const ProductType = ({
   errors,
   control,
-  setSelectBrand,
+  setSelectType,
   default_value,
 }: IPropType) => {
-  const { data: brands, isError, isLoading } = useGetAllBrandsQuery();
+  const { data: types, isError, isLoading } = useGetAllTypesQuery();
 
   const [hasDefaultValues, setHasDefaultValues] = useState<boolean>(false);
   // default value set
   useEffect(() => {
     if (
-      default_value?.brand &&
+      default_value?.type &&
       !hasDefaultValues &&
-      brands?.result
+      types?.result
     ) {
-      const brand = brands.result.find((b) => b.name === default_value.brand);
-      if (brand) {
+      const type = types.result.find((b) => b.name === default_value.type);
+      if (type) {
         setTimeout(() => {
-          setSelectBrand({ id: brand._id as string, name: default_value.brand });
+          setSelectType({ id: type._id as string, name: default_value.type });
           setHasDefaultValues(true);
         }, 0);
       }
     }
   }, [
     default_value,
-    brands,
+    types,
     hasDefaultValues,
-    setSelectBrand,
+    setSelectType,
   ]);
 
   // decide what to render
@@ -65,31 +67,31 @@ const ProductBrand = ({
   if (!isLoading && isError) {
     content = <ErrorMsg msg="There was an error" />;
   }
-  if (!isLoading && isError && brands?.result.length === 0) {
+  if (!isLoading && isError && types?.result.length === 0) {
     content = <ErrorMsg msg="No Category Found" />;
   }
 
-  if (!isLoading && !isError && brands?.success) {
-    const brandItems = brands.result;
+  if (!isLoading && !isError && types?.success) {
+    const typeItems = types.result;
 
-    // handleBrandChange
-    const handleBrandChange = (selectBrand: string) => {
-      const brand = brandItems.find((b) => b.name === selectBrand);
-      setSelectBrand({ id: brand?._id as string, name: selectBrand });
+    // handleTypeChange
+    const handleTypeChange = (selectType: string) => {
+      const type = typeItems.find((b) => b.name === selectType);
+      setSelectType({ id: type?._id as string, name: selectType });
     };
-    const option = brandItems.map((b) => ({
+    const option = typeItems.map((b) => ({
       value: b.name,
       label: b.name,
     })) as unknown as readonly (string | GroupBase<string>)[];
 
     content = (
       <div className="mb-5">
-        <p className="mb-0 text-base text-black">Brands <span className="text-red">*</span></p>
+        <p className="mb-0 text-base text-black">Product Types <span className="text-red">*</span></p>
         <Controller
-          name="brand"
+          name="type"
           control={control}
           rules={{
-            required: default_value?.brand ? false : "Brand is required!",
+            required: default_value?.type ? false : "Type is required!",
           }}
           render={({ field }) => (
             <ReactSelect
@@ -98,8 +100,8 @@ const ProductBrand = ({
               defaultValue={
                 default_value
                   ? {
-                      label: default_value.brand,
-                      value: default_value.brand,
+                      label: default_value.type,
+                      value: default_value.type,
                     }
                   : {
                       label: "Select..",
@@ -108,14 +110,14 @@ const ProductBrand = ({
               }
               onChange={(selectedOption) => {
                 field.onChange(selectedOption);
-                handleBrandChange(selectedOption?.value);
+                handleTypeChange(selectedOption?.value);
               }}
               options={option}
             />
           )}
         />
-        <ErrorMsg msg={errors?.brand?.message as string} />
-        <span className="text-tiny leading-4">Set the product Brand.</span>
+        <ErrorMsg msg={errors?.type?.message as string} />
+        <span className="text-tiny leading-4">Set the product Type.</span>
       </div>
     );
   }
@@ -126,4 +128,4 @@ const ProductBrand = ({
   );
 };
 
-export default ProductBrand;
+export default ProductType;
