@@ -13,7 +13,7 @@ const Tags = ({ tags, setTags, default_value }: IPropType) => {
     }
   }, []);
   return (
-    <div className="mb-5 tp-product-tags">
+    <div className="mb-5 tp-blog-tags">
       <TagsInput
         value={tags}
         onChange={setTags}

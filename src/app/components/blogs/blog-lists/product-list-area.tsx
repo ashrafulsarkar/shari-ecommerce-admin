@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import React, { useState } from "react";
-import ProductTableHead from "./prd-table-head";
+import BlogTableHead from "./prd-table-head";
 import ProductTableItem from "./prd-table-item";
 import Pagination from "../../ui/Pagination";
 import { Search } from "@/svg";
@@ -58,7 +58,7 @@ const ProductListArea = () => {
         <div className="relative overflow-x-auto  mx-8">
           <table className="w-full text-base text-left text-gray-500">
             {/* table head start */}
-            <ProductTableHead />
+            <BlogTableHead />
             {/* table head end */}
             <tbody>
               {productItems.map((prd) => (

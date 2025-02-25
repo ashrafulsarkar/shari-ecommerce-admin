@@ -40,7 +40,6 @@ const sidebar_menu: Array<ISidebarMenus> = [
       { title: "All Blogs", link: "/blogs" },
       { title: "Add Blog", link: "/add-blog" },
       { title: "Categories", link: "/blog-category" },
-      { title: "Tags", link: "/tags" }
     ],
   },
   {

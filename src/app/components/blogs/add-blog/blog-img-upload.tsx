@@ -11,7 +11,7 @@ type IPropType = {
   default_img?: string;
 };
 
-const ProductImgUpload = ({
+const BlogImgUpload = ({
   imgUrl,
   setImgUrl,
   isSubmitted,
@@ -60,11 +60,11 @@ const ProductImgUpload = ({
             onChange={handleImageUpload}
             type="file"
             name="image"
-            id="product_img"
+            id="blog_img"
             className="hidden"
           />
           <label
-            htmlFor="product_img"
+            htmlFor="blog_img"
             className="text-tiny w-full inline-block py-1 px-4 rounded-md border border-gray6 text-center hover:cursor-pointer hover:bg-theme hover:text-white hover:border-theme transition"
           >
             Upload Image
@@ -75,4 +75,4 @@ const ProductImgUpload = ({
   );
 };
 
-export default ProductImgUpload;
+export default BlogImgUpload;

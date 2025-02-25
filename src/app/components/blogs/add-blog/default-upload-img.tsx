@@ -21,7 +21,7 @@ const DefaultUploadImg = ({
           <Image
             className="inline-flex border rounded-md border-gray6 w-24 max-h-24 p-2"
             src={img ? img : upload_default}
-            alt="productImg"
+            alt="blogImg"
             width={wh}
             height={wh}
           />

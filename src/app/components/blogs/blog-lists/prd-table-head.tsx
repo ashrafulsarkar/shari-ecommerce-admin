@@ -1,11 +1,11 @@
 import React from 'react';
 
-const ProductTableHead = () => {
+const BlogTableHead = () => {
   return (
     <thead className="bg-white">
       <tr className="border-b border-gray6 text-tiny">
         <th scope="col" className="pr-8 py-3 text-tiny text-text2 uppercase font-semibold">
-          Product
+          Title
         </th>
         <th scope="col" className="px-3 py-3 text-tiny text-text2 uppercase font-semibold w-[170px] text-end">
           SKU
@@ -30,4 +30,4 @@ const ProductTableHead = () => {
   );
 };
 
-export default ProductTableHead;
+export default BlogTableHead;

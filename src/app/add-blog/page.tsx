@@ -1,25 +1,25 @@
 import Wrapper from "@/layout/wrapper";
 import Breadcrumb from "../components/breadcrumb/breadcrumb";
-import ProductSubmit from "../components/products/add-product/product-submit";
+import BlogSubmit from "../components/blogs/add-blog/blog-submit";
 
-const AddProduct = () => {
+const AddBlog = () => {
   return (
     <Wrapper>
       <div className="body-content px-8 py-8 bg-slate-100">
         {/* breadcrumb start */}
-        <Breadcrumb title="Add Product" subtitle="Add Product" />
+        <Breadcrumb title="Add Blog" subtitle="Add Blog" />
         {/* breadcrumb end */}
 
-        {/* add a product start */}
+        {/* add a Blog start */}
         <div className="grid grid-cols-12">
           <div className="col-span-12 2xl:col-span-12">
-            <ProductSubmit />
+            <BlogSubmit />
           </div>
         </div>
-        {/* add a product end */}
+        {/* add a Blog end */}
       </div>
     </Wrapper>
   );
 };
 
-export default AddProduct;
+export default AddBlog;

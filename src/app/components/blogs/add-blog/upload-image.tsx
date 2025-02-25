@@ -3,7 +3,7 @@ import Image from "next/image";
 import upload_default from "@assets/img/icons/upload.png";
 import { SmClose } from "@/svg";
 import useCloudinary from "@/hooks/useCloudinary";
-import { ImageURL } from "@/hooks/useProductSubmit";
+import { ImageURL } from "@/hooks/useBlogSubmit";
 
 type IPropType = {
   file: { url: string; id: string };
@@ -29,7 +29,7 @@ const UploadImage = ({ file,setFormData,setImgUrl,isCenter=false }: IPropType) =
             <Image
               className="inline-flex border rounded-md border-gray6 w-24 max-h-24 p-2"
               src={item.url}
-              alt="productImg"
+              alt="blogImg"
               width={100}
               height={100}
             />
@@ -49,7 +49,7 @@ const UploadImage = ({ file,setFormData,setImgUrl,isCenter=false }: IPropType) =
             <Image
               className="inline-flex border rounded-md border-gray6 w-24 max-h-24 p-2"
               src={upload_default}
-              alt="productImg"
+              alt="blogImg"
               width={100}
               height={100}
             />
