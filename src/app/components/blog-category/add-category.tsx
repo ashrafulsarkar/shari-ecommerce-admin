@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import useCategorySubmit from "@/hooks/useCategorySubmit";
+import useCategorySubmit from "@/hooks/useBlogCategorySubmit";
 import CategoryTables from "./category-tables";
 import CategoryParent from "./category-parent";
 import CategoryDescription from "./category-description";

@@ -5,7 +5,6 @@ import { useForm } from "react-hook-form";
 import { useRouter } from 'next/navigation'
 
 const useCategorySubmit = () => {
-  const [categoryImg, setCategoryImg] = useState<string>("");
   const [parent, setParent] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [error, setError] = useState<string>("");
@@ -36,7 +35,6 @@ const useCategorySubmit = () => {
   const handleSubmitCategory = async (data: any) => {
     try {
       const category_data = {
-        img: categoryImg,
         parent: data?.parent,
         description: data?.description,
       };
@@ -62,7 +60,6 @@ const useCategorySubmit = () => {
   const handleSubmitEditCategory = async (data: any, id: string) => {
     try {
       const category_data = {
-        img: categoryImg,
         parent: data?.parent,
         description: data?.description,
       };
@@ -93,8 +90,6 @@ const useCategorySubmit = () => {
     setValue,
     errors,
     control,
-    categoryImg,
-    setCategoryImg,
     parent,
     setParent,
     description,

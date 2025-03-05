@@ -1,6 +1,5 @@
 "use client"
 import React, { useState } from 'react';
-import Image from 'next/image';
 import Pagination from '../ui/Pagination';
 import ErrorMsg from '../common/error-msg';
 import CategoryEditDelete from './edit-delete-category';

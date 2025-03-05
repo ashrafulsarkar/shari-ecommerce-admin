@@ -15,6 +15,7 @@ export const authApi = apiSlice.injectEndpoints({
       providesTags: ["AllBlogCategory"],
       keepUnusedDataFor: 600,
     }),
+
     // add category
     addCategory: builder.mutation<IAddCategoryResponse, IAddCategory>({
       query(data: IAddCategory) {
@@ -26,6 +27,7 @@ export const authApi = apiSlice.injectEndpoints({
       },
       invalidatesTags: ["AllBlogCategory"],
     }),
+    
     // delete category
     deleteCategory: builder.mutation<ICategoryDeleteRes, string>({
       query(id: string) {

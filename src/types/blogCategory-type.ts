@@ -1,7 +1,6 @@
 
 export interface ICategoryItem {
   _id: string;
-  img: string;
   parent: string;
   createdAt: string;
   updatedAt: string;
@@ -13,7 +12,6 @@ export interface CategoryResponse {
 }
 
 export interface IAddCategory {
-  img?: string;
   parent: string;
   description?: string;
 }
