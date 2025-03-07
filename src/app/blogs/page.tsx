@@ -1,7 +1,7 @@
 import React from "react";
 import Breadcrumb from "../components/breadcrumb/breadcrumb";
 import Wrapper from "@/layout/wrapper";
-import ProductListArea from "../components/products/product-lists/product-list-area";
+import BlogListArea from "../components/blogs/blog-lists/blog-list-area";
 
 const ProductList = () => {
   return (
@@ -12,7 +12,7 @@ const ProductList = () => {
         {/* breadcrumb end */}
 
         {/* ProductListArea start */}
-        <ProductListArea />
+        <BlogListArea />
         {/* ProductListArea end */}
       </div>
     </Wrapper>

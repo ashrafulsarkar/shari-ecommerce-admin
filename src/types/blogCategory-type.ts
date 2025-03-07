@@ -12,7 +12,7 @@ export interface CategoryResponse {
 }
 
 export interface IAddCategory {
-  parent: string;
+  name: string;
   description?: string;
 }
 

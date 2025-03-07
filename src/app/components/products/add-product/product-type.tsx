@@ -51,7 +51,6 @@ const ProductType = ({
     default_value,
     types,
     hasDefaultValues,
-    setSelectType,
   ]);
 
   // decide what to render

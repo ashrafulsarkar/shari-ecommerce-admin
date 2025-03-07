@@ -10,15 +10,15 @@ import {
   AccordionBody,
 } from "@material-tailwind/react";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
-import { useGetAllCategoriesQuery } from "@/redux/category/categoryApi";
 import ErrorMsg from "../common/error-msg";
+import { useGetAllBlogCategoriesQuery } from "@/redux/blog-category/categoryApi";
 
 // prop type
 type IPropType = {
   setCategory: React.Dispatch<SetStateAction<{ name: string; id: string }>>;
   setParent: React.Dispatch<SetStateAction<string>>;
   default_value?: {
-    parent: string;
+    name: string;
     id: string;
   };
 };
@@ -29,16 +29,16 @@ export default function BlogCategory({
   default_value,
 }: IPropType) {
   const [open, setOpen] = React.useState<string>("");
-  const { data: categories, isError, isLoading } = useGetAllCategoriesQuery();
+  const { data: categories, isError, isLoading } = useGetAllBlogCategoriesQuery();
   const [selectedCategory, setSelectedCategory] = useState<string[]>(
-    default_value ? [default_value.parent] : []
+    default_value ? [default_value.name] : []
   );
 
   useEffect(() => {
-    if (default_value?.parent && default_value.id) {
-      const { id, parent } = default_value;
-      setCategory({ id: id, name: parent });
-      setParent(parent);
+    if (default_value?.name && default_value.id) {
+      const { id, name } = default_value;
+      setCategory({ id: id, name: name });
+      setParent(name);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -58,7 +58,7 @@ export default function BlogCategory({
   useEffect(() => {
     const lastCategory = selectedCategory[selectedCategory.length - 1];
     if (lastCategory) {
-      const matchingItem = categories?.result.find(item => item.parent === lastCategory);
+      const matchingItem = categories?.find(item => item.name === lastCategory);
       if (matchingItem) {
         setCategory({ id: matchingItem._id, name: lastCategory });
         setParent(lastCategory);
@@ -84,12 +84,12 @@ export default function BlogCategory({
   if (!isLoading && isError) {
     content = <ErrorMsg msg="There was an error" />;
   }
-  if (!isLoading && !isError && categories?.result.length === 0) {
+  if (!isLoading && !isError && categories?.length === 0) {
     content = <ErrorMsg msg="No Category Found" />;
   }
 
-  if (!isLoading && !isError && categories?.success) {
-    const categoryItems = categories.result;
+  if (!isLoading && !isError ) {
+    const categoryItems = categories;
 
     content = (
       <>
@@ -109,14 +109,14 @@ export default function BlogCategory({
             >
               <ListItem className="p-0" selected={open === item._id}>
                 <AccordionHeader
-                  onClick={() => handleCategory(item._id, item.parent)}
+                  onClick={() => handleCategory(item._id, item.name)}
                   className="border-b-0 p-3"
                 >
                   <Typography
                     color="blue-gray"
                     className="mr-auto font-normal mb-0"
                   >
-                    {item.parent}
+                    {item.name}
                   </Typography>
                 </AccordionHeader>
               </ListItem>

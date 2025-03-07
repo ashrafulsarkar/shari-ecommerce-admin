@@ -1,19 +1,17 @@
 import React, { useEffect, useState } from "react";
-import Loading from "../../common/loading";
+import Loading from "../common/loading";
 import UploadImage from "./upload-image";
 import DefaultUploadImg from "./default-upload-img";
 import useUploadImage from "@/hooks/useUploadImg";
 
 type IPropType = {
-  title?: string;
   imgUrl: string;
   setImgUrl: React.Dispatch<React.SetStateAction<string>>;
-  isSubmitted: boolean;
+  isSubmitted?: boolean;
   default_img?: string;
 };
 
-const BlogImgUpload = ({
-  title="Upload Image",
+const GlobalImageUpload = ({
   imgUrl,
   setImgUrl,
   isSubmitted,
@@ -37,7 +35,7 @@ const BlogImgUpload = ({
   // console.log(imgUrl);
   return (
     <div className="bg-white px-8 py-8 rounded-md mb-6 text-center">
-      <p className="text-base text-black mb-4">{title}</p>
+      <p className="text-base text-black mb-4">Upload Image</p>
       <div className="text-center flex items-center justify-center">
         {isSubmitted ? (
           <DefaultUploadImg wh={100} />
@@ -62,11 +60,11 @@ const BlogImgUpload = ({
             onChange={handleImageUpload}
             type="file"
             name="image"
-            id="blog_img"
+            id="product_img"
             className="hidden"
           />
           <label
-            htmlFor="blog_img"
+            htmlFor="product_img"
             className="text-tiny w-full inline-block py-1 px-4 rounded-md border border-gray6 text-center hover:cursor-pointer hover:bg-theme hover:text-white hover:border-theme transition"
           >
             Upload Image
@@ -77,4 +75,4 @@ const BlogImgUpload = ({
   );
 };
 
-export default BlogImgUpload;
+export default GlobalImageUpload;

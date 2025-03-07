@@ -6,6 +6,7 @@ import BlogImgUpload from "./blog-img-upload";
 import BlogCategory from "../../blog-category/blog-category";
 import Tags from "./tags";
 import FormField from "../form-field";
+import MetaDescriptionTextarea from "./meta-description-textarea";
 
 const BlogSubmit = () => {
   const {
@@ -40,6 +41,8 @@ const BlogSubmit = () => {
             />
             <DescriptionTextarea register={register} errors={errors} />
           </div>
+
+
           <div className="bg-white px-8 py-8 rounded-md mb-6">
             <p className="mb-5 text-base text-black">Blog Category <span className="text-red">*</span></p>
             {/* category start */}
@@ -50,6 +53,18 @@ const BlogSubmit = () => {
               />
             </div>
           </div>
+          <div className="mb-6 bg-white px-8 py-8 rounded-md">
+            <h4 className="text-[22px]">Meta</h4>
+            <FormField
+              name="Meta title"
+              title="meta_title"
+              isRequired={true}
+              placeHolder="Meta Title"
+              register={register}
+              errors={errors}
+            />
+            <MetaDescriptionTextarea register={register} errors={errors} />
+          </div>
         </div>
 
         {/* right side */}
@@ -59,6 +74,7 @@ const BlogSubmit = () => {
             setImgUrl={setImg}
             isSubmitted={isSubmitted}
           />
+
           <div className="bg-white px-8 py-8 rounded-md mb-6">
             <p className="mb-5 text-base text-black">Blog Tags</p>
             {/* tags start */}

@@ -17,16 +17,16 @@ export const authApi = apiSlice.injectEndpoints({
   overrideExisting: true,
   endpoints: (builder) => ({
     // getUserOrders
-    getAllBlogs: builder.query<BlogResponse, void>({
-      query: () => `/api/blog/all`,
+    getAllBlogs: builder.query<any, void>({
+      query: () => `/api/blog_post/posts`,
       providesTags: ["AllBlogs"],
       keepUnusedDataFor: 600,
     }),
     // add blog
     addBlog: builder.mutation<IBlogResponse, IAddBlog>({
-      query(data: IAddBlog) {
+      query(data: any) {
         return {
-          url: `/api/blog/add`,
+          url: `/api/blog_post/posts`,
           method: "POST",
           body: data,
         };
@@ -40,8 +40,8 @@ export const authApi = apiSlice.injectEndpoints({
     >({
       query({ id, data }) {
         return {
-          url: `/api/blog/edit-blog/${id}`,
-          method: "PATCH",
+          url: `/api/blog_post/posts/${id}`,
+          method: "PUT",
           body: data,
         };
       },
@@ -49,13 +49,13 @@ export const authApi = apiSlice.injectEndpoints({
     }),
     // get single blog
     getBlog: builder.query<IAddBlog, string>({
-      query: (id) => `/api/blog/single-blog/${id}`,
+      query: (id) => `/api/blog_post/posts/${id}`,
     }),
      // delete category
      deleteBlog: builder.mutation<{message:string}, string>({
       query(id: string) {
         return {
-          url: `/api/blog/${id}`,
+          url: `/api/blog_post/posts/${id}`,
           method: "DELETE",
         };
       },

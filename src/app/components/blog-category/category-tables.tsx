@@ -1,16 +1,32 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Pagination from '../ui/Pagination';
 import ErrorMsg from '../common/error-msg';
 import CategoryEditDelete from './edit-delete-category';
-import { useDeleteCategoryMutation, useGetAllCategoriesQuery } from '@/redux/blog-category/categoryApi';
+import { useDeleteCategoryMutation, useGetAllBlogCategoriesQuery } from '@/redux/blog-category/categoryApi';
 import usePagination from '@/hooks/use-pagination';
 
+interface Category {
+  _id: string;
+  name: string;
+  description: string;
+}
+
 const CategoryTables = () => {
-  const { data: categories, isError, isLoading } = useGetAllCategoriesQuery();
-  const [deleteCategory,{data:delData,error:delErr}] = useDeleteCategoryMutation();
-  const paginationData = usePagination(categories?.result || [], 5);
+  const { data: fetchedCategories = [], isError, isLoading } = useGetAllBlogCategoriesQuery();
+  const [categories, setCategories] = useState<Category[]>([]);
+
+  // Update categories when fetchedCategories change
+  useEffect(() => {
+    if (fetchedCategories.length > 0) {
+      setCategories(fetchedCategories);
+    }
+  }, [fetchedCategories]);
+
+  const [deleteCategory, { data: delData, error: delErr }] = useDeleteCategoryMutation();
+  const paginationData = usePagination<Category>(categories, 5);
   const { currentItems, handlePageClick, pageCount } = paginationData;
+
   // decide what to render
   let content = null;
 
@@ -20,20 +36,16 @@ const CategoryTables = () => {
   if (!isLoading && isError) {
     content = <ErrorMsg msg="There was an error" />;
   }
-  if (!isLoading && !isError && categories?.result.length === 0) {
+  if (!isLoading && !isError && categories?.length === 0) {
     content = <ErrorMsg msg="No Category Found" />;
   }
 
-  if (!isLoading && !isError && categories?.success && currentItems.length > 0) {
-
-    
-    
+  if (!isLoading && !isError && currentItems.length > 0) {
     content = (
       <>
         <div className="overflow-scroll 2xl:overflow-visible">
           <div className="w-[975px] 2xl:w-full">
             <table className="w-full text-base text-left text-gray-500 ">
-
               <thead>
                 <tr className="border-b border-gray6 text-tiny">
                   <th scope="col" className="pr-8 py-3 text-tiny text-text2 uppercase font-semibold">
@@ -43,7 +55,7 @@ const CategoryTables = () => {
                     Name
                   </th>
                   <th scope="col" className="px-3 py-3 text-tiny text-text2 uppercase font-semibold w-[150px] text-end">
-                    Items
+                    Description
                   </th>
                   <th scope="col" className="px-9 py-3 text-tiny text-text2 uppercase  font-semibold w-[12%] text-end">
                     Action
@@ -51,22 +63,22 @@ const CategoryTables = () => {
                 </tr>
               </thead>
               <tbody>
-                {[...currentItems.reverse()].map(item => (
+                {[...currentItems.reverse()].map((item: Category) => (
                   <tr key={item._id} className="bg-white border-b border-gray6 last:border-0 text-start mx-9">
                     <td className="px-3 py-3 pl-0 font-normal text-[#55585B]">
                       #{item._id.slice(2, 10)}
                     </td>
                     <td className="pr-8 py-5 whitespace-nowrap">
                       <a href="#" className="flex items-center space-x-5">
-                        <span className="font-medium text-heading text-hover-primary transition">{item.parent}</span>
+                        <span className="font-medium text-heading text-hover-primary transition">{item.name}</span>
                       </a>
                     </td>
                     <td className="px-3 py-3 font-normal text-[#55585B] text-end">
-                      {item.blogs?.length}
+                      {item.description}
                     </td>
                     <td className="px-9 py-3 text-end">
                       <div className="flex items-center justify-end space-x-2">
-                        <CategoryEditDelete id={item._id}/>
+                        <CategoryEditDelete id={item._id} />
                       </div>
                     </td>
                   </tr>
@@ -76,17 +88,18 @@ const CategoryTables = () => {
           </div>
         </div>
         <div className="flex justify-between items-center flex-wrap">
-          <p className="mb-0 text-tiny">Showing 1-{currentItems.length} of {categories?.result.length}</p>
+          <p className="mb-0 text-tiny">Showing 1-{currentItems.length} of {categories.length}</p>
           <div className="pagination py-3 flex justify-end items-center pagination">
-           <Pagination
+            <Pagination
               handlePageClick={handlePageClick}
               pageCount={pageCount}
             />
           </div>
         </div>
       </>
-    )
+    );
   }
+
   return (
     <div className="relative overflow-x-auto bg-white px-8 py-4 rounded-md">
       {content}

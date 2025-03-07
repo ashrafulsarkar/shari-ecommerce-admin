@@ -14,16 +14,16 @@ const CategoryParent = ({ register, errors, default_value }: IPropType) => {
     <div className="mb-6">
       <p className="mb-0 text-base text-black">Category Name</p>
       <input
-        {...register("parent", {
+        {...register("name", {
           required: `Category Name is required!`,
         })}
         className="input w-full h-[44px] rounded-md border border-gray6 px-6 text-base"
         type="text"
-        name="parent"
+        name="name"
         placeholder="Name"
         defaultValue={default_value && default_value}
       />
-      <ErrorMsg msg={(errors?.parent?.message as string) || ""} />
+      <ErrorMsg msg={(errors?.name?.message as string) || ""} />
     </div>
   );
 };

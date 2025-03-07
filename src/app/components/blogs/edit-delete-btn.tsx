@@ -1,29 +1,21 @@
-import { Delete, Edit } from "@/svg";
 import Link from "next/link";
-import React, { useState } from "react";
 import Swal from "sweetalert2";
+import React, { useState } from "react";
+import { Delete, Edit } from "@/svg";
+import { notifyError } from "@/utils/toast";
 import DeleteTooltip from "../tooltip/delete-tooltip";
 import EditTooltip from "../tooltip/edit-tooltip";
-import { useDeleteCategoryMutation } from "@/redux/category/categoryApi";
-import { notifyError } from "@/utils/toast";
-import { useRouter } from "next/navigation";
+import { useDeleteBlogMutation } from "@/redux/blog/blogApi";
 
-// prop type
-type IPropType = {
-  id: string;
-};
-
-const CategoryEditDelete = ({ id }: IPropType) => {
+const EditDeleteBlogBtn = ({ id }: { id: string }) => {
   const [showEdit, setShowEdit] = useState<boolean>(false);
   const [showDelete, setShowDelete] = useState<boolean>(false);
-  const router = useRouter()
-  const [deleteCategory, { data: delData, error: delErr }] =
-    useDeleteCategoryMutation();
+  const [deleteBlog, { data: delData }] = useDeleteBlogMutation();
 
-  const handleDelete = async (id: string) => {
+  const handleDelete = async (productId: string) => {
     Swal.fire({
       title: "Are you sure?",
-      text: `Delete this category ?`,
+      text: `Delete this product ?`,
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -32,7 +24,7 @@ const CategoryEditDelete = ({ id }: IPropType) => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          const res = await deleteCategory(id);
+          const res = await deleteBlog(productId);
           if ("error" in res) {
             if ("data" in res.error) {
               const errorData = res.error.data as { message?: string };
@@ -41,12 +33,9 @@ const CategoryEditDelete = ({ id }: IPropType) => {
               }
             }
           } else {
-            Swal.fire("Deleted!", `Your category has been deleted.`, "success");
-            router.push('/blog-category')
+            Swal.fire("Deleted!", `Your product has been deleted.`, "success");
           }
-        } catch (error) {
-          // Handle error or show error message
-        }
+        } catch (error) {}
       }
     });
   };
@@ -54,7 +43,7 @@ const CategoryEditDelete = ({ id }: IPropType) => {
   return (
     <>
       <div className="relative">
-        <Link href={`/blog-category/${id}`}>
+        <Link href={`/edit-blog/${id}`}>
           <button
             onMouseEnter={() => setShowEdit(true)}
             onMouseLeave={() => setShowEdit(false)}
@@ -80,4 +69,4 @@ const CategoryEditDelete = ({ id }: IPropType) => {
   );
 };
 
-export default CategoryEditDelete;
+export default EditDeleteBlogBtn;

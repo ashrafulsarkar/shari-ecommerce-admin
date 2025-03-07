@@ -10,57 +10,57 @@ export const authApi = apiSlice.injectEndpoints({
   overrideExisting: true,
   endpoints: (builder) => ({
     // get all categories
-    getAllCategories: builder.query<CategoryResponse, void>({
-      query: () => `/api/blog-category/all`,
+    getAllBlogCategories: builder.query<any, void>({
+      query: () => `/api/blog/categories`,
       providesTags: ["AllBlogCategory"],
       keepUnusedDataFor: 600,
     }),
 
     // add category
-    addCategory: builder.mutation<IAddCategoryResponse, IAddCategory>({
+    addBlogCategory: builder.mutation<IAddCategoryResponse, IAddCategory>({
       query(data: IAddCategory) {
         return {
-          url: `/api/blog-category/add`,
+          url: `/api/blog/categories`,
           method: "POST",
           body: data,
         };
       },
       invalidatesTags: ["AllBlogCategory"],
     }),
-    
+
     // delete category
     deleteCategory: builder.mutation<ICategoryDeleteRes, string>({
       query(id: string) {
         return {
-          url: `/api/blog-category/delete/${id}`,
+          url: `/api/blog/categories/${id}`,
           method: "DELETE",
         };
       },
       invalidatesTags: ["AllBlogCategory"],
     }),
     // editCategory
-    editCategory: builder.mutation<IAddCategoryResponse, { id: string; data: Partial<IAddCategory> }>({
+    editBlogCategory: builder.mutation<IAddCategoryResponse, { id: string; data: Partial<IAddCategory> }>({
       query({ id, data }) {
         return {
-          url: `/api/blog-category/edit/${id}`,
-          method: "PATCH",
+          url: `/api/blog/categories/${id}`,
+          method: "PUT",
           body: data,
         };
       },
       invalidatesTags: ["AllBlogCategory","getblogCategory"],
     }),
     // get single product
-    getCategory: builder.query<IAddCategory, string>({
-      query: (id) => `/api/blog-category/get/${id}`,
+    getBlogCategory: builder.query<IAddCategory, string>({
+      query: (id) => `/api/blog/categories/${id}`,
       providesTags:['getblogCategory']
     }),
   }),
 });
 
 export const {
-  useGetAllCategoriesQuery,
-  useAddCategoryMutation,
+  useGetAllBlogCategoriesQuery,
+  useAddBlogCategoryMutation,
   useDeleteCategoryMutation,
-  useEditCategoryMutation,
-  useGetCategoryQuery, 
+  useEditBlogCategoryMutation,
+  useGetBlogCategoryQuery,
 } = authApi;

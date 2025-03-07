@@ -57,8 +57,12 @@ const sidebar_menu: Array<ISidebarMenus> = [
   {
     id: 9,
     icon: Customers,
-    link: "/customers",
+    link: "/customer",
     title: "Customers",
+    subMenus: [
+      { title: "All customer", link: "/customer/list" },
+      { title: "Add Customer", link: "/customer/add" },
+    ],
   },
   {
     id: 11,

@@ -60,5 +60,5 @@ export const {
   useAddCategoryMutation,
   useDeleteCategoryMutation,
   useEditCategoryMutation,
-  useGetCategoryQuery, 
+  useGetCategoryQuery,
 } = authApi;

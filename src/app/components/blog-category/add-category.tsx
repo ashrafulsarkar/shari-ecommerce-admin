@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import useCategorySubmit from "@/hooks/useBlogCategorySubmit";
+import useBlogCategorySubmit from "@/hooks/useBlogCategorySubmit";
 import CategoryTables from "./category-tables";
 import CategoryParent from "./category-parent";
 import CategoryDescription from "./category-description";
@@ -11,7 +11,7 @@ const AddCategory = () => {
     register,
     handleSubmit,
     handleSubmitCategory,
-  } = useCategorySubmit();
+  } = useBlogCategorySubmit();
   return (
     <div className="grid grid-cols-12 gap-6">
       <div className="col-span-12 lg:col-span-4">

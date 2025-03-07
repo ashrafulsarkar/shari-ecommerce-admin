@@ -27,9 +27,9 @@ const useBlogSubmit = () => {
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [img, setImg] = useState<string>("");
+  const [metaImg, setMetaImg] = useState<string>("");
   const [parent, setParent] = useState<string>("");
   const [category, setCategory] = useState<ICategory>({ name: "", id: "" });
-  const [status, setStatus] = useState<status>("in-stock");
   const [tags, setTags] = useState<string[]>([]);
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
 
@@ -68,11 +68,13 @@ const useBlogSubmit = () => {
     // blog data
     const blogData = {
       title: data.title,
+      description: data.description,
       img: img,
       parent: parent,
       category: category,
-      status: status,
-      description: data.description,
+      meta_img: img,
+      meta_title: data.meta_title,
+      meta_description: data.meta_description,
       tags: tags,
     };
 
@@ -85,7 +87,7 @@ const useBlogSubmit = () => {
     if (!category.name) {
       return notifyError("Category is required");
     }
-    
+
     const res = await addBlog(blogData);
     if ("error" in res) {
       if ("data" in res.error) {
@@ -111,6 +113,9 @@ const useBlogSubmit = () => {
       parent: parent,
       category: category,
       tags: tags,
+      meta_img: img,
+      meta_title: data.meta_title,
+      meta_description: data.meta_description,
     };
     console.log('edit blogData---->',blogData)
     const res = await editBlog({ id: id, data: blogData });
@@ -150,6 +155,7 @@ const useBlogSubmit = () => {
     control,
     setIsSubmitted,
     isSubmitted,
+    metaImg, setMetaImg
   };
 };
 

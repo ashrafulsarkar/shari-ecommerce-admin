@@ -1,29 +1,29 @@
 "use client";
 import React from "react";
-import useCategorySubmit from "@/hooks/useCategorySubmit";
 import CategoryTables from "./category-tables";
 import ErrorMsg from "../common/error-msg";
-import { useGetCategoryQuery } from "@/redux/category/categoryApi";
 import CategoryParent from "./category-parent";
 import CategoryDescription from "./category-description";
+import { useGetBlogCategoryQuery } from "@/redux/blog-category/categoryApi";
+import useBlogCategorySubmit from "@/hooks/useBlogCategorySubmit";
 
 const  EditCategory = ({ id }: { id: string }) => {
-  const { data: categoryData, isError, isLoading } = useGetCategoryQuery(id);
+  const { data: categoryData, isError, isLoading } = useGetBlogCategoryQuery(id);
   const {
     errors,
     register,
     handleSubmit,
     error,
     isSubmitted,
-    handleSubmitEditCategory,
-  } = useCategorySubmit();
+    handleSubmitEditBlogCategory,
+  } = useBlogCategorySubmit();
   return (
     <div className="grid grid-cols-12 gap-6">
       <div className="col-span-12 lg:col-span-4">
         {categoryData && (
           <form
             onSubmit={handleSubmit((data) =>
-              handleSubmitEditCategory(data, id)
+              handleSubmitEditBlogCategory(data, id)
             )}
           >
             <div className="mb-6 bg-white px-8 py-8 rounded-md">
@@ -32,7 +32,7 @@ const  EditCategory = ({ id }: { id: string }) => {
               <CategoryParent
                 register={register}
                 errors={errors}
-                default_value={categoryData.parent}
+                default_value={categoryData.name}
               />
               {/* category parent */}
 

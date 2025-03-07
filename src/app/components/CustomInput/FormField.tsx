@@ -2,7 +2,6 @@ import { FieldErrors, UseFormRegister } from "react-hook-form";
 import ErrorMsg from "../common/error-msg";
 
 export default function FormField({
-  name,
   title,
   isRequired,
   bottomTitle,
@@ -12,7 +11,6 @@ export default function FormField({
   errors,
   defaultValue,
 }: {
-  name?: string;
   title: string;
   isRequired: boolean;
   bottomTitle?: string;
@@ -26,14 +24,14 @@ export default function FormField({
     <div className="mb-5">
       {title && (
         <p className="mb-0 text-base text-black capitalize">
-          {name || title} {isRequired && <span className="text-red">*</span>}
+          {title} {isRequired && <span className="text-red">*</span>}
         </p>
       )}
       <input
+          className="input w-full h-[44px] rounded-md border border-gray6 px-6 text-base"
         {...register(title.split(" ").join("_"), {
           required: isRequired ? `${title} is required!` : false,
         })}
-        className="input w-full h-[44px] rounded-md border border-gray6 px-6 text-base"
         type={type}
         name={title}
         id={title}

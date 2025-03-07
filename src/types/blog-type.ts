@@ -11,17 +11,21 @@ export interface IBlog {
   parent: string;
   description: string;
   tags?: string[];
+  meta_img?: string,
+  meta_title?: string,
+  meta_description?: string,
   createdAt: string;
   updatedAt: string;
 }
 
 export interface BlogResponse {
-  success: boolean;
   data: IBlog[];
 }
 
 // IAddBlog
 export interface IAddBlog {
+  meta_description: string | undefined;
+  meta_title: string | number | undefined;
   title: string;
   description: string;
   img: string;

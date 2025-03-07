@@ -1,22 +1,22 @@
 import Breadcrumb from "@/app/components/breadcrumb/breadcrumb";
-import EditCategory from "@/app/components/blog-category/edit-category";
 import Wrapper from "@/layout/wrapper";
+import EditCustomer from "@/app/components/customer/edit-customer";
 
-const EditCategoryPage = async ({ params }: any) => {
+const EditCustomerPage = async ({ params }: any) => {
   const { id } = await params
   return (
     <Wrapper>
       <div className="body-content px-8 py-8 bg-slate-100">
         {/* breadcrumb start */}
-        <Breadcrumb title="Edit Product" subtitle="Edit Product" />
+        <Breadcrumb title="Edit Customer" subtitle="Edit Customer" />
         {/* breadcrumb end */}
 
         {/* edit category start */}
-        <EditCategory id={id} />
+        <EditCustomer id={id} />
         {/* edit category end */}
       </div>
     </Wrapper>
   );
 };
 
-export default EditCategoryPage;
+export default EditCustomerPage;

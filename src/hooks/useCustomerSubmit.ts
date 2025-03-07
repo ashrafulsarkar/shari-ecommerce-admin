@@ -1,25 +1,26 @@
 import { notifySuccess, notifyError } from "@/utils/toast";
-import { useAddBlogCategoryMutation, useEditBlogCategoryMutation } from "@/redux/blog-category/categoryApi";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from 'next/navigation'
+import { useAddCustomerMutation, useEditCustomerMutation } from "@/redux/customer/customerApi";
 
-const useBlogCategorySubmit = () => {
+const useCustomerSubmit = () => {
   const [parent, setParent] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [error, setError] = useState<string>("");
+  const [img, setImg] = useState<string>("");
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
   const router = useRouter();
   // add
   const [
-    addBlogCategory,
+    addCustomer,
     { data: categoryData, isError, isLoading, error: addCateErr },
-  ] = useAddBlogCategoryMutation();
+  ] = useAddCustomerMutation();
   // edit
   const [
-    editBlogCategory,
+    editCustomer,
     { data: editCateData, isError: editErr, isLoading: editLoading, error: editCateErr },
-  ] = useEditBlogCategoryMutation();
+  ] = useEditCustomerMutation();
 
   // react hook form
   const {
@@ -31,15 +32,10 @@ const useBlogCategorySubmit = () => {
     reset,
   } = useForm();
 
-  //handleSubmitCategory
-  const handleSubmitCategory = async (data: any) => {
+  //handleSubmitCustomer
+  const handleSubmitCustomer = async (data: any) => {
     try {
-      const category_data = {
-        name: data?.name,
-        description: data?.description,
-      };
-      console.log(category_data)
-      const res = await addBlogCategory(category_data);
+      const res = await addCustomer({...data,imageURL:img});
       if ("error" in res) {
         if ("data" in res.error) {
           const errorData = res.error.data as { message?: string };
@@ -48,7 +44,7 @@ const useBlogCategorySubmit = () => {
           }
         }
       } else {
-        notifySuccess("Category added successfully");
+        notifySuccess("Customer added successfully");
         setIsSubmitted(true);
         reset();
       }
@@ -58,13 +54,13 @@ const useBlogCategorySubmit = () => {
     }
   };
   //handle Submit edit Category
-  const handleSubmitEditBlogCategory = async (data: any, id: string) => {
+  const handleSubmitEditCustomer = async (data: any, id: string) => {
     try {
-      const category_data = {
-        name: data?.name,
-        description: data?.description,
-      };
-      const res = await editBlogCategory({ id, data: category_data });
+
+      const res = await editCustomer({ id, data:{
+        ...data,
+        imageURL:img
+      } });
       // console.log(res)
       if ("error" in res) {
         if ("data" in res.error) {
@@ -74,10 +70,10 @@ const useBlogCategorySubmit = () => {
           }
         }
       } else {
-        notifySuccess("Category update successfully");
+        notifySuccess("Customer update successfully");
 
         setIsSubmitted(true);
-        reset();
+        // reset();
       }
     } catch (error) {
       console.log(error);
@@ -95,11 +91,12 @@ const useBlogCategorySubmit = () => {
     setParent,
     description,
     setDescription,
-    handleSubmitCategory,
+    handleSubmitCustomer,
     error,
     isSubmitted,
-    handleSubmitEditBlogCategory,
+    handleSubmitEditCustomer,
+    img, setImg
   };
 };
 
-export default useBlogCategorySubmit;
+export default useCustomerSubmit;

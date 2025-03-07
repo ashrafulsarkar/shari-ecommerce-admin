@@ -9,7 +9,7 @@ export const apiSlice = createApi({
       try {
         const userInfo = Cookies.get("admin");
         if (userInfo) {
-          const user = JSON.parse(userInfo); 
+          const user = JSON.parse(userInfo);
           if (user?.accessToken) {
             headers.set("Authorization", `Bearer ${user.accessToken}`);
           }
@@ -29,6 +29,7 @@ export const apiSlice = createApi({
     "AllProducts",
     "AllBlogs",
     "AllBlogCategory",
+    "getBlogCategory",
     "getblogCategory",
     "StockOutProducts",
     "AllCategory",
@@ -43,5 +44,8 @@ export const apiSlice = createApi({
     "Stuff",
     "AllTypes",
     "getType",
+    "AllCustomer",
+    "addCustomer",
+    "getCustomer",
   ],
 });

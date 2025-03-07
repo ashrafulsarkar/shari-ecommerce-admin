@@ -8,6 +8,7 @@ import { useGetBlogQuery } from "@/redux/blog/blogApi";
 import BlogImgUpload from "../add-blog/blog-img-upload";
 import Tags from "../add-blog/tags";
 import BlogCategory from "../../blog-category/blog-category";
+import MetaDescriptionTextarea from "../add-blog/meta-description-textarea";
 
 const EditBlogSubmit = ({ id }: { id: string }) => {
   const { data: blog, isError, isLoading } = useGetBlogQuery(id);
@@ -65,11 +66,26 @@ const EditBlogSubmit = ({ id }: { id: string }) => {
                   setCategory={setCategory}
                   setParent={setParent}
                   default_value={{
-                    parent: blog.category.name,
+                    name: blog.category.name,
                     id: blog.category.id,
                   }}
                 />
             </div>
+
+            <div className="mb-6 bg-white px-8 py-8 rounded-md">
+                        <h4 className="text-[22px]">Meta</h4>
+                        <FormField
+                          name="Meta title"
+                          title="meta_title"
+                          isRequired={true}
+                          placeHolder="Meta Title"
+                          register={register}
+                          errors={errors}
+                          defaultValue={blog.meta_title}
+                        />
+                        <MetaDescriptionTextarea  defaultValue={blog.meta_description} register={register} errors={errors} />
+                      </div>
+
           </div>
 
           {/* right side */}

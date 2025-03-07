@@ -48,6 +48,7 @@ const EditProductSubmit = ({ id }: { id: string }) => {
     content = <ErrorMsg msg="There was an error" />;
   }
   if (!isLoading && !isError && product) {
+    console.log(product)
     content = (
       <form onSubmit={handleSubmit((data) => handleEditProduct(data, id))}>
         <div className="grid grid-cols-12 gap-6 mb-6">
@@ -121,7 +122,7 @@ const EditProductSubmit = ({ id }: { id: string }) => {
                   register={register}
                   errors={errors}
                 />
-                
+
               </div>
             </div>
 
@@ -139,7 +140,7 @@ const EditProductSubmit = ({ id }: { id: string }) => {
                 errors={errors}
                 control={control}
                 setSelectType={setType}
-                default_value={{ type: product.type.name }}
+                default_value={{ type: product?.type?.name }}
               />
             </div>
           </div>

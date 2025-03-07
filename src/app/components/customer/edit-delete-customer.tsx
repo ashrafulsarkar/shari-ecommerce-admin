@@ -4,21 +4,21 @@ import React, { useState } from "react";
 import Swal from "sweetalert2";
 import DeleteTooltip from "../tooltip/delete-tooltip";
 import EditTooltip from "../tooltip/edit-tooltip";
-import { useDeleteCategoryMutation } from "@/redux/category/categoryApi";
 import { notifyError } from "@/utils/toast";
 import { useRouter } from "next/navigation";
+import { useDeleteCustomerMutation } from "@/redux/customer/customerApi";
 
 // prop type
 type IPropType = {
   id: string;
 };
 
-const CategoryEditDelete = ({ id }: IPropType) => {
+const CustomerEditDelete = ({ id }: IPropType) => {
   const [showEdit, setShowEdit] = useState<boolean>(false);
   const [showDelete, setShowDelete] = useState<boolean>(false);
   const router = useRouter()
-  const [deleteCategory, { data: delData, error: delErr }] =
-    useDeleteCategoryMutation();
+  const [deleteCustomer, { data: delData, error: delErr }] =
+    useDeleteCustomerMutation();
 
   const handleDelete = async (id: string) => {
     Swal.fire({
@@ -32,7 +32,7 @@ const CategoryEditDelete = ({ id }: IPropType) => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          const res = await deleteCategory(id);
+          const res = await deleteCustomer(id);
           if ("error" in res) {
             if ("data" in res.error) {
               const errorData = res.error.data as { message?: string };
@@ -41,8 +41,8 @@ const CategoryEditDelete = ({ id }: IPropType) => {
               }
             }
           } else {
-            Swal.fire("Deleted!", `Your category has been deleted.`, "success");
-            router.push('/blog-category')
+            Swal.fire("Deleted!", `Your Customer has been deleted.`, "success");
+            router.push('/customer')
           }
         } catch (error) {
           // Handle error or show error message
@@ -54,7 +54,7 @@ const CategoryEditDelete = ({ id }: IPropType) => {
   return (
     <>
       <div className="relative">
-        <Link href={`/blog-category/${id}`}>
+        <Link href={`/customer/${id}`}>
           <button
             onMouseEnter={() => setShowEdit(true)}
             onMouseLeave={() => setShowEdit(false)}
@@ -80,4 +80,4 @@ const CategoryEditDelete = ({ id }: IPropType) => {
   );
 };
 
-export default CategoryEditDelete;
+export default CustomerEditDelete;
