@@ -43,19 +43,19 @@ const sidebar_menu: Array<ISidebarMenus> = [
     ],
   },
   {
-    id: 5,
+    id: 4,
     icon: Orders,
     link: "/orders",
     title: "Orders",
   },
   {
-    id: 7,
+    id: 5,
     icon: Reviews,
     link: "/reviews",
     title: "Reviews",
   },
   {
-    id: 9,
+    id: 6,
     icon: Customers,
     link: "/customer",
     title: "Customers",
@@ -65,13 +65,23 @@ const sidebar_menu: Array<ISidebarMenus> = [
     ],
   },
   {
-    id: 11,
+    id: 7,
+    icon: Customers,
+    link: "/album",
+    title: "Albums",
+    subMenus: [
+      { title: "All album", link: "/album/list" },
+      { title: "Add album", link: "/album/add" },
+    ],
+  },
+  {
+    id: 8,
     icon: Leaf,
     link: "/reports",
     title: "Reports",
   },
   {
-    id: 12,
+    id: 9,
     icon: Setting,
     link: "/settings",
     title: "Settings",
