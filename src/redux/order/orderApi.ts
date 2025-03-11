@@ -24,6 +24,13 @@ export const authApi = apiSlice.injectEndpoints({
       providesTags: ["DashboardSalesReport"],
       keepUnusedDataFor: 600,
     }),
+    // get sales report
+    getOrderReport: builder.query<any, { startDate: string; endDate: string }>({
+      query: ({ startDate, endDate }) => `/api/order/order/report?startDate=${startDate}&endDate=${endDate}`,
+      providesTags: ["OrderReport"],
+      keepUnusedDataFor: 600,
+    }),
+
     // get selling category
     getMostSellingCategory: builder.query<IMostSellingCategory, void>({
       query: () => `/api/user-order/most-selling-category`,
@@ -69,4 +76,5 @@ export const {
   useGetAllOrdersQuery,
   useUpdateStatusMutation,
   useGetSingleOrderQuery,
+  useGetOrderReportQuery,
 } = authApi;

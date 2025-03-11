@@ -1,17 +1,18 @@
 "use client";
 import dayjs from "dayjs";
-import React,{useRef} from "react";
+import React,{useEffect, useRef} from "react";
 import ErrorMsg from "../common/error-msg";
 import { Card, Typography } from "@material-tailwind/react";
 import { useGetSingleOrderQuery } from "@/redux/order/orderApi";
 import { Invoice } from "@/svg";
 import { useReactToPrint } from "react-to-print";
 import { notifyError } from "@/utils/toast";
+import { useRouter } from "next/navigation";
 
-const OrderDetailsArea = ({ id }: { id: string }) => {
+const OrderDetailsArea = ({ id,print }: { id: string,print?:boolean }) => {
   const { data: orderData, isLoading, isError } = useGetSingleOrderQuery(id);
   const printRef = useRef<HTMLDivElement | null>(null);
-
+  const router = useRouter()
   // decide what to render
   let content = null;
 
@@ -36,10 +37,13 @@ const OrderDetailsArea = ({ id }: { id: string }) => {
       (orderData.discount ?? 0)) as number;
     content = (
       <>
-        <div className="container grid px-6 mx-auto">
+        <div className={` ${print ? '':'container grid px-6 mx-auto'} `}>
+          {
+            !print &&
           <h1 className="my-6 text-lg font-bold text-gray-700 dark:text-gray-300">
             Invoice
           </h1>
+          }
           <div ref={printRef} className="bg-white mb-4 p-6 lg:p-8 rounded-xl shadow-sm overflow-hidden">
             <div className=" mb-7">
               <div className="flex lg:flex-row md:flex-row flex-col lg:items-center justify-between pb-4 border-b border-slate-200">
@@ -187,29 +191,41 @@ const OrderDetailsArea = ({ id }: { id: string }) => {
     documentTitle: "Receipt",
   });
 
-  const handlePrintReceipt = async () => {
-    try {
-      handlePrint();
-    } catch (err) {
-      console.log("order by user id error", err);
-      notifyError("Failed to print");
+  useEffect(() => {
+    if(print && !isLoading && !isError && orderData){
+      window.print()
     }
+  }, [print,isLoading,isError,orderData])
+
+  const handlePrintReceipt = async () => {
+    router.push(`/order-print/${id}`)
+    return
+    // try {
+    //   handlePrint();
+    // } catch (err) {
+    //   console.log("order by user id error", err);
+    //   notifyError("Failed to print");
+    // }
     // console.log('id', id);
   };
 
   return (
     <>
       <div className="">{content}</div>
+      {
+        !print &&
+
       <div className="container grid px-6 mx-auto">
         <div className="mb-4 mt-3 flex justify-between">
           <button onClick={handlePrintReceipt} className="tp-btn px-5 py-2">
-            Print Invoice
+            Print Invoice sss
             <span className="ml-2">
               <Invoice />
             </span>
           </button>
         </div>
       </div>
+       }
     </>
   );
 };

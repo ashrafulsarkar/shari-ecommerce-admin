@@ -49,5 +49,7 @@ export const apiSlice = createApi({
     "getCustomer",
     "AllAlbum",
     "getAlbum",
+    "OrderReport",
+    "businessSettingAll",
   ],
 });

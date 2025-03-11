@@ -6,7 +6,7 @@ import { IAddStuff, IAdminGetRes, IAdminLoginAdd, IAdminLoginRes, IAdminRegister
 export const authApi = apiSlice.injectEndpoints({
   overrideExisting: true,
   endpoints: (builder) => ({
-    
+
     // login
     loginAdmin: builder.mutation<IAdminLoginRes, IAdminLoginAdd>({
       query: (data) => ({
@@ -125,6 +125,23 @@ export const authApi = apiSlice.injectEndpoints({
       query: (id) => `/api/admin/get/${id}`,
       providesTags: ['Stuff']
     }),
+    // setting start
+    businessSetting: builder.mutation<any, Array<{ key: string, value: any }>>({
+      query: (data) => ({
+        url: '/api/business_setting/multiple_settings',
+        method: 'POST',
+        body: data, // Send only the settings array
+      }),
+    }),
+    getbusinessSettingAll: builder.query<any, void>({
+      query: () => ({
+        url: '/api/business_setting',
+      }),
+      providesTags: ['businessSettingAll'],
+    }),
+
+
+    // setting end
   }),
 });
 
@@ -138,4 +155,6 @@ export const {
   useAddStaffMutation,
   useDeleteStaffMutation,
   useGetStuffQuery,
+  useBusinessSettingMutation,
+  useGetbusinessSettingAllQuery,
 } = authApi;

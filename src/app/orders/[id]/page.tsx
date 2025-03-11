@@ -1,7 +1,8 @@
 import Wrapper from "@/layout/wrapper";
 import OrderDetailsArea from "@/app/components/order-details/order-details-area";
 
-const OrderInvoicePage = ({ params }: any) => {
+const OrderInvoicePage = async ({ params }: any) => {
+  const {id} = await params;
   return (
     <Wrapper>
       <div className="body-content px-8 py-8 bg-slate-100">
@@ -10,7 +11,7 @@ const OrderInvoicePage = ({ params }: any) => {
         {/* breadcrumb end */}
 
         {/* order details area */}
-        <OrderDetailsArea id={params.id} />
+        <OrderDetailsArea id={id} />
         {/* order details area */}
       </div>
     </Wrapper>

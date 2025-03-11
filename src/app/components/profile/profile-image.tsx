@@ -11,9 +11,10 @@ import Loading from "../common/loading";
 // prop type
 type IPropType = {
   setProfileImg: React.Dispatch<React.SetStateAction<string>>;
+  updateData?: any;
 };
 
-const ProfileImage = ({ setProfileImg }: IPropType) => {
+const ProfileImage = ({ setProfileImg,updateData }: IPropType) => {
   const { user } = useSelector((state: RootState) => state.auth);
   const { handleImageUpload, uploadData, isLoading } =
     useUploadImage();
@@ -27,7 +28,8 @@ const ProfileImage = ({ setProfileImg }: IPropType) => {
           : ''
     );
   }, [setProfileImg, uploadData, user]);
-  
+  console.log(updateData)
+
 
   return (
     <div className="px-8 pb-8 relative">

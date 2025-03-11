@@ -5,12 +5,14 @@ import { useGetSingleOrderQuery } from "@/redux/order/orderApi";
 import { Invoice, View } from "@/svg";
 import { notifyError } from "@/utils/toast";
 import InvoicePrint from "./invoice-print";
+import { useRouter } from "next/navigation";
 
 const OrderActions = ({ id,cls }: { id: string,cls?:string }) => {
   const [showInvoice, setShowInvoice] = useState<boolean>(false);
   const [showView, setShowView] = useState<boolean>(false);
   const printRefTwo = useRef<HTMLDivElement | null>(null);
   const { data: orderData, isLoading, isError } = useGetSingleOrderQuery(id);
+  const router = useRouter()
 
   const handlePrint = useReactToPrint({
     content: () => printRefTwo?.current,
@@ -18,6 +20,8 @@ const OrderActions = ({ id,cls }: { id: string,cls?:string }) => {
   });
 
   const handlePrintReceipt = async () => {
+    router.push(`/order-print/${id}`)
+    return
     try {
       handlePrint();
     } catch (err) {
