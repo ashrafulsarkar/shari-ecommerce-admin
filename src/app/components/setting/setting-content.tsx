@@ -15,7 +15,7 @@ const SettingContent = () => {
   const { data: settings = [], isError, isLoading } = useGetbusinessSettingAllQuery();
   const [businessSetting] = useBusinessSettingMutation();
   const { data: types, } = useGetAllTypesQuery();
-  console.log(types)
+
   const formattedTypes = types?.result?.map((type: any) => ({
     id: type._id || type.name, // Fallback to name if id is missing
     name: type.name,

@@ -1,10 +1,11 @@
 "use client";
-import { useEffect, useState } from "react";
-import slugify from "slugify";
+import {  useState } from "react";
 import { useForm } from "react-hook-form";
 import {useRouter} from 'next/navigation';
 import { useAddBlogMutation, useEditBlogMutation } from "@/redux/blog/blogApi";
 import { notifyError, notifySuccess } from "@/utils/toast";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
 // ImageURL type
 export interface ImageURL {
@@ -34,6 +35,7 @@ const useBlogSubmit = () => {
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
 
   const router = useRouter();
+   const { user } = useSelector((state: RootState) => state.auth);
 
 
   // useAddBlogMutation
@@ -76,6 +78,7 @@ const useBlogSubmit = () => {
       meta_title: data.meta_title,
       meta_description: data.meta_description,
       tags: tags,
+      created_by:user?._id
     };
 
     // console.log('blogData-------------------..>',blogData)
