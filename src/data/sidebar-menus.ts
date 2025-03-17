@@ -16,19 +16,21 @@ const sidebar_menu: Array<ISidebarMenus> = [
     icon: Dashboard,
     link: "/dashboard",
     title: "Dashboard",
+    roles: ["Admin", "Manager"], // Both roles can access
   },
   {
     id: 2,
     icon: Products,
     link: "/products",
     title: "Products",
+    roles: ["Admin", "Manager"],
     subMenus: [
-      { title: "All Products", link: "/products" },
-      { title: "Add Product", link: "/add-product" },
-      { title: "Brands", link: "/brands" },
-      { title: "Types", link: "/types" },
-      { title: "Categories", link: "/category" },
-      { title: "Coupons", link: "/coupon" },
+      { title: "All Products", link: "/products", roles: ["Admin", "Manager"] },
+      { title: "Add Product", link: "/add-product", roles: ["Admin", "Manager"] }, // Only Admin can add products
+      { title: "Brands", link: "/brands", roles: ["Admin", "Manager"] },
+      { title: "Types", link: "/types", roles: ["Admin", "Manager"] },
+      { title: "Categories", link: "/category", roles: ["Admin", "Manager"] },
+      { title: "Coupons", link: "/coupon", roles: ["Admin", "Manager"] },
     ],
   },
   {
@@ -36,10 +38,11 @@ const sidebar_menu: Array<ISidebarMenus> = [
     icon: Pages,
     link: "/blogs",
     title: "Blogs",
+    roles: ["Admin", "Manager"],
     subMenus: [
-      { title: "All Blogs", link: "/blogs" },
-      { title: "Add Blog", link: "/add-blog" },
-      { title: "Categories", link: "/blog-category" },
+      { title: "All Blogs", link: "/blogs", roles: ["Admin", "Manager"] },
+      { title: "Add Blog", link: "/add-blog", roles: ["Admin", "Manager"] },
+      { title: "Categories", link: "/blog-category", roles: ["Admin", "Manager"] },
     ],
   },
   {
@@ -47,21 +50,24 @@ const sidebar_menu: Array<ISidebarMenus> = [
     icon: Orders,
     link: "/orders",
     title: "Orders",
+    roles: ["Admin", "Manager"],
   },
   {
     id: 5,
     icon: Reviews,
     link: "/reviews",
     title: "Reviews",
+    roles: ["Admin", "Manager"],
   },
   {
     id: 6,
     icon: Customers,
     link: "/customer",
     title: "Customers",
+    roles: ["Admin", "Manager"],
     subMenus: [
-      { title: "All customer", link: "/customer/list" },
-      { title: "Add Customer", link: "/customer/add" },
+      { title: "All Customers", link: "/customer/list", roles: ["Admin", "Manager"] },
+      { title: "Add Customer", link: "/customer/add", roles: ["Admin", "Manager"] },
     ],
   },
   {
@@ -69,9 +75,10 @@ const sidebar_menu: Array<ISidebarMenus> = [
     icon: Customers,
     link: "/album",
     title: "Albums",
+    roles: ["Admin"],
     subMenus: [
-      { title: "All album", link: "/album/list" },
-      { title: "Add album", link: "/album/add" },
+      { title: "All Albums", link: "/album/list", roles: ["Admin", "Manager"] },
+      { title: "Add Album", link: "/album/add", roles: ["Admin", "Manager"] },
     ],
   },
   {
@@ -79,17 +86,19 @@ const sidebar_menu: Array<ISidebarMenus> = [
     icon: Leaf,
     link: "/reports",
     title: "Reports",
+    roles: ["Admin", "Manager"],
   },
   {
     id: 9,
     icon: Setting,
     link: "/settings",
     title: "Settings",
+    roles: ["Admin", "Manager"],
     subMenus: [
-      { title: "All Settings", link: "/settings" },
-      { title: "Nav Menu", link: "/menu" },
-      { title: "Our Staff", link: "/our-staff" },
-      { title: "Profile", link: "/profile" },
+      { title: "All Settings", link: "/settings", roles: ["Admin", "Manager"] },
+      { title: "Nav Menu", link: "/menu", roles: ["Admin", "Manager"] },
+      { title: "Our Staff", link: "/our-staff", roles: ["Admin"] },
+      { title: "Profile", link: "/profile", roles: ["Admin", "Manager"] }, // Profile accessible to both
     ],
   },
 ];

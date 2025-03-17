@@ -40,6 +40,17 @@ const TableItem = (props: { order: IOrder }) => {
           {order.status}
         </span>
       </td>
+      <td className="px-3 py-3 text-end">
+                    <span
+                      className={`text-[11px] px-3 py-1 rounded-md leading-none ${
+                        order.payment_status === "UnPaid"
+                          ? "text-warning bg-warning/10" :
+                          "text-success bg-success/10"
+                      }  font-medium`}
+                    >
+                      {order.payment_status}
+                    </span>
+                  </td>
       <td className="px-3 py-3">
         <OrderStatusChange id={order._id} />
       </td>

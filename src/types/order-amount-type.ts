@@ -1,6 +1,6 @@
 import { IProduct } from "./product-type";
 
-// user 
+// user
 interface IUser {
   _id: string;
   name: string;
@@ -32,6 +32,7 @@ export interface Order {
   shippingOption: string;
   paymentMethod: string;
   orderNote?: string;
+  payment_status?: string;
   invoice: number;
   status: string;
   createdAt?: string;
@@ -77,6 +78,7 @@ export interface IOrder {
   name: string;
   totalAmount: number;
   paymentMethod: string;
+  payment_status: string;
   status: string;
   createdAt: string;
   updatedAt: string;
@@ -88,12 +90,12 @@ export interface IDashboardRecentOrders {
   totalOrder: number;
 }
 
-// get all orders type 
+// get all orders type
 export interface IGetAllOrdersRes {
   success: boolean;
   data: Order[];
 }
-// get all orders type 
+// get all orders type
 export interface IUpdateStatusOrderRes {
   success: boolean;
   message: string;

@@ -5,6 +5,7 @@ import useStaffSubmit from "@/hooks/useStaffSubmit";
 import GlobalImgUpload from "../category/global-img-upload";
 import FormFieldTwo from "../brand/form-field-two";
 import AdminRole from "../profile/admin-role";
+import withAuth from "@/utils/withAuth";
 
 const AddStaffArea = () => {
   const { setStaffImg, isSubmitted, errors, register,setRole,handleSubmit,handleSubmitStuff } = useStaffSubmit();
@@ -74,4 +75,5 @@ const AddStaffArea = () => {
   );
 };
 
-export default AddStaffArea;
+// export default AddStaffArea;
+export default withAuth(AddStaffArea, ["Admin"]);

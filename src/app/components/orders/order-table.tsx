@@ -79,6 +79,12 @@ const OrderTable = () => {
                 scope="col"
                 className="px-3 py-3 text-tiny text-text2 uppercase font-semibold w-[170px] text-end"
               >
+                Payment
+              </th>
+              <th
+                scope="col"
+                className="px-3 py-3 text-tiny text-text2 uppercase font-semibold w-[170px] text-end"
+              >
                 Date
               </th>
               <th
@@ -96,7 +102,7 @@ const OrderTable = () => {
             </tr>
           </thead>
           <tbody>
-            {orderItems.map((item) => (
+            {orderItems.reverse().map((item) => (
                 <tr
                   key={item._id}
                   className="bg-white border-b border-gray6 last:border-0 text-start mx-9"
@@ -151,12 +157,24 @@ const OrderTable = () => {
                       {item.status}
                     </span>
                   </td>
+                  <td className="px-3 py-3 text-end">
+                  <span
+                      className={`text-[11px] px-3 py-1 rounded-md leading-none ${
+                        item.payment_status === "UnPaid"
+                          ? "text-warning bg-warning/10" :
+                          "text-success bg-success/10"
+                      }  font-medium`}
+                    >
+                      {item.payment_status}
+                    </span>
+                  </td>
+
                   <td className="px-3 py-3 font-normal text-[#55585B] text-end">
                     {dayjs(item.createdAt).format("MMM D, YYYY")}
                   </td>
 
                   <td className="px-9 py-3 text-end">
-                    <div className="flex items-center justify-end space-x-2">
+                    <div className="flex items-center justify-end space-x-2 relative">
                       <OrderStatusChange id={item._id}/>
                     </div>
                   </td>
@@ -186,11 +204,11 @@ const OrderTable = () => {
     );
   }
 
-  // handle change input 
+  // handle change input
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchVal(e.target.value);
   };
-  // handle change input 
+  // handle change input
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectVal(e.target.value);
   };

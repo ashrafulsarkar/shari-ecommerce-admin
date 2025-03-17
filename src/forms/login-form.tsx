@@ -25,7 +25,7 @@ const LoginForm = () => {
   // onSubmit
   const onSubmit =async (data: { email: string; password: string }) => {
     const res = await loginAdmin({ email: data.email, password: data.password }) as any ;
-    if(res?.data?.role=="Admin"){
+    if(res?.data?.role){
       // notifySuccess("Login successfully");
       toast("Login successfully!");
       router.push('/dashboard')

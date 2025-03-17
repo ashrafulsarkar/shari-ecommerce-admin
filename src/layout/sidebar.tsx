@@ -4,9 +4,10 @@ import Image from "next/image";
 import sidebar_menu from "@/data/sidebar-menus";
 import { DownArrow } from "@/svg";
 import Link from "next/link";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { userLoggedOut } from "@/redux/auth/authSlice";
 import { useRouter } from "next/navigation";
+import { RootState } from "@/redux/store";
 
 // prop type
 type IProps = {
@@ -18,6 +19,19 @@ export default function Sidebar({sideMenu,setSideMenu}:IProps) {
   const [isDropdown, setIsDropDown] = useState<string>("");
   const dispatch = useDispatch();
   const router = useRouter();
+
+  const { user } = useSelector((state: RootState) => state.auth);
+
+  // Filter the main menu based on user role
+  const filteredMenu = sidebar_menu
+  .filter((menu) => menu.roles.includes(user?.role ?? ""))
+  .map((menu) => ({
+    ...menu,
+    subMenus: menu.subMenus
+      ? menu.subMenus.filter((sub) => sub.roles.includes(user?.role ?? ""))
+      : null,
+  }));
+
 
   // handle active menu
   const handleMenuActive = React.useCallback((title: string) => {
@@ -55,7 +69,7 @@ export default function Sidebar({sideMenu,setSideMenu}:IProps) {
             </div>
             <div className="px-4 py-5">
               <ul>
-                {sidebar_menu.map((menu) => (
+                {filteredMenu.map((menu) => (
                   <li key={menu.id}>
                     {!menu.subMenus && menu.title !== 'Online store' && (
                       <Link

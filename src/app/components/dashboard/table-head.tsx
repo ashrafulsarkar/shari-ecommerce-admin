@@ -21,6 +21,7 @@ const TableHead = () => {
         <ThItem title="METHOD" />
         <ThItem title="Price" />
         <ThItem title="Status" />
+        <ThItem title="Payment status" />
         <ThItem title="Action" />
         <ThItem title="Invoice" cls="text-end" />
       </tr>
