@@ -134,7 +134,7 @@ const SettingContent = () => {
             </div>
 
             {/* Product Feature Switch */}
-            <div className="flex items-center justify-between mt-5">
+            {/* <div className="flex items-center justify-between mt-5">
               <p className="mb-0 text-base text-black">Enable Product Feature</p>
               <label className="switch">
                 <input
@@ -144,7 +144,7 @@ const SettingContent = () => {
                 />
                 <span className="slider"></span>
               </label>
-            </div>
+            </div> */}
             {/* Product Feature Switch */}
             <div className="flex items-center justify-between mt-5">
               <p className="mb-0 text-base text-black">Popular Product</p>

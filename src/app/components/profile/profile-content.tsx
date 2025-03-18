@@ -102,10 +102,7 @@ const ProfileContent = ({ profileImg,updateProfile}: IPropType) => {
                     defaultValue={user?.phone}
                   />
                 </div>
-                <div className="mb-5 profile-gender-select select-bordered">
-                  <p className="mb-0 text-base text-black">Role </p>
-                  <AdminRole handleChange={handleChange} setRole={setAdminRole} default_value={user?.role as string}/>
-                </div>
+
               </div>
               <div className="text-end mt-5">
                 <button className="tp-btn px-10 py-2">Save</button>

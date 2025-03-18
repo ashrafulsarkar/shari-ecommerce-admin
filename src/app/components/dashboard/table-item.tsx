@@ -52,7 +52,7 @@ const TableItem = (props: { order: IOrder }) => {
                     </span>
                   </td>
       <td className="px-3 py-3">
-        <OrderStatusChange id={order._id} />
+        <OrderStatusChange id={order._id} status={order?.status} />
       </td>
       {/* order actions */}
       <OrderActions id={order._id} cls="px-3 py-3" />

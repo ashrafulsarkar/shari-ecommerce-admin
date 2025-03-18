@@ -10,7 +10,8 @@ const options = [
   { value: "cancel", label: "Cancel" },
 ];
 
-const OrderStatusChange = ({ id }: { id: string }) => {
+const OrderStatusChange = ({ id ,status}: { id: string,status:string }) => {
+
   const [updateStatus] = useUpdateStatusMutation();
   const [selectedStatus, setSelectedStatus] = useState("");
 
@@ -32,11 +33,13 @@ const OrderStatusChange = ({ id }: { id: string }) => {
         className="w-full px-4 py-2 border-2 border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white text-gray-700 cursor-pointer"
       >
         <option value="" disabled>Select Status...</option>
-        {options.map((option) => (
-          <option key={option.value} value={option.value}>
-            {option.label}
-          </option>
-        ))}
+        {options.map((option) =>{
+          return (
+            <option key={option.value} selected={status==option.value}  value={option.value}>
+              {option.label}
+            </option>
+          )
+        } )}
       </select>
     </div>
   );

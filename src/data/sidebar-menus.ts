@@ -96,7 +96,6 @@ const sidebar_menu: Array<ISidebarMenus> = [
     roles: ["Admin", "Manager"],
     subMenus: [
       { title: "All Settings", link: "/settings", roles: ["Admin", "Manager"] },
-      { title: "Nav Menu", link: "/menu", roles: ["Admin", "Manager"] },
       { title: "Our Staff", link: "/our-staff", roles: ["Admin"] },
       { title: "Profile", link: "/profile", roles: ["Admin", "Manager"] }, // Profile accessible to both
     ],
