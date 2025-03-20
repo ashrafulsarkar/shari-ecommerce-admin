@@ -10,7 +10,7 @@ const options = [
   { value: "cancel", label: "Cancel" },
 ];
 
-const OrderStatusChange = ({ id ,status}: { id: string,status:string }) => {
+const OrderStatusChange = ({ id ,status}: { id: string,status?:string }) => {
 
   const [updateStatus] = useUpdateStatusMutation();
   const [selectedStatus, setSelectedStatus] = useState("");

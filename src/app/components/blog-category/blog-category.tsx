@@ -58,7 +58,7 @@ export default function BlogCategory({
   useEffect(() => {
     const lastCategory = selectedCategory[selectedCategory.length - 1];
     if (lastCategory) {
-      const matchingItem = categories?.find(item => item.name === lastCategory);
+      const matchingItem = categories?.find((item: any) => item.name === lastCategory);
       if (matchingItem) {
         setCategory({ id: matchingItem._id, name: lastCategory });
         setParent(lastCategory);
@@ -94,7 +94,7 @@ export default function BlogCategory({
     content = (
       <>
         <List className="p-0">
-          {categoryItems.map((item) => (
+          {categoryItems.map((item:any) => (
             <Accordion
               key={item._id}
               open={open === item._id}

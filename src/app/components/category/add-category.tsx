@@ -51,7 +51,7 @@ const AddCategory = () => {
             <div className="mb-6">
               <div className="category-add-select select-bordered">
                 <ProductType
-                  setSelectProductType={setSelectProductType}
+                  setSelectType={setSelectProductType}
                   control={control}
                   errors={errors}
                 />

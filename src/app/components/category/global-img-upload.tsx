@@ -11,9 +11,10 @@ type IPropType = {
   isSubmitted: boolean;
   default_img?: string;
   setIsSubmitted?:React.Dispatch<React.SetStateAction<boolean>>
+  image?:string
 };
 
-const GlobalImgUpload = ({setImage,isSubmitted,default_img,setIsSubmitted}: IPropType) => {
+const GlobalImgUpload = ({setImage,isSubmitted,default_img,setIsSubmitted,image}: IPropType) => {
   const { handleImageUpload, uploadData, isError, isLoading } = useUploadImage();
   const showDefaultImage = !uploadData && !isLoading && !isError && default_img;
 
@@ -48,7 +49,7 @@ const GlobalImgUpload = ({setImage,isSubmitted,default_img,setIsSubmitted}: IPro
       setImage(default_img);
     }
   }, [default_img, uploadData, isError, isLoading, setImage]);
-  
+
 
   return (
     <div className="mb-6">

@@ -4,7 +4,7 @@ import ReactSelect from "react-select";
 // type
 type IPropType = {
   handleChange: (value: string | undefined) => void;
-  default_val: string;
+  default_val?: string;
 };
 
 const BrandStatus = ({ handleChange, default_val }: IPropType) => {

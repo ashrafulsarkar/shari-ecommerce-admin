@@ -175,7 +175,7 @@ const OrderTable = () => {
 
                   <td className="px-9 py-3 text-end">
                     <div className="flex items-center justify-end space-x-2 relative">
-                      <OrderStatusChange id={item._id}/>
+                      <OrderStatusChange id={item._id} status={item?.status}/>
                     </div>
                   </td>
                   {/* order actions */}

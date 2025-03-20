@@ -66,7 +66,7 @@ const  EditCategory = ({ id }: { id: string }) => {
                 <p className="mb-0 text-base text-black">Product Type</p>
                 <div className="category-add-select select-bordered">
                   <ProductType
-                    setSelectProductType={setSelectProductType}
+                    setSelectType={setSelectProductType}
                     control={control}
                     errors={errors}
                     default_value={categoryData.productType}

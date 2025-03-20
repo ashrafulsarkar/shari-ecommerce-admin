@@ -12,15 +12,13 @@ import ErrorMsg from "../../common/error-msg";
 import Loading from "../../common/loading";
 // prop type
 type IPropType = {
-  register: UseFormRegister<any>;
+  register?: UseFormRegister<any>;
   errors: FieldErrors<any>;
   control: Control;
   setSelectType: React.Dispatch<
     React.SetStateAction<{ name: string; id: string }>
   >;
-  default_value?: {
-    type: string;
-  };
+  default_value?: any;
 };
 
 const ProductType = ({
