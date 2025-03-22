@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import slugify from "slugify";
 import { useForm } from "react-hook-form";
 import {useRouter} from 'next/navigation';
-import { useAddProductMutation, useEditProductMutation } from "@/redux/product/productApi";
+import { useAddProductMutation, useEditProductMutation, useStatusProductMutation } from "@/redux/product/productApi";
 import { notifyError, notifySuccess } from "@/utils/toast";
 
 // ImageURL type
@@ -65,6 +65,8 @@ const useProductSubmit = () => {
   // useAddProductMutation
   const [editProduct, { data: editProductData, isError: editErr, isLoading: editLoading }] =
     useEditProductMutation();
+  const [statusProduct] =
+    useStatusProductMutation();
 
   const {
     register,
@@ -190,6 +192,26 @@ const useProductSubmit = () => {
       resetForm();
     }
   };
+  // handle edit product
+  const handleStatusProduct = async (data: any, id: string,type:string) => {
+    // product data
+    const productData = {
+      status: data,
+      type: type,
+    };
+    const res = await statusProduct({ id: id, data: productData });
+    if ("error" in res) {
+      if ("data" in res.error) {
+        const errorData = res.error.data as { message?: string };
+        if (typeof errorData.message === "string") {
+          return notifyError(errorData.message);
+        }
+      }
+    } else {
+      notifySuccess("Product status update successFully");
+      router.push('/products')
+    }
+  };
 
   return {
     sku,
@@ -236,6 +258,7 @@ const useProductSubmit = () => {
     control,
     setIsSubmitted,
     isSubmitted,
+    handleStatusProduct
   };
 };
 
