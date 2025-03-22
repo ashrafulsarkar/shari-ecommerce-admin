@@ -47,6 +47,20 @@ export const authApi = apiSlice.injectEndpoints({
       },
       invalidatesTags: ["AllProducts"],
     }),
+     // edit product
+     statusProduct: builder.mutation<
+     IProductEditResponse,
+     { id: string; data: Partial<any> }
+   >({
+     query({ id, data }) {
+       return {
+         url: `/api/product/product_status/ja/lee/${id}`,
+         method: "PUT",
+         body: data,
+       };
+     },
+     invalidatesTags: ["AllProducts"],
+   }),
     // get single product
     getProduct: builder.query<IAddProduct, string>({
       query: (id) => `/api/product/single-product/${id}`,
@@ -78,6 +92,7 @@ export const {
   useGetAllProductsQuery,
   useAddProductMutation,
   useEditProductMutation,
+  useStatusProductMutation,
   useGetProductQuery,
   useGetReviewProductsQuery,
   useGetStockOutProductsQuery,

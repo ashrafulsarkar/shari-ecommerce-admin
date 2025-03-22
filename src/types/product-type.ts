@@ -63,6 +63,8 @@ export interface IProduct {
     endDate: string,
   }
   featured?: boolean;
+  ja?: boolean;
+  lee?: boolean;
   sellCount?: number;
   sizes?: string[];
   tags?: string[];
@@ -108,12 +110,12 @@ export interface IAddProduct {
   tags?: string[];
 }
 
-// review product response 
+// review product response
 export interface IReviewProductRes {
   success:boolean;
   data:IProduct[]
 }
-// delete review product response 
+// delete review product response
 export interface IDelReviewsRes {
   success:boolean;
   message:string;
