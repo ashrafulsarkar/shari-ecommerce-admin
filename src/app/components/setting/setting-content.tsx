@@ -7,6 +7,7 @@ import { notifyError, notifySuccess } from "@/utils/toast";
 import { useBusinessSettingMutation, useGetbusinessSettingAllQuery } from "@/redux/auth/authApi";
 import { useGetAllTypesQuery } from "@/redux/type/typeApi";
 import ProductTypeSelect from "./ProductTypeSelect";
+import { useGetAllBrandsQuery } from "@/redux/brand/brandApi";
 type IType = {
   name: string;
   id: string;
@@ -14,7 +15,7 @@ type IType = {
 const SettingContent = () => {
   const { data: settings = [], isError, isLoading } = useGetbusinessSettingAllQuery();
   const [businessSetting] = useBusinessSettingMutation();
-  const { data: types, } = useGetAllTypesQuery();
+  const { data: types, } = useGetAllBrandsQuery();
 
   const formattedTypes = types?.result?.map((type: any) => ({
     id: type._id || type.name, // Fallback to name if id is missing
@@ -147,7 +148,7 @@ const SettingContent = () => {
             </div> */}
             {/* Product Feature Switch */}
             <div className="flex items-center justify-between mt-5">
-              <p className="mb-0 text-base text-black">Popular Product</p>
+              <p className="mb-0 text-base text-black">Jo Product</p>
               <ProductTypeSelect
               options={formattedTypes}
               defaultValue={settings?.popular_type?.name}
@@ -157,7 +158,7 @@ const SettingContent = () => {
             </div>
             {/* Product Feature Switch */}
             <div className="flex items-center justify-between mt-5">
-              <p className="mb-0 text-base text-black">Top Seller Product</p>
+              <p className="mb-0 text-base text-black">Lee Product</p>
               <ProductTypeSelect
               options={formattedTypes}
               defaultValue={settings?.typeTopSeller?.name}
@@ -165,14 +166,14 @@ const SettingContent = () => {
             />
             </div>
             {/* Product Feature Switch */}
-            <div className="flex items-center justify-between mt-5">
+            {/* <div className="flex items-center justify-between mt-5">
               <p className="mb-0 text-base text-black">Feature Product</p>
               <ProductTypeSelect
               options={formattedTypes}
               defaultValue={settings?.typeFeatureProduct?.name}
               onChange={setTypeFeatureProduct}
             />
-            </div>
+            </div> */}
 
             <div className="text-end mt-5">
               <button className="tp-btn px-10 py-2">Save</button>

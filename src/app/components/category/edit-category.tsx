@@ -63,13 +63,15 @@ const  EditCategory = ({ id }: { id: string }) => {
 
               {/* Product Type */}
               <div className="mb-6">
-                <p className="mb-0 text-base text-black">Product Type</p>
+                {/* <p className="mb-0 text-base text-black">Product Type</p> */}
                 <div className="category-add-select select-bordered">
                   <ProductType
                     setSelectType={setSelectProductType}
                     control={control}
                     errors={errors}
-                    default_value={categoryData.productType}
+                    default_value={{
+                      type:categoryData.productType
+                    }}
                   />
                 </div>
               </div>

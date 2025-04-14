@@ -20,8 +20,8 @@ type IBrand = {
   id: string;
 };
 type IType = {
-  name: string;
-  id: string;
+  name?: string;
+  id?: string;
 };
 type ICategory = {
   name: string;
@@ -104,7 +104,7 @@ const useProductSubmit = () => {
     // console.log("product data--->", data);
 
     // product data
-    const productData = {
+    const productData:any = {
       title: data.title,
       slug: slugify(data.title, { replacement: "-", lower: true }),
       img: img,
@@ -115,7 +115,6 @@ const useProductSubmit = () => {
       discount: data.discount,
       quantity: data.quantity,
       brand: brand,
-      type: type,
       category: category,
       sku: data.SKU,
       count: data.count,
@@ -124,6 +123,9 @@ const useProductSubmit = () => {
       additionalInformation: additionalInformation,
       tags: tags,
     };
+    if(type?.id !==""){
+      productData.type = type
+    }
 
     // console.log('productData-------------------..>',productData)
 
@@ -156,7 +158,7 @@ const useProductSubmit = () => {
   // handle edit product
   const handleEditProduct = async (data: any, id: string) => {
     // product data
-    const productData = {
+    const productData:any = {
       title: data.title,
       img: img,
       description: data.description,
@@ -168,7 +170,6 @@ const useProductSubmit = () => {
       discount: data.discount,
       quantity: data.quantity,
       brand: brand,
-      type: type,
       category: category,
       sku: data.SKU,
       count: data.count,
@@ -176,6 +177,9 @@ const useProductSubmit = () => {
       additionalInformation: additionalInformation,
       tags: tags,
     };
+    if(type?.id !==""){
+      productData.type = type
+    }
     console.log('edit productData---->',productData)
     const res = await editProduct({ id: id, data: productData });
     if ("error" in res) {

@@ -2,7 +2,8 @@ import Breadcrumb from "@/app/components/breadcrumb/breadcrumb";
 import EditCategory from "@/app/components/category/edit-category";
 import Wrapper from "@/layout/wrapper";
 
-const EditCategoryPage = ({ params }: any) => {
+const EditCategoryPage = async ({ params }: any) => {
+  const {id} = await params
   return (
     <Wrapper>
       <div className="body-content px-8 py-8 bg-slate-100">
@@ -11,7 +12,7 @@ const EditCategoryPage = ({ params }: any) => {
         {/* breadcrumb end */}
 
         {/* edit category start */}
-        <EditCategory id={params.id} />
+        <EditCategory id={id} />
         {/* edit category end */}
       </div>
     </Wrapper>

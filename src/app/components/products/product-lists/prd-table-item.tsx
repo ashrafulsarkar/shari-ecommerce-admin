@@ -70,9 +70,9 @@ const ProductTableItem = ({ product }: { product: IProduct }) => {
 
       </td>
       {/* Custom Switcher for 'lee' */}
-      <td className="px-3 py-3 text-end">
+      {/* <td className="px-3 py-3 text-end">
       <Switcher checked={leeChecked} onChange={(checked) => handleToggle("lee", checked)} />
-      </td>
+      </td> */}
       <td className="px-9 py-3 text-end">
         <div className="flex items-center justify-end space-x-2">
           <EditDeleteBtn id={_id} />
