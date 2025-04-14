@@ -12,14 +12,15 @@ import ErrorMsg from "../../common/error-msg";
 import Loading from "../../common/loading";
 // prop type
 type IPropType = {
-  register?: UseFormRegister<any>;
-  errors: FieldErrors<any>;
-  control: Control;
-  setSelectType: React.Dispatch<
-    React.SetStateAction<{ name: string; id: string }>
-  >;
-  default_value?: any;
+  register?: UseFormRegister<any>; // optional
+  errors?: FieldErrors<any>;       // optional
+  control: Control;                // required
+  setSelectType: React.Dispatch<React.SetStateAction<{ name?: string; id?: string }>>; // optional ✅
+  default_value?: {
+    type?: string; // optional inside optional
+  };
 };
+
 
 const ProductType = ({
   errors,
@@ -37,10 +38,11 @@ const ProductType = ({
       !hasDefaultValues &&
       types?.result
     ) {
-      const type = types.result.find((b) => b.name === default_value.type);
+      const type = types.result.find((b) => b.name === default_value?.type);
       if (type) {
         setTimeout(() => {
-          setSelectType({ id: type._id as string, name: default_value.type });
+          setSelectType({ id: type._id as string, name: default_value?.type });
+
           setHasDefaultValues(true);
         }, 0);
       }
@@ -88,7 +90,7 @@ const ProductType = ({
           name="type"
           control={control}
           rules={{
-            required: default_value?.type ? false : "Type is required!",
+            required: default_value?.type ? false : false,
           }}
           render={({ field }) => (
             <ReactSelect
@@ -97,8 +99,8 @@ const ProductType = ({
               defaultValue={
                 default_value
                   ? {
-                      label: default_value.type,
-                      value: default_value.type,
+                      label: default_value?.type,
+                      value: default_value?.type,
                     }
                   : {
                       label: "Select..",

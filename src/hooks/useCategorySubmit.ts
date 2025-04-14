@@ -10,8 +10,8 @@ const useCategorySubmit = () => {
   const [description, setDescription] = useState<string>("");
   const [error, setError] = useState<string>("");
   const [selectProductType, setSelectProductType] = useState<{
-    name:string,
-    id:string,
+    name?:string,
+    id?:string,
 
   }>({ name: "",id: "" });
   const [categoryChildren, setCategoryChildren] = useState<string[]>([]);
@@ -41,11 +41,13 @@ const useCategorySubmit = () => {
   //handleSubmitCategory
   const handleSubmitCategory = async (data: any) => {
     try {
-      const category_data = {
+      console.log("selectProductType",selectProductType)
+
+      const category_data:any = {
         img: categoryImg,
         parent: data?.parent,
         description: data?.description,
-        productType: data?.productType?.value,
+        productType: selectProductType?.name,
         children: categoryChildren,
       };
       const res = await addCategory({ ...category_data });

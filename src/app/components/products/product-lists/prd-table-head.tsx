@@ -23,11 +23,11 @@ const ProductTableHead = () => {
           Status
         </th>
         <th scope="col" className="px-3 py-3 text-tiny text-text2 uppercase font-semibold w-[170px] text-end">
-          JA
+        Trending
         </th>
-        <th scope="col" className="px-3 py-3 text-tiny text-text2 uppercase font-semibold w-[170px] text-end">
+        {/* <th scope="col" className="px-3 py-3 text-tiny text-text2 uppercase font-semibold w-[170px] text-end">
           LEE
-        </th>
+        </th> */}
         <th scope="col" className="px-9 py-3 text-tiny text-text2 uppercase  font-semibold w-[12%] text-end">
           Action
         </th>
