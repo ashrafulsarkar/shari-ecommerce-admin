@@ -11,17 +11,15 @@ const ProductTypeSelect = ({ options, defaultValue, onChange }: ProductTypeSelec
 
   useEffect(() => {
     if (defaultValue) {
-      const defaultType = options.find((option) => option.id === defaultValue);
+      const defaultType = options.find((option) => option.name === defaultValue);
       if (defaultType) {
         onChange(defaultType);
       }
     }
-  }, [defaultValue, options, onChange]);
+  }, [defaultValue]);
 
   const handleSelected = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    console.log(options)
     const selectedOption = options.find((option) => option.name === event.target.value);
-    console.log(selectedOption)
     if (selectedOption) {
       setSelectedValue(selectedOption.name);
       onChange(selectedOption);
