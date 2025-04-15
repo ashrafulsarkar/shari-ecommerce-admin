@@ -45,7 +45,8 @@ const SettingContent = () => {
         app_name: settings?.app_name || "",
         inside_dhaka: settings?.inside_dhaka || "",
         outside_dhaka: settings?.outside_dhaka || "",
-        is_feature_enabled: settings?.is_feature_enabled ?? false,  // Set default value for the feature toggle
+        limit: settings?.limit || 10,
+        is_feature_enabled: settings?.is_feature_enabled ?? false,
       });
     }
   }, [settings, reset]);
@@ -55,6 +56,7 @@ const SettingContent = () => {
     app_name?: string;
     outside_dhaka?: string;
     inside_dhaka?: string;
+    limit?: number;
     is_feature_enabled?: boolean;
   }) => {
     if (user?._id && formData) {
@@ -64,6 +66,7 @@ const SettingContent = () => {
         { key: "inside_dhaka", value: formData.inside_dhaka },
         { key: "outside_dhaka", value: formData.outside_dhaka },
         { key: "is_feature_enabled", value: formData.is_feature_enabled },
+        { key: "limit", value: formData.limit },
         { key: "popular_type", value: type },
         { key: "typeTopSeller", value: typeTopSeller },
         { key: "typeFeatureProduct", value: typeFeatureProduct },
@@ -133,6 +136,20 @@ const SettingContent = () => {
                 />
               </div>
             </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-1 gap-5">
+              <div className="mb-5">
+                <p className="mb-0 text-base text-black">Product Limit</p>
+                <input
+                  {...register("limit")}
+                  name="limit"
+                  className="input w-full h-[49px] rounded-md border border-gray6 px-6 text-base text-black"
+                  type="number"
+                  placeholder="10"
+                />
+              </div>
+            </div>
+
 
             {/* Product Feature Switch */}
             {/* <div className="flex items-center justify-between mt-5">
