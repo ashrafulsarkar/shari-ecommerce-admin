@@ -38,12 +38,12 @@ const  EditCategory = ({ id }: { id: string }) => {
           >
             <div className="mb-6 bg-white px-8 py-8 rounded-md">
               {/* category image upload */}
-              <CategoryImgUpload
+              {/* <CategoryImgUpload
                 isSubmitted={isSubmitted}
                 setImage={setCategoryImg}
                 default_img={categoryData.img}
                 image={categoryImg}
-              />
+              /> */}
               {/* category image upload */}
 
               {/* category parent */}
@@ -54,28 +54,12 @@ const  EditCategory = ({ id }: { id: string }) => {
               />
               {/* category parent */}
 
-              <CategoryChildren
+              {/* <CategoryChildren
                 categoryChildren={categoryChildren}
                 setCategoryChildren={setCategoryChildren}
                 error={error}
                 default_value={categoryData.children}
-              />
-
-              {/* Product Type */}
-              <div className="mb-6">
-                {/* <p className="mb-0 text-base text-black">Product Type</p> */}
-                <div className="category-add-select select-bordered">
-                  <ProductType
-                    setSelectType={setSelectProductType}
-                    control={control}
-                    errors={errors}
-                    default_value={{
-                      type:categoryData.productType
-                    }}
-                  />
-                </div>
-              </div>
-              {/* Product Type */}
+              /> */}
 
               {/* Category Description */}
               <CategoryDescription

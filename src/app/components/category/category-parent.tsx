@@ -12,10 +12,10 @@ type IPropType = {
 const CategoryParent = ({ register, errors, default_value }: IPropType) => {
   return (
     <div className="mb-6">
-      <p className="mb-0 text-base text-black">Parent</p>
+      <p className="mb-0 text-base text-black">Name</p>
       <input
         {...register("parent", {
-          required: `Parent is required!`,
+          required: `Name is required!`,
         })}
         className="input w-full h-[44px] rounded-md border border-gray6 px-6 text-base"
         type="text"

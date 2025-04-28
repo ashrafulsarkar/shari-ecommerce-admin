@@ -30,25 +30,25 @@ const AddCategory = () => {
         <form onSubmit={handleSubmit(handleSubmitCategory)}>
           <div className="mb-6 bg-white px-8 py-8 rounded-md">
             {/* category image upload */}
-            <CategoryImgUpload
+            {/* <CategoryImgUpload
               isSubmitted={isSubmitted}
               setImage={setCategoryImg}
               image={categoryImg}
-            />
+            /> */}
             {/* category image upload */}
 
             {/* category parent */}
             <CategoryParent register={register} errors={errors} />
             {/* category parent */}
 
-            <CategoryChildren
+            {/* <CategoryChildren
               categoryChildren={categoryChildren}
               setCategoryChildren={setCategoryChildren}
               error={error}
-            />
+            /> */}
 
             {/* Product Type */}
-            <div className="mb-6">
+            {/* <div className="mb-6">
               <div className="category-add-select select-bordered">
                 <ProductType
                   setSelectType={setSelectProductType}
@@ -56,7 +56,7 @@ const AddCategory = () => {
                   errors={errors}
                 />
               </div>
-            </div>
+            </div> */}
             {/* Product Type */}
 
             {/* Category Description */}

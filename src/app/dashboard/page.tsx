@@ -19,7 +19,7 @@ export default function DashboardPage() {
         {/* card item end  */}
 
         {/* chart start */}
-        <SalesReport />
+        {/* <SalesReport /> */}
         {/* chart end */}
 
         {/* recent orders start */}
