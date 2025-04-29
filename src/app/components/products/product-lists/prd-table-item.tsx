@@ -45,9 +45,8 @@ const ProductTableItem = ({ product }: { product: IProduct }) => {
           </span>
         </a>
       </td>
-      <td className="px-3 py-3 font-normal text-[#55585B] text-end">#{sku}</td>
       <td className="px-3 py-3 font-normal text-[#55585B] text-end">{quantity}</td>
-      <td className="px-3 py-3 font-normal text-[#55585B] text-end">${price}</td>
+      <td className="px-3 py-3 font-normal text-[#55585B] text-end">৳ {price}</td>
       <td className="px-3 py-3 font-normal text-heading text-end">
         <div className="flex justify-end items-center space-x-1 text-tiny">
           <span className="text-yellow flex items-center space-x-1">

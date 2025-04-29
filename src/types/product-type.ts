@@ -1,34 +1,33 @@
-
-type Brand = {
+export type IBrand = {
   name: string;
   id: string;
 }
 
-type Category = {
+export type ICategory = {
   name: string;
   id: string;
 }
 
-type Color = {
+export type IProductImg = string;
+
+export type IAdditionalInformation = {
+  id: string;
+  title: string;
+  description: string;
+}
+
+export type IType = {
+  name?: string;
+  id?: string;
+}
+
+export type IReviewUser = {
+  _id: string;
   name: string;
-  clrCode: string;
+  email: string;
 }
 
-type ImageURL = {
-  color?: Color;
-  img: string;
-}
-
-type AdditionalInformation = {
-  key: string;
-  value: string;
-}
-type IReviewUser = {
-  _id:string;
-  name:string;
-  email:string;
-}
-type TReview = {
+export type IReview = {
   _id: string;
   userId: IReviewUser;
   productId: string;
@@ -38,85 +37,58 @@ type TReview = {
   createdAt: string;
 }
 
-
 export interface IProduct {
   _id: string;
-  brand: Brand;
-  category: Category;
-  sku: string;
-  img: string;
   title: string;
-  slug?: string;
-  imageURLs: ImageURL[];
+  img: string;
+  description: string;
+  slug: string;
   parent: string;
-  children: string[];
+  imageURLs: IProductImg[];
+  price: number;
+  discount: number;
+  quantity: number;
+  brand: IBrand;
+  category: ICategory;
+  type?: IType;
+  status: string;
+  sku?: string;
+  count?: number;
+  additionalInformation?: IAdditionalInformation[];
+  tags?: string[];
+  reviews?: IReview[];
+  ja?: boolean;
+  lee?: boolean;
+  created_at?: string;
+  updated_at?: string;
+  __v?: number;
+}
+
+export interface IAddProduct {
+  title: string;
+  img: string;
+  description: string;
+  parent: string;
+  imageURLs: IProductImg[];
   price: number;
   discount?: number;
   quantity: number;
-  status: 'in-stock' | 'out-of-stock' | 'discontinued';
-  reviews?: TReview[];
-  productType: string;
-  description: string;
-  additionalInformation?: AdditionalInformation[];
-  offerDate?: {
-    startDate: string,
-    endDate: string,
-  }
-  featured?: boolean;
-  ja?: boolean;
-  lee?: boolean;
-  sellCount?: number;
-  sizes?: string[];
+  brand: string;
+  category: string;
+  type?: string;
+  status?: string;
+  sku?: string;
+  count?: number;
+  additionalInformation?: IAdditionalInformation[];
   tags?: string[];
-  createdAt: string;
-  updatedAt: string;
-  orderQuantity: number;
 }
 
-export interface ProductResponse {
+export interface IReviewProductRes {
   success: boolean;
   data: IProduct[];
 }
 
-// IAddProduct
-export interface IAddProduct {
-  title: string;
-  slug?: string;
-  description: string;
-  img: string;
-  sku: string;
-  imageURLs: {
-    color: {
-      name?: string;
-      clrCode?: string;
-    };
-    img: string;
-    sizes?: string[];
-  }[];
-  price: number;
-  discount: number;
-  count: number;
-  quantity: number;
-  brand: { name: string, id: string };
-  type: { name: string, id: string };
-  status: 'in-stock' | 'out-of-stock' | 'discontinued';
-  category: { name: string, id: string };
-  parent: string;
-  children: string;
-  additionalInformation?: {
-    key: string;
-    value: string;
-  }[];
-  tags?: string[];
-}
-
-// review product response
-export interface IReviewProductRes {
-  success:boolean;
-  data:IProduct[]
-}
-// delete review product response
 export interface IDelReviewsRes {
-  success:boolean;
-  message:string;
+  success: boolean;
+  message: string;
 }

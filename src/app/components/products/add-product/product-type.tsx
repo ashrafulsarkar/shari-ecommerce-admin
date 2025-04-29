@@ -29,29 +29,19 @@ const ProductType = ({
   default_value,
 }: IPropType) => {
   const { data: types, isError, isLoading } = useGetAllTypesQuery();
-
   const [hasDefaultValues, setHasDefaultValues] = useState<boolean>(false);
+
   // default value set
   useEffect(() => {
-    if (
-      default_value?.type &&
-      !hasDefaultValues &&
-      types?.result
-    ) {
-      const type = types.result.find((b) => b.name === default_value?.type);
+    if (default_value?.type && !hasDefaultValues && types?.result) {
+      // Handle case where type is an ID
+      const type = types.result.find((t) => t._id === default_value.type || t.name === default_value.type);
       if (type) {
-        setTimeout(() => {
-          setSelectType({ id: type._id as string, name: default_value?.type });
-
-          setHasDefaultValues(true);
-        }, 0);
+        setSelectType({ id: type._id, name: type.name });
+        setHasDefaultValues(true);
       }
     }
-  }, [
-    default_value,
-    types,
-    hasDefaultValues,
-  ]);
+  }, [default_value, types, hasDefaultValues, setSelectType]);
 
   // decide what to render
   let content = null;
@@ -66,22 +56,37 @@ const ProductType = ({
   if (!isLoading && isError) {
     content = <ErrorMsg msg="There was an error" />;
   }
-  if (!isLoading && isError && types?.result.length === 0) {
-    content = <ErrorMsg msg="No Category Found" />;
-  }
-
   if (!isLoading && !isError && types?.success) {
     const typeItems = types.result;
 
     // handleTypeChange
     const handleTypeChange = (selectType: string) => {
-      const type = typeItems.find((b) => b.name === selectType);
-      setSelectType({ id: type?._id as string, name: selectType });
+      const type = typeItems.find((t) => t.name === selectType);
+      if (type) {
+        setSelectType({ id: type._id, name: type.name });
+      }
     };
-    const option = typeItems.map((b) => ({
-      value: b.name,
-      label: b.name,
+
+    const option = typeItems.map((t) => ({
+      value: t.name,
+      label: t.name,
     })) as unknown as readonly (string | GroupBase<string>)[];
+
+    // Find the default type name from the items if we have an ID
+    let defaultTypeValue = {
+      label: "Select..",
+      value: ""
+    };
+
+    if (default_value?.type && typeItems.length > 0) {
+      const defaultType = typeItems.find(t => t._id === default_value.type || t.name === default_value.type);
+      if (defaultType) {
+        defaultTypeValue = {
+          label: defaultType.name,
+          value: defaultType.name
+        };
+      }
+    }
 
     content = (
       <div className="mb-5">
@@ -90,23 +95,13 @@ const ProductType = ({
           name="type"
           control={control}
           rules={{
-            required: default_value?.type ? false : false,
+            required: default_value?.type ? false : "Type is required!"
           }}
           render={({ field }) => (
             <ReactSelect
               {...field}
-              value={field.value}
-              defaultValue={
-                default_value
-                  ? {
-                      label: default_value?.type,
-                      value: default_value?.type,
-                    }
-                  : {
-                      label: "Select..",
-                      value: 0,
-                    }
-              }
+              value={field.value || defaultTypeValue}
+              defaultValue={defaultTypeValue}
               onChange={(selectedOption) => {
                 field.onChange(selectedOption);
                 handleTypeChange(selectedOption?.value);
@@ -121,9 +116,9 @@ const ProductType = ({
     );
   }
   return (
-      <div>
-        {content}
-      </div>
+    <div>
+      {content}
+    </div>
   );
 };
 

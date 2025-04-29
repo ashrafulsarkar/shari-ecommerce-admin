@@ -8,6 +8,7 @@ import { Search } from "@/svg";
 import ErrorMsg from "../../common/error-msg";
 import { useGetAllProductsQuery } from "@/redux/product/productApi";
 import usePagination from "@/hooks/use-pagination";
+import { IProduct } from "@/types/product-type";
 
 const ProductListArea = () => {
   const { data: products, isError, isLoading } = useGetAllProductsQuery();
@@ -30,36 +31,38 @@ const ProductListArea = () => {
   let content = null;
 
   if (isLoading) {
-    content = <h2>Loading....</h2>;
+    content = (
+      <div className="flex justify-center items-center min-h-[200px]">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+      </div>
+    );
   }
   if (!isLoading && isError) {
-    content = <ErrorMsg msg="There was an error" />;
+    content = <ErrorMsg msg="There was an error loading products" />;
   }
-  if (!isLoading && isError && products?.data.length === 0) {
+  if (!isLoading && !isError && !products?.data?.length) {
     content = <ErrorMsg msg="No Products Found" />;
   }
 
-  if (!isLoading && !isError && products?.success) {
-    let productItems = [...currentItems].reverse();
+  if (!isLoading && !isError && products?.success && products.data.length > 0) {
+    let productItems = [...currentItems].reverse() as IProduct[];
 
     // search field
     if (searchValue) {
-      productItems = productItems.filter((p) =>
+      productItems = productItems.filter((p: IProduct) =>
         p.title.toLowerCase().includes(searchValue.toLowerCase())
       );
     }
 
     if (selectValue) {
-      productItems = productItems.filter((p) => p.status === selectValue);
+      productItems = productItems.filter((p: IProduct) => p.status === selectValue);
     }
 
     content = (
       <>
-        <div className="relative overflow-x-auto  mx-8">
+        <div className="relative overflow-x-auto mx-8">
           <table className="w-full text-base text-left text-gray-500">
-            {/* table head start */}
             <ProductTableHead />
-            {/* table head end */}
             <tbody>
               {productItems.map((prd) => (
                 <ProductTableItem key={prd._id} product={prd} />
@@ -68,13 +71,11 @@ const ProductListArea = () => {
           </table>
         </div>
 
-        {/* bottom  */}
         <div className="flex justify-between items-center flex-wrap mx-8">
           <p className="mb-0 text-tiny">
-            Showing {currentItems.length} of{" "}
-            {products?.data.length}
+            Showing {productItems.length} of {products?.data.length}
           </p>
-          <div className="pagination py-3 flex justify-end items-center mx-8 pagination">
+          <div className="pagination py-3 flex justify-end items-center mx-8">
             <Pagination
               handlePageClick={handlePageClick}
               pageCount={pageCount}

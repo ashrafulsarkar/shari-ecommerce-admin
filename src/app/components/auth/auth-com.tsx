@@ -2,19 +2,25 @@
 import { useEffect } from "react";
 import Loading from "../common/loading";
 import useAuthCheck from "@/hooks/use-auth-check";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 
 const AuthCom = ({ children }: { children: React.ReactNode }) => {
   const { authChecked, user } = useAuthCheck();  // Assume this hook provides authChecked (boolean) and user (authenticated user or null)
+  const pathname = usePathname();  // Get the current pathname
   const router = useRouter();
 
   // Redirect logic if user is not authenticated and auth check is complete
   useEffect(() => {
-    if (authChecked && !user) {
-      router.push("/login");  // Redirect to login page if no user is found after auth check
+    if (pathname.startsWith("/forget-password")) {
+      // Don't redirect if the path starts with "/forget-password"
+      return;
+    } else if (authChecked && user) {
+      router.push("/dashboard");
+    } else if (authChecked && !user) {
+      router.push("/login");
     }
-  }, [authChecked, user, router]);
+  }, [authChecked, user, router, pathname]);
 
   // Loading state while authentication check is in progress
   if (!authChecked) {

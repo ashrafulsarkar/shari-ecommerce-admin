@@ -28,18 +28,6 @@ function CardItem({ title, amount, cash, card, icon, clr, clr2 }: IPropType) {
           {amount && amount.toFixed(2)}
         </h4>
         <p className="text-tiny leading-4">{title}</p>
-        {(title === "Today Orders" || title === "Yesterday Orders") && (
-          <div className={`badge space-x-1 ${clr}`}>
-            <div className="flex text-center font-normal text-gray-50">
-              {cash !== undefined && (
-                <div className="px-1">Cash: {cash.toFixed(2)}</div>
-              )}
-              {card !== undefined && (
-                <div className="px-1">Card: {card.toFixed(2)}</div>
-              )}
-            </div>
-          </div>
-        )}
       </div>
       <div>
         <span
@@ -74,9 +62,7 @@ const CardItems = () => {
       <>
         <CardItem
           title="Today Orders"
-          amount={dashboardOrderAmount?.todayOrderAmount} 
-          card={dashboardOrderAmount?.todayCardPaymentAmount} 
-          cash={dashboardOrderAmount?.todayCashPaymentAmount} 
+          amount={dashboardOrderAmount?.todayOrderAmount}
           icon={<Received />}
           clr=""
           clr2="bg-success"
@@ -84,8 +70,6 @@ const CardItems = () => {
         <CardItem
           title="Yesterday Orders"
           amount={dashboardOrderAmount?.yesterdayOrderAmount}
-          card={dashboardOrderAmount?.yesterDayCardPaymentAmount}
-          cash={dashboardOrderAmount?.yesterDayCashPaymentAmount}
           icon={<Sales />}
           clr="text-purple bg-purple/10"
           clr2="bg-purple"

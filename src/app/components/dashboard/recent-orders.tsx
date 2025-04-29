@@ -6,6 +6,7 @@ import TableHead from "./table-head";
 import Pagination from "../ui/Pagination";
 import { useGetRecentOrdersQuery } from "@/redux/order/orderApi";
 import usePagination from "@/hooks/use-pagination";
+import Link from "next/link";
 
 const RecentOrders = () => {
   const { data: recentOrders, isError, isLoading } = useGetRecentOrdersQuery();
@@ -54,12 +55,12 @@ const RecentOrders = () => {
             <h3 className="font-medium tracking-wide text-slate-700 text-lg mb-0 leading-none">
               Recent Orders
             </h3>
-            <a
-              href="order-list.html"
+            <Link
+              href="/orders"
               className="leading-none text-base text-info border-b border-info border-dotted capitalize font-medium hover:text-info/60 hover:border-info/60"
             >
               View All
-            </a>
+            </Link>
           </div>
 
           {/* table */}

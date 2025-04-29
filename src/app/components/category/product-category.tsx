@@ -7,7 +7,6 @@ import {
   ListItem,
   Accordion,
   AccordionHeader,
-  AccordionBody,
 } from "@material-tailwind/react";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import { useGetAllCategoriesQuery } from "@/redux/category/categoryApi";
@@ -17,35 +16,42 @@ import ErrorMsg from "../common/error-msg";
 type IPropType = {
   setCategory: React.Dispatch<SetStateAction<{ name: string; id: string }>>;
   setParent: React.Dispatch<SetStateAction<string>>;
-  setChildren: React.Dispatch<SetStateAction<string>>;
   default_value?: {
+    category: { name: string; id: string };
     parent: string;
-    id: string;
-    children: string;
   };
 };
 
-export default function ProductCategory({
+const ProductCategory = ({
   setCategory,
   setParent,
-  setChildren,
   default_value,
-}: IPropType) {
+}: IPropType) => {
   const [open, setOpen] = React.useState<string>("");
   const { data: categories, isError, isLoading } = useGetAllCategoriesQuery();
   const [selectedCategory, setSelectedCategory] = useState<string[]>(
-    default_value ? [default_value.parent, default_value.children] : []
+    default_value ? [default_value.parent] : []
   );
 
   useEffect(() => {
-    if (default_value?.parent && default_value.id && default_value.children) {
-      const { id, parent, children } = default_value;
-      setCategory({ id: id, name: parent });
-      setParent(parent);
-      setChildren(children);
+    if (default_value?.category && default_value?.parent && categories?.result) {
+      const category = categories.result.find((c) => c._id === default_value.category.id);
+      if (category) {
+        setCategory({ id: category._id, name: category.parent });
+        setParent(default_value.parent);
+      }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [default_value, categories]);
+
+  // handle parent
+  const handleParent = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedParent = e.target.value;
+    setParent(selectedParent);
+    const categoryItem = categories?.result.find(c => c.parent === selectedParent);
+    if (categoryItem) {
+      setCategory({ id: categoryItem._id, name: categoryItem.parent });
+    }
+  };
 
   // handleCategory
   const handleCategory = (value: string, title: string) => {
@@ -69,16 +75,6 @@ export default function ProductCategory({
       }
     }
   }, [selectedCategory]);
-
-  // handle sub category
-  const handleSubCategory = (subCate: string) => {
-    setChildren(subCate);
-    if (selectedCategory.includes(subCate)) {
-      setSelectedCategory(selectedCategory.filter((c) => c !== subCate));
-    } else {
-      setSelectedCategory([...selectedCategory, subCate]);
-    }
-  };
 
   // decide what to render
   let content = null;
@@ -125,17 +121,6 @@ export default function ProductCategory({
                   </Typography>
                 </AccordionHeader>
               </ListItem>
-              {item.children.length > 0 && (
-                <AccordionBody className="py-1 ml-4">
-                  <List className="p-0">
-                    {item.children.map((sub: string, i: number) => (
-                      <ListItem key={i} onClick={() => handleSubCategory(sub)}>
-                        {sub}
-                      </ListItem>
-                    ))}
-                  </List>
-                </AccordionBody>
-              )}
             </Accordion>
           ))}
         </List>
@@ -158,4 +143,6 @@ export default function ProductCategory({
       </div>
     </>
   );
-}
+};
+
+export default ProductCategory;

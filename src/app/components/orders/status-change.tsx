@@ -4,44 +4,49 @@ import { useUpdateStatusMutation } from "@/redux/order/orderApi";
 
 // Order status options
 const options = [
-  { value: "delivered", label: "Delivered" },
-  { value: "processing", label: "Processing" },
-  { value: "pending", label: "Pending" },
-  { value: "cancel", label: "Cancel" },
+	{ value: "delivered", label: "Delivered" },
+	{ value: "processing", label: "Processing" },
+	{ value: "pending", label: "Pending" },
+	{ value: "cancel", label: "Cancel" },
 ];
 
-const OrderStatusChange = ({ id ,status}: { id: string,status?:string }) => {
-  const [updateStatus] = useUpdateStatusMutation();
-  const [selectedStatus, setSelectedStatus] = useState("");
+interface OrderStatusChangeProps {
+	id: string;
+	status?: string;
+}
 
-  const handleChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = event.target.value;
-    setSelectedStatus(value);
+const OrderStatusChange: React.FC<OrderStatusChangeProps> = ({ id, status }) => {
+	const [updateStatus] = useUpdateStatusMutation();
+	const [selectedStatus, setSelectedStatus] = useState(status || "");
+	const [isUpdating, setIsUpdating] = useState(false);
 
-    const res = await updateStatus({ id, status: { status: value } });
-    if ("data" in res && "message" in res.data) {
-      notifySuccess(res.data.message);
-    }
-  };
+	const handleChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
+		const value = event.target.value;
+		setSelectedStatus(value);
+		setIsUpdating(true);
 
-  return (
-    <div className="relative w-60">
-      <select
-        value={selectedStatus}
-        onChange={handleChange}
-        className="w-full px-4 py-2 border-2 border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white text-gray-700 cursor-pointer"
-      >
-        <option value="" disabled>Select Status...</option>
-        {options.map((option) =>{
-          return (
-            <option key={option.value} selected={status==option.value}  value={option.value}>
-              {option.label}
-            </option>
-          )
-        } )}
-      </select>
-    </div>
-  );
+		const res = await updateStatus({ id, status: { status: value } });
+		if ("data" in res && "message" in res.data) {
+			notifySuccess(res.data.message);
+		}
+
+		setIsUpdating(false);
+	};
+
+	return (
+		<div className="relative w-60">
+			<select value={selectedStatus} onChange={handleChange} disabled={isUpdating} className="w-full px-4 py-2 border-2 border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white text-gray-700 cursor-pointer" >
+				<option value="" disabled>
+					Select Status...
+				</option>
+				{options.map((option) => (
+					<option key={option.value} value={option.value}>
+						{option.label}
+					</option>
+				))}
+			</select>
+		</div>
+	);
 };
 
 export default OrderStatusChange;

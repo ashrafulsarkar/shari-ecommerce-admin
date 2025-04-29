@@ -1,126 +1,104 @@
-import { SmClose } from "@/svg";
-import { useState, ChangeEvent, SetStateAction, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { v4 as uuidv4 } from "uuid";
 
-interface FormData {
-  key: string;
-  value: string;
+interface IAdditionalInfo {
+  id: string;
+  title: string;
+  description: string;
 }
 
-type IPropType = {
-  setAdditionalInformation: React.Dispatch<
-    SetStateAction<
-      {
-        key: string;
-        value: string;
-      }[]
-    >
-  >;
-  default_value?: FormData[];
-};
+interface IPropType {
+  setAdditionalInformation: React.Dispatch<React.SetStateAction<IAdditionalInfo[]>>;
+  default_value?: IAdditionalInfo[];
+}
 
-const AdditionalInformation = ({
-  setAdditionalInformation,
-  default_value,
-}: IPropType) => {
-  const [formData, setFormData] = useState<FormData[]>(
-    default_value ? default_value : [{ key: "", value: "" }]
-  );
-  const [hasDefaultValues, setHasDefaultValues] = useState<boolean>(false);
-  // default value set
+const AdditionalInformation = ({ setAdditionalInformation, default_value }: IPropType) => {
+  const [info, setInfo] = useState<IAdditionalInfo[]>(default_value || []);
+
   useEffect(() => {
-    if (default_value && !hasDefaultValues) {
+    if (default_value) {
+      setInfo(default_value);
       setAdditionalInformation(default_value);
-      setHasDefaultValues(true);
     }
-  }, [default_value, hasDefaultValues, setAdditionalInformation]);
-  // handle change field
-  const handleChange = (index: number, e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    const updatedFormData = [...formData];
-    updatedFormData[index] = { ...updatedFormData[index], [name]: value };
-    setFormData(updatedFormData);
-    setAdditionalInformation(updatedFormData);
+  }, [default_value, setAdditionalInformation]);
+
+  // handle add row
+  const handleAddRow = () => {
+    const newInfo = [...info, { id: uuidv4(), title: "", description: "" }];
+    setInfo(newInfo);
+    setAdditionalInformation(newInfo);
   };
-  // handle add field
-  const handleAddField = () => {
-    const lastField = formData[formData.length - 1];
-    if (lastField?.key.trim() !== "" || lastField.value.trim() !== "") {
-      const newFormData = [...formData, { key: "", value: "" }];
-      setFormData(newFormData);
-      setAdditionalInformation(formData);
-    }
+
+  // handleInputChange
+  const handleInputChange = (
+    id: string,
+    field: keyof Omit<IAdditionalInfo, "id">,
+    value: string
+  ) => {
+    const updatedInfo = info.map((item) =>
+      item.id === id ? { ...item, [field]: value } : item
+    );
+    setInfo(updatedInfo);
+    setAdditionalInformation(updatedInfo);
   };
-  // handleRemoveField
-  const handleRemoveField = (index: number) => {
-    const updatedFormData = [...formData];
-    updatedFormData.splice(index, 1);
-    setFormData(updatedFormData);
-    setAdditionalInformation(updatedFormData);
+
+  // handleRemoveRow
+  const handleRemoveRow = (id: string) => {
+    const filteredInfo = info.filter((item) => item.id !== id);
+    setInfo(filteredInfo);
+    setAdditionalInformation(filteredInfo);
   };
 
   return (
-    <>
-      <div className="bg-white px-8 py-8 rounded-md mb-6">
+    <div className="bg-white px-8 py-8 rounded-md mb-6">
+      <div className="mb-6">
         <h4 className="text-[22px]">Additional Information</h4>
-        <div>
-          {formData.map((data, index) => {
-            const col = index === 0 ? 'col-span-6' : 'col-span-5';
-            return (
-              <div
-                key={index}
-                className={`grid grid-cols-12 gap-x-6 relative mb-6 last:mb-0`}
+      </div>
+      {info.map((item) => (
+        <div key={item.id} className="relative">
+          <div className="grid grid-cols-12 gap-x-6 mb-6">
+            <div className="col-span-5">
+              <input
+                onChange={(e) =>
+                  handleInputChange(item.id, "title", e.target.value)
+                }
+                value={item.title}
+                type="text"
+                placeholder="Key"
+                className="input w-full h-[44px] rounded-md border border-gray6 px-6 text-base"
+              />
+            </div>
+            <div className="col-span-5">
+              <input
+                onChange={(e) =>
+                  handleInputChange(item.id, "description", e.target.value)
+                }
+                value={item.description}
+                type="text"
+                placeholder="Value"
+                className="input w-full h-[44px] rounded-md border border-gray6 px-6 text-base"
+              />
+            </div>
+            <div className="col-span-2">
+              <button
+                onClick={() => handleRemoveRow(item.id)}
+                type="button"
+                className="tp-btn px-5 py-2 mb-5 delete-btn"
               >
-                <div className="col-span-6">
-                  <p className="mb-0 text-base text-black">Key</p>
-                  <input
-                    className="input w-full h-[44px] rounded-md border border-gray6 px-6 text-base"
-                    type="text"
-                    name="key"
-                    placeholder="Enter key"
-                    value={data.key}
-                    onChange={(e) => handleChange(index, e)}
-                  />
-                </div>
-
-                <div className={col}>
-                  <p className="mb-0 text-base text-black">Value</p>
-                  <input
-                    className="input w-full h-[44px] rounded-md border border-gray6 px-6 text-base"
-                    type="text"
-                    name="value"
-                    placeholder="Enter value"
-                    value={data.value}
-                    onChange={(e) => handleChange(index, e)}
-                  />
-                </div>
-
-                {index > 0 && (
-                  <div className="col-span-1">
-                    <p className="mb-0 text-base text-black">Remove</p>
-                    <button
-                      className="h-[44px] w-[44px] rounded-md border border-gray6 hover:border-red "
-                      type="button"
-                      onClick={() => handleRemoveField(index)}
-                    >
-                      <SmClose/>
-                    </button>
-                  </div>
-                )}
-              </div>
-            );
-          })}
-          <div className="flex items-center justify-between mt-8">
-            <button
-              className=" tp-btn px-5 py-2"
-              type="button"
-              onClick={handleAddField}
-            >
-              Add Field
-            </button>
+                Delete
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-    </>
+      ))}
+      <button
+        onClick={handleAddRow}
+        type="button"
+        className="tp-btn px-5 py-2 mb-5"
+      >
+        Add Item
+      </button>
+    </div>
   );
 };
 

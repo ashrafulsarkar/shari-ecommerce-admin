@@ -5,11 +5,12 @@ import DescriptionTextarea from "./description-textarea";
 import ProductBrand from "./product-brand";
 import ProductType from "./product-type";
 import AdditionalInformation from "./additional-information";
-import ProductVariants from "./product-variants";
 import ProductImgUpload from "./product-img-upload";
 import ProductCategory from "../../category/product-category";
 import Tags from "./tags";
 import FormField from "../form-field";
+import useMultipleImageUpload from "@/hooks/useMultipleImageUpload";
+import ThumbItems from "./thumb-items";
 
 const ProductSubmit = () => {
   const {
@@ -24,7 +25,6 @@ const ProductSubmit = () => {
     control,
     setCategory,
     setParent,
-    setChildren,
     setImg,
     img,
     setBrand,
@@ -34,7 +34,7 @@ const ProductSubmit = () => {
     imageURLs,
   } = useProductSubmit();
 
-  // console.log('additionalInformation--->',additionalInformation)
+  const { handleMultipleImageUpload } = useMultipleImageUpload(setImageURLs);
 
   return (
     <form onSubmit={handleSubmit(handleSubmitProduct)}>
@@ -54,12 +54,21 @@ const ProductSubmit = () => {
           </div>
 
           <div className="bg-white px-8 py-8 rounded-md mb-6">
-            <div className="grid sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-3 gap-x-6">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-x-6">
               <FormField
                 title="price"
                 isRequired={true}
                 placeHolder="Product price"
                 bottomTitle="Set the base price of product."
+                type="number"
+                register={register}
+                errors={errors}
+              />
+              <FormField
+                title="quantity"
+                isRequired={true}
+                placeHolder="Quantity"
+                bottomTitle="Enter the product quantity."
                 type="number"
                 register={register}
                 errors={errors}
@@ -82,25 +91,9 @@ const ProductSubmit = () => {
                 register={register}
                 errors={errors}
               />
-              <FormField
-                title="SKU"
-                isRequired={false}
-                placeHolder="SKU"
-                bottomTitle="Enter the product SKU."
-                register={register}
-                errors={errors}
-              />
-              <FormField
-                title="quantity"
-                isRequired={true}
-                placeHolder="Quantity"
-                bottomTitle="Enter the product quantity."
-                type="number"
-                register={register}
-                errors={errors}
-              />
             </div>
           </div>
+
           <div className="bg-white px-8 py-8 rounded-md mb-6">
             <div className="grid sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2 gap-x-6">
               <ProductBrand
@@ -124,13 +117,32 @@ const ProductSubmit = () => {
           />
           {/* additional information page end */}
 
-          {/* product variations start */}
-          <ProductVariants
-            isSubmitted={isSubmitted}
-            setImageURLs={setImageURLs}
-            errors={errors}
-          />
-          {/* product variations end */}
+          {/* Image Gallery */}
+          <div className="bg-white px-8 py-8 rounded-md mb-6">
+            <h4 className="text-[18px] mb-4">Product Gallery</h4>
+            <div className="flex flex-wrap gap-4">
+              {imageURLs && imageURLs.length > 0 && (
+                <ThumbItems uploadItems={imageURLs.map(url => ({
+                  url: typeof url === 'string' ? url : url.img || '',
+                  id: ''
+                }))} />
+              )}
+            </div>
+            <input
+              type="file"
+              id="gallery_image"
+              className="hidden"
+              multiple
+              accept="image/*"
+              onChange={handleMultipleImageUpload}
+            />
+            <label
+              htmlFor="gallery_image"
+              className="mt-4 text-tiny w-full inline-block py-2 px-4 rounded-md border border-gray6 text-center hover:cursor-pointer hover:bg-theme hover:text-white hover:border-theme transition"
+            >
+              Add Gallery Images
+            </label>
+          </div>
         </div>
 
         {/* right side */}
@@ -148,7 +160,6 @@ const ProductSubmit = () => {
               <ProductCategory
                 setCategory={setCategory}
                 setParent={setParent}
-                setChildren={setChildren}
               />
             </div>
           </div>
