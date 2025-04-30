@@ -4,7 +4,7 @@ import { notifyError, notifySuccess } from "@/utils/toast";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import slugify from "slugify";
-import { useAddProductMutation, useEditProductMutation } from "@/redux/product/productApi";
+import { useAddProductMutation, useEditProductMutation, useStatusProductMutation } from "@/redux/product/productApi";
 
 export type ImageURL = string | {
 	img: string;
@@ -33,6 +33,7 @@ interface ProductData {
 const useProductSubmit = () => {
 	const [addProduct] = useAddProductMutation();
 	const [editProduct] = useEditProductMutation();
+	const [statusProduct] = useStatusProductMutation();
 	const [tags, setTags] = useState<string[]>([]);
 	const [additionalInformation, setAdditionalInformation] = useState<any[]>([]);
 	const [category, setCategory] = useState<{ name: string; id: string }>({ name: "", id: "" });
@@ -47,7 +48,7 @@ const useProductSubmit = () => {
 	// handle product status update (ja/lee)
 	const handleStatusProduct = async (checked: boolean, id: string, field: "ja" | "lee") => {
 		try {
-			const res = await editProduct({
+			const res = await statusProduct({
 				id,
 				data: { [field]: checked }
 			});
