@@ -28,15 +28,15 @@ const useMultipleImageUpload = (
 
         // Filter successful uploads and update state
         const successfulUploads = results
-          .filter((result): result is { data: ICloudinaryPostResponse } => 
+          .filter((result): result is { data: ICloudinaryPostResponse } =>
             'data' in result && result.data?.data?.url !== undefined
           )
-          .map(result => ({
-            img: result.data.data.url,
-            id: result.data.data.public_id || result.data.data.asset_id || "",
-            color: { name: "", clrCode: "" },
-            sizes: []
-          }));
+          .map((result:any)=>{
+            return {
+              img: result.data.data.url,
+              id: result.data.data.public_id || result.data.data.asset_id || "",
+            }
+          });
 
         if (successfulUploads.length > 0) {
           setImageURLs(prevUrls => {
@@ -52,7 +52,7 @@ const useMultipleImageUpload = (
         if (failedUploads.length > 0) {
           notifyError(`${failedUploads.length} image(s) failed to upload`);
         }
-        
+
         // Reset the file input to allow re-uploading
         e.target.value = '';
       } catch (error) {

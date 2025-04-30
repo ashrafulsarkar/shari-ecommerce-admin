@@ -102,9 +102,9 @@ const OrderTable = () => {
             </tr>
           </thead>
           <tbody>
-            {orderItems.reverse().map((item) => (
+            {orderItems.reverse().map((item:any,i)=>(
                 <tr
-                  key={item._id}
+                  key={i}
                   className="bg-white border-b border-gray6 last:border-0 text-start mx-9"
                 >
                   <td className="px-3 py-3 font-normal text-[#55585B]">
@@ -130,14 +130,14 @@ const OrderTable = () => {
 
                   <td className="px-3 py-3 font-normal text-[#55585B] text-end">
                     {item.cart.reduce(
-                      (acc, curr) => acc + curr.orderQuantity,
+                      (acc:any, curr:any) => acc + curr.orderQuantity,
                       0
                     )}
                   </td>
                   <td className="px-3 py-3 font-normal text-[#55585B] text-end">
                     ৳
                     {item.cart
-                      .reduce((acc, curr) => acc + curr.price, 0)
+                      .reduce((acc:any, curr:any) => acc + curr.price, 0)
                       .toFixed(2)}
                   </td>
                   <td className="px-3 py-3 text-end">

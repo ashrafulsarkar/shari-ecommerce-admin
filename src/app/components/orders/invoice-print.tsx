@@ -51,9 +51,9 @@ const InvoicePrint = ({ orderData }: IPropType) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {orderData.cart.map((p) => (
+                  {orderData.cart.map((p:any,i)=>(
                     <tr
-                      key={p._id}
+                      key={i}
                       className="bg-white border-b border-gray6 last:border-0 text-start mx-9"
                     >
                       <td className="pr-8 py-5 whitespace-nowrap">
@@ -112,7 +112,7 @@ const InvoicePrint = ({ orderData }: IPropType) => {
         </div>
       </div>
       {/* details table */}
-      
+
       {/* details table */}
       <div className="grid grid-cols-12 gap-6 px-6 py-6">
         <div className="col-span-12">

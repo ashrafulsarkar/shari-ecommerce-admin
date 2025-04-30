@@ -9,12 +9,8 @@ import { RootState } from "@/redux/store";
 
 // ImageURL type
 export interface ImageURL {
-  color: {
-    name?: string;
-    clrCode?: string;
-  };
-  img: string;
-  sizes?: string[];
+  img?: string;
+  id?: string;
 }
 
 type ICategory = {

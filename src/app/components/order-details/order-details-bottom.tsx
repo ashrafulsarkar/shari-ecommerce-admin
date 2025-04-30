@@ -2,7 +2,7 @@ import React from "react";
 import { IProduct } from "@/types/product-type";
 import Image from "next/image";
 
-// prop type 
+// prop type
 type IPropType = {
   productData:IProduct[];
   ship_cost:number;
@@ -46,8 +46,8 @@ const OrderDetailsBottom = ({productData,ship_cost}:IPropType) => {
                 </tr>
               </thead>
               <tbody>
-                {productData.map(p => (
-                <tr key={p._id} className="bg-white border-b border-gray6 last:border-0 text-start mx-9">
+                {productData.map((p:any,i)=>(
+                <tr key={i} className="bg-white border-b border-gray6 last:border-0 text-start mx-9">
                   <td className="pr-8 py-5 whitespace-nowrap">
                     <a href="#" className="flex items-center space-x-5">
                       <Image

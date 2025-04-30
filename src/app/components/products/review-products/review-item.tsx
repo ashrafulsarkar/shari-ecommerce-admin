@@ -5,11 +5,11 @@ import { Rating } from "react-simple-star-rating";
 import { IProduct } from "@/types/product-type";
 import DeleteReviews from "./delete-reviews";
 
-const ReviewItem = ({ item }: { item: IProduct }) => {
+const ReviewItem = ({ item }:any) => {
   // console.log('review-item',item)
   const averageRating =
     item.reviews && item.reviews?.length > 0
-      ? item.reviews.reduce((acc, review) => acc + review.rating, 0) /
+      ? item.reviews.reduce((acc:any, review:any) => acc + review.rating, 0) /
         item.reviews.length
       : 0;
   return (

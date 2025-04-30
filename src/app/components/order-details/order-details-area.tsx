@@ -120,7 +120,7 @@ const OrderDetailsArea = ({ id,print }: { id: string,print?:boolean }) => {
                       </tr>
                     </thead>
                     <tbody className="bg-white divide-y text-base ">
-                      {orderData.cart.map((item, i) => (
+                      {orderData.cart.map((item:any, i) => (
                         <tr key={item._id} className="">
                           <td className="bg-white border-b border-gray6 px-3 py-3 text-start">
                             {i + 1}
@@ -129,7 +129,7 @@ const OrderDetailsArea = ({ id,print }: { id: string,print?:boolean }) => {
                             {item.title}
                           </td>
                           <td className="bg-white border-b border-gray6 px-3 py-3 font-bold text-center">
-                            {item.orderQuantity}
+                            {item?.orderQuantity}
                           </td>
                           <td className="bg-white border-b border-gray6 px-3 py-3 font-bold text-center">
                             ৳{item.price.toFixed(2)}

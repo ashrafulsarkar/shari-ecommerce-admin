@@ -8,7 +8,7 @@ import Switcher from "../../Switcher/Switcher";
 
 const ProductTableItem = ({ product }: { product: IProduct }) => {
   const { handleStatusProduct } = useProductSubmit();
-  const { _id, img, title, sku, price, reviews, status, quantity, ja, lee } = product || {};
+  const { _id, img, title, price, reviews, status, quantity, ja, lee } = product || {};
 
   // State for switches
   const [jaChecked, setJaChecked] = useState<boolean>(ja || false);

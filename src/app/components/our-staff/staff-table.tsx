@@ -12,11 +12,11 @@ const StaffTables = () => {
   const { data: staffData, isError, isLoading } = useGetAllStaffQuery();
   const paginationData = usePagination(staffData?.data || [], 5);
   const { currentItems, handlePageClick, pageCount } = paginationData;
-  
+
   // Get current user from Redux store
-  const { user } = useSelector((state) => state.auth);
+  const { user } = useSelector((state:any) => state.auth);
   const currentUserId = user?._id;
-  
+
   // decide what to render
   let content = null;
 
