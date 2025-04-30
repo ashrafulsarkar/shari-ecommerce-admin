@@ -218,7 +218,7 @@ const OrderDetailsArea = ({ id,print }: { id: string,print?:boolean }) => {
       <div className="container grid px-6 mx-auto">
         <div className="mb-4 mt-3 flex justify-between">
           <button onClick={handlePrintReceipt} className="tp-btn px-5 py-2">
-            Print Invoice sss
+            Print Invoice
             <span className="ml-2">
               <Invoice />
             </span>
