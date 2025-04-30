@@ -1,21 +1,18 @@
 "use client";
-import React, { SetStateAction, useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
   Card,
   Typography,
   List,
-  ListItem,
-  Accordion,
-  AccordionHeader,
+  ListItem
 } from "@material-tailwind/react";
-import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import { useGetAllCategoriesQuery } from "@/redux/category/categoryApi";
 import ErrorMsg from "../common/error-msg";
 
-// prop type
+// Props
 type IPropType = {
-  setCategory: React.Dispatch<SetStateAction<{ name: string; id: string }>>;
-  setParent: React.Dispatch<SetStateAction<string>>;
+  setCategory: React.Dispatch<React.SetStateAction<{ name: string; id: string }>>;
+  setParent: React.Dispatch<React.SetStateAction<string>>;
   default_value?: {
     category: { name: string; id: string };
     parent: string;
@@ -27,119 +24,71 @@ const ProductCategory = ({
   setParent,
   default_value,
 }: IPropType) => {
-  const [open, setOpen] = React.useState<string>("");
   const { data: categories, isError, isLoading } = useGetAllCategoriesQuery();
-  const [selectedCategory, setSelectedCategory] = useState<string[]>(
-    default_value ? [default_value.parent] : []
-  );
+  const [selectedCategory, setSelectedCategory] = useState<string>(default_value?.parent || "");
 
+  const initialized = useRef(false); // Prevent infinite loop
+
+  // Set default category on initial load (e.g., for edit mode)
   useEffect(() => {
-    if (default_value?.category && default_value?.parent && categories?.result) {
-      const category = categories.result.find((c) => c._id === default_value.category.id);
-      if (category) {
-        setCategory({ id: category._id, name: category.parent });
-        setParent(default_value.parent);
+    if (
+      !initialized.current &&
+      default_value?.category &&
+      categories?.result?.length
+    ) {
+      const matched = categories.result.find(c => c._id === default_value.category.id);
+      if (matched) {
+        setSelectedCategory(matched.parent);
+        setCategory({ id: matched._id, name: matched.parent });
+        setParent(matched.parent);
+        initialized.current = true;
       }
     }
-  }, [default_value, categories]);
+  }, [default_value, categories, setCategory, setParent]);
 
-  // handle parent
-  const handleParent = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedParent = e.target.value;
-    setParent(selectedParent);
-    const categoryItem = categories?.result.find(c => c.parent === selectedParent);
-    if (categoryItem) {
-      setCategory({ id: categoryItem._id, name: categoryItem.parent });
-    }
+  const handleCategorySelect = (id: string, name: string) => {
+    setSelectedCategory(name);
+    setCategory({ id, name });
+    setParent(name);
   };
 
-  // handleCategory
-  const handleCategory = (value: string, title: string) => {
-    setOpen(open === value ? "" : value);
-    if (title) {
-      if (selectedCategory.includes(title)) {
-        setSelectedCategory(selectedCategory.filter((c) => c !== title));
-      } else {
-        setSelectedCategory([...selectedCategory, title]);
-      }
-    }
-  };
-
-  useEffect(() => {
-    const lastCategory = selectedCategory[selectedCategory.length - 1];
-    if (lastCategory) {
-      const matchingItem = categories?.result.find(item => item.parent === lastCategory);
-      if (matchingItem) {
-        setCategory({ id: matchingItem._id, name: lastCategory });
-        setParent(lastCategory);
-      }
-    }
-  }, [selectedCategory]);
-
-  // decide what to render
-  let content = null;
-
-  if (isLoading) {
-    content = <h2>Loading....</h2>;
-  }
-  if (!isLoading && isError) {
-    content = <ErrorMsg msg="There was an error" />;
-  }
-  if (!isLoading && !isError && categories?.result.length === 0) {
-    content = <ErrorMsg msg="No Category Found" />;
-  }
-
-  if (!isLoading && !isError && categories?.success) {
-    const categoryItems = categories.result;
-
-    content = (
-      <>
-        <List className="p-0">
-          {categoryItems.map((item) => (
-            <Accordion
-              key={item._id}
-              open={open === item._id}
-              icon={
-                <ChevronDownIcon
-                  strokeWidth={2.5}
-                  className={`mx-auto h-4 w-4 transition-transform ${
-                    open === item._id ? "rotate-180" : ""
-                  }`}
-                />
-              }
-            >
-              <ListItem className="p-0" selected={open === item._id}>
-                <AccordionHeader
-                  onClick={() => handleCategory(item._id, item.parent)}
-                  className="border-b-0 p-3"
-                >
-                  <Typography
-                    color="blue-gray"
-                    className="mr-auto font-normal mb-0"
-                  >
-                    {item.parent}
-                  </Typography>
-                </AccordionHeader>
-              </ListItem>
-            </Accordion>
-          ))}
-        </List>
-      </>
-    );
-  }
+  if (isLoading) return <h2>Loading...</h2>;
+  if (isError || !categories?.result?.length)
+    return <ErrorMsg msg="Failed to load categories" />;
 
   return (
     <>
       <div className="tags-input-wrapper mb-2">
-        {selectedCategory.map((c, i) => (
-          <span key={i} className="tag">
-            {c}
-            <b onClick={() => handleCategory("", c)}>×</b>
+        {selectedCategory && (
+          <span className="tag">
+            {selectedCategory}
+            <b onClick={() => {
+              setSelectedCategory("");
+              setCategory({ id: "", name: "" });
+              setParent("");
+            }}>x</b>
           </span>
-        ))}
+        )}
       </div>
-      <div className="h-80 overflow-y-scroll overflow-x-hidden">
-        <Card>{content}</Card>
+
+      <div className="h-80 overflow-y-scroll overflow-x-hidden bg-white p-2 rounded-md">
+        <Card className="shadow-none">
+          <List className="p-0">
+            {categories.result.map((item) => (
+              <ListItem
+                key={item._id}
+                className={`cursor-pointer rounded ${
+                  selectedCategory === item.parent ? "bg-blue-100 font-semibold" : ""
+                }`}
+                onClick={() => handleCategorySelect(item._id, item.parent)}
+              >
+                <Typography color="blue-gray" className="m-0">
+                  {item.parent}
+                </Typography>
+              </ListItem>
+            ))}
+          </List>
+        </Card>
       </div>
     </>
   );

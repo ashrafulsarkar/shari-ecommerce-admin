@@ -52,7 +52,6 @@ export interface IProduct {
   category: ICategory;
   type?: IType;
   status: string;
-  sku?: string;
   count?: number;
   additionalInformation?: IAdditionalInformation[];
   tags?: string[];
@@ -91,4 +90,9 @@ export interface IReviewProductRes {
 export interface IDelReviewsRes {
   success: boolean;
   message: string;
+}
+
+export interface ProductResponse {
+  success: boolean;
+  data: IProduct[];
 }
