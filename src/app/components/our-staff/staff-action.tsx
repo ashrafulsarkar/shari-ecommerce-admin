@@ -51,18 +51,6 @@ const StaffAction = ({ id }: IPropType) => {
   return (
     <>
       <div className="relative">
-        <Link href={`/our-staff/${id}`}>
-          <button
-            onMouseEnter={() => setShowEdit(true)}
-            onMouseLeave={() => setShowEdit(false)}
-            className="w-10 h-10 leading-10 text-tiny bg-success text-white rounded-md hover:bg-green-600"
-          >
-            <Edit />
-          </button>
-        </Link>
-        <EditTooltip showEdit={showEdit} />
-      </div>
-      <div className="relative">
         <button
           onClick={() => handleDelete(id)}
           onMouseEnter={() => setShowDelete(true)}

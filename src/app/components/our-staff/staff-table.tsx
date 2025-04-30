@@ -1,16 +1,22 @@
 "use client"
-import React, { useState } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import Pagination from '../ui/Pagination';
 import ErrorMsg from '../common/error-msg';
 import { useGetAllStaffQuery } from '@/redux/auth/authApi';
 import StaffAction from './staff-action';
 import usePagination from '@/hooks/use-pagination';
+import { useSelector } from 'react-redux';
 
 const StaffTables = () => {
   const { data: staffData, isError, isLoading } = useGetAllStaffQuery();
   const paginationData = usePagination(staffData?.data || [], 5);
   const { currentItems, handlePageClick, pageCount } = paginationData;
+  
+  // Get current user from Redux store
+  const { user } = useSelector((state) => state.auth);
+  const currentUserId = user?._id;
+  
   // decide what to render
   let content = null;
 
@@ -78,7 +84,8 @@ const StaffTables = () => {
                     </td>
                     <td className="px-9 py-3 text-end">
                       <div className="flex items-center justify-end space-x-2">
-                        <StaffAction id={item._id}/>
+                        {/* Only show StaffAction if not current user */}
+                        {item._id !== currentUserId && <StaffAction id={item._id}/>}
                       </div>
                     </td>
                   </tr>
