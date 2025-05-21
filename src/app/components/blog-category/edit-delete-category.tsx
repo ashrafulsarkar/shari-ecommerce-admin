@@ -4,9 +4,9 @@ import React, { useState } from "react";
 import Swal from "sweetalert2";
 import DeleteTooltip from "../tooltip/delete-tooltip";
 import EditTooltip from "../tooltip/edit-tooltip";
-import { useDeleteCategoryMutation } from "@/redux/category/categoryApi";
 import { notifyError } from "@/utils/toast";
 import { useRouter } from "next/navigation";
+import { useDeleteCategoryMutation } from "@/redux/blog-category/categoryApi";
 
 // prop type
 type IPropType = {
