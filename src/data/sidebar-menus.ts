@@ -18,6 +18,20 @@ const sidebar_menu: Array<ISidebarMenus> = [
     title: "Dashboard",
     roles: ["Admin", "Manager"], // Both roles can access
   },
+    {
+    id: 1,
+    icon: Dashboard,
+    link: "/subscribers",
+    title: "Subscribers",
+    roles: ["Admin", "Manager"], // Both roles can access
+  },
+    {
+    id: 1,
+    icon: Dashboard,
+    link: "/contacts",
+    title: "contacts",
+    roles: ["Admin", "Manager"], // Both roles can access
+  },
   {
     id: 2,
     icon: Products,
