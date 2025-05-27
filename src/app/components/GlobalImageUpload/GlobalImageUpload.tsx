@@ -60,8 +60,8 @@ const GlobalImageUpload = ({
             onChange={handleImageUpload}
             type="file"
             name="image"
-            id="product_img"
-            className="hidden"
+            id={`product_img_${Math.random()}`}
+            // className="hidden"
           />
           <label
             htmlFor="product_img"
