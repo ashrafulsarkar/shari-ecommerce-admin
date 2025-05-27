@@ -32,6 +32,13 @@ const sidebar_menu: Array<ISidebarMenus> = [
     title: "contacts",
     roles: ["Admin", "Manager"], // Both roles can access
   },
+    {
+    id: 1,
+    icon: Dashboard,
+    link: "/slider",
+    title: "Slider",
+    roles: ["Admin", "Manager"], // Both roles can access
+  },
   {
     id: 2,
     icon: Products,
