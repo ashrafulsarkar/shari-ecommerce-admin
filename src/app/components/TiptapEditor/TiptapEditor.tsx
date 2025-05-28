@@ -70,7 +70,7 @@ const TiptapEditor: React.FC<TiptapEditorProps> = ({ onChange,content }) => {
         <button type="button" className={editor.isActive('highlight') ? 'is-active' : ''} onClick={() => editor.chain().focus().toggleHighlight().run()}>Highlight</button>
         <button type="button" className={editor.isActive('paragraph') ? 'is-active' : ''} onClick={() => editor.chain().focus().setParagraph().run()}>Paragraph</button>
 
-        {[1, 2, 3, 4, 5, 6].map((level) => (
+        {[1, 2, 3, 4, 5, 6].map((level: any) => (
           <button
             type="button"
             key={level}
