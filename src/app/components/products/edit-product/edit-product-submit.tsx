@@ -161,7 +161,7 @@ const EditProductSubmit = ({ id, product }: { id: string; product: any }) => {
 								type="number"
 								isRequired={false}
 								placeHolder="Discount"
-								bottomTitle="Product Discount Percentage."
+								bottomTitle="Product Discount flat."
 								register={register}
 								errors={errors}
 								defaultValue={product.discount}

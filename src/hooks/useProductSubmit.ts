@@ -51,7 +51,8 @@ const useProductSubmit = () => {
 		try {
 			const res = await statusProduct({
 				id,
-				data: { [field]: checked }
+				data: { [field]: checked,type:field, },
+
 			});
 			if ("error" in res) {
 				if ("data" in res.error) {
