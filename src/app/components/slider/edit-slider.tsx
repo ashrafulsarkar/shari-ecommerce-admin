@@ -46,7 +46,7 @@ const EditAlbum = ({ id }: { id: string }) => {
                               />
                               <FormField
                                 title="title_2"
-                                isRequired={true}
+                                isRequired={false}
                                 placeHolder="Title 2"
                                 register={register}
                                 errors={errors}
@@ -54,7 +54,7 @@ const EditAlbum = ({ id }: { id: string }) => {
                               />
                               <FormField
                                 title="sub_title_2"
-                                isRequired={true}
+                                isRequired={false}
                                 placeHolder="Sub Title 2"
                                 register={register}
                                 errors={errors}
