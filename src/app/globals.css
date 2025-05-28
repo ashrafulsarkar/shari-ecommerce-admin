@@ -58,6 +58,8 @@
 
 
 }
+
+
  @layer components {
      .tp-svg-2 svg {
          @apply -translate-y-[2px];

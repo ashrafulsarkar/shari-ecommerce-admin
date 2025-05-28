@@ -7,6 +7,7 @@ import BlogCategory from "../../blog-category/blog-category";
 import Tags from "./tags";
 import FormField from "../form-field";
 import MetaDescriptionTextarea from "./meta-description-textarea";
+import TiptapEditor from "../../TiptapEditor/TiptapEditor";
 
 const BlogSubmit = () => {
   const {
@@ -21,6 +22,7 @@ const BlogSubmit = () => {
     setImg,
     img,
     isSubmitted,
+     setLongDescription
   } = useBlogSubmit();
 
   // console.log('additionalInformation--->',additionalInformation)
@@ -41,6 +43,10 @@ const BlogSubmit = () => {
             />
             <DescriptionTextarea register={register} errors={errors} />
           </div>
+          <div className="mb-6 bg-white px-8 py-8 rounded-md">
+						<h4>Long Description</h4>
+						<TiptapEditor  onChange={(html) => setLongDescription(html)} />
+					</div>
 
 
           <div className="bg-white px-8 py-8 rounded-md mb-6">

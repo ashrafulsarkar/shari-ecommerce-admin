@@ -23,6 +23,7 @@ type status = "in-stock" | "out-of-stock" | "discontinued";
 const useBlogSubmit = () => {
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
+  const [long_description, setLongDescription] = useState<string>("");
   const [img, setImg] = useState<string>("");
   const [metaImg, setMetaImg] = useState<string>("");
   const [parent, setParent] = useState<string>("");
@@ -67,6 +68,7 @@ const useBlogSubmit = () => {
     const blogData = {
       title: data.title,
       description: data.description,
+      long_description: long_description,
       img: img,
       parent: parent,
       category: category,
@@ -109,6 +111,7 @@ const useBlogSubmit = () => {
       title: data.title,
       img: img,
       description: data.description,
+      long_description: long_description,
       parent: parent,
       category: category,
       tags: tags,
@@ -144,6 +147,7 @@ const useBlogSubmit = () => {
     setCategory,
     description,
     setDescription,
+    long_description, setLongDescription,
     tags,
     setTags,
     handleSubmitBlog,

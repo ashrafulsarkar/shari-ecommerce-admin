@@ -43,6 +43,7 @@ const useProductSubmit = () => {
 	const [type, setType] = useState<{ name?: string; id?: string }>({ name: "", id: "" });
 	const [imageURLs, setImageURLs] = useState<ImageURL[]>([]);
 	const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
+	const [description, setDescription] = useState<string>("");
 	const router = useRouter();
 
 	// handle product status update (ja/lee)
@@ -79,7 +80,7 @@ const useProductSubmit = () => {
 		const productData: ProductData = {
 			title: data.title,
 			img: img,
-			description: data.description,
+			description: description,
 			imageURLs: imageURLs.map(url => typeof url === 'string' ? url : url.img || ''),
 			slug: slugify(data.title, { replacement: "-", lower: true }),
 			parent: parent,
@@ -167,7 +168,7 @@ const useProductSubmit = () => {
 		const productData: ProductData = {
 			title: data.title,
 			img: img,
-			description: data.description,
+			description: description,
 			imageURLs: imageURLs.map(url => typeof url === 'string' ? url : url.img || ''),
 			slug: slugify(data.title, { replacement: "-", lower: true }),
 			parent: parent,
@@ -228,6 +229,8 @@ const useProductSubmit = () => {
 		setImageURLs,
 		isSubmitted,
 		imageURLs,
+		setDescription,
+		description
 	};
 };
 

@@ -9,6 +9,7 @@ import BlogImgUpload from "../add-blog/blog-img-upload";
 import Tags from "../add-blog/tags";
 import BlogCategory from "../../blog-category/blog-category";
 import MetaDescriptionTextarea from "../add-blog/meta-description-textarea";
+import TiptapEditor from "../../TiptapEditor/TiptapEditor";
 
 const EditBlogSubmit = ({ id }: { id: string }) => {
   const { data: blog, isError, isLoading } = useGetBlogQuery(id);
@@ -27,6 +28,7 @@ const EditBlogSubmit = ({ id }: { id: string }) => {
     isSubmitted,
     setIsSubmitted,
     handleEditBlog,
+    setLongDescription,
   } = useBlogSubmit();
 
   // decide what to render
@@ -60,6 +62,10 @@ const EditBlogSubmit = ({ id }: { id: string }) => {
                 defaultValue={blog.description}
               />
             </div>
+             <div className="mb-6 bg-white px-8 py-8 rounded-md">
+                        <h4>Long Description</h4>
+                        <TiptapEditor content={blog.long_description}  onChange={(html) => setLongDescription(html)} />
+                      </div>
 
             <div className="bg-white px-8 py-8 rounded-md mb-6">
                 <BlogCategory

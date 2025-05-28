@@ -11,6 +11,7 @@ import Tags from "../add-product/tags";
 import FormField from "../form-field";
 import ThumbItems from "../add-product/thumb-items";
 import useMultipleImageUpload from "@/hooks/useMultipleImageUpload";
+import TiptapEditor from "../../TiptapEditor/TiptapEditor";
 
 const EditProductSubmit = ({ id, product }: { id: string; product: any }) => {
 	const {
@@ -31,6 +32,8 @@ const EditProductSubmit = ({ id, product }: { id: string; product: any }) => {
 		setImageURLs,
 		isSubmitted,
 		imageURLs,
+		setDescription,
+		description
 	} = useProductSubmit();
 
 	const { handleMultipleImageUpload } = useMultipleImageUpload(setImageURLs);
@@ -119,11 +122,15 @@ const EditProductSubmit = ({ id, product }: { id: string; product: any }) => {
 							errors={errors}
 							defaultValue={product.title}
 						/>
-						<DescriptionTextarea
+						{/* <DescriptionTextarea
 							register={register}
 							errors={errors}
 							defaultValue={product.description}
-						/>
+						/> */}
+					</div>
+					<div className="mb-6 bg-white px-8 py-8 rounded-md">
+						<h4>Product description</h4>
+						<TiptapEditor content={product.description} onChange={(html) => setDescription(html)} />
 					</div>
 
 					{/* Pricing Section */}

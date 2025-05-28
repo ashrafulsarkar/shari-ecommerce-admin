@@ -11,6 +11,7 @@ import Tags from "./tags";
 import FormField from "../form-field";
 import useMultipleImageUpload from "@/hooks/useMultipleImageUpload";
 import ThumbItems from "./thumb-items";
+import TiptapEditor from "../../TiptapEditor/TiptapEditor";
 
 const ProductSubmit = () => {
 	const {
@@ -32,6 +33,8 @@ const ProductSubmit = () => {
 		setImageURLs,
 		isSubmitted,
 		imageURLs,
+		setDescription,
+		description
 	} = useProductSubmit();
 
 	const { handleMultipleImageUpload, isUploading } = useMultipleImageUpload(setImageURLs);
@@ -57,6 +60,7 @@ const ProductSubmit = () => {
 			fileInputRef.current.value = '';
 		}
 	}, [imageURLs.length]);
+	console.log(description)
 
 	return (
 		<form onSubmit={handleSubmit(handleSubmitProduct)}>
@@ -72,7 +76,11 @@ const ProductSubmit = () => {
 							register={register}
 							errors={errors}
 						/>
-						<DescriptionTextarea register={register} errors={errors} />
+						{/* <DescriptionTextarea register={register} errors={errors} /> */}
+					</div>
+					<div className="mb-6 bg-white px-8 py-8 rounded-md">
+						<h4>Product description</h4>
+						<TiptapEditor onChange={(html) => setDescription(html)} />
 					</div>
 
 					<div className="bg-white px-8 py-8 rounded-md mb-6">
