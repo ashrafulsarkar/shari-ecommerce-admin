@@ -124,7 +124,7 @@ const OrderTable = () => {
                           height={50}
                         />
                       )}
-                      <span className="font-medium">{item?.user?.name}</span>
+                      <span className="font-medium">{item?.name}</span>
                     </a>
                   </td>
 

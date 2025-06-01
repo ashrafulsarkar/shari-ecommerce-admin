@@ -69,9 +69,9 @@ const OrderDetailsArea = ({ id,print }: { id: string,print?:boolean }) => {
                       width="110"
                     /> */}
                   </h2>
-                  <p className="text-base text-gray-500 dark:text-gray-400 mt-2">
+                  {/* <p className="text-base text-gray-500 dark:text-gray-400 mt-2">
                     Dhaka, Bangladesh
-                  </p>
+                  </p> */}
                 </div>
               </div>
               <div className="flex lg:flex-row md:flex-row flex-col justify-between pt-4">
@@ -96,8 +96,10 @@ const OrderDetailsArea = ({ id,print }: { id: string,print?:boolean }) => {
                     INVOICE TO
                   </span>
                   <span className="text-base text-gray-500 block">
-                    {orderData?.user?.name} <br />
+                    {orderData?.name} <br />
                     <span className="ml-2">{orderData.contact}</span>
+                    <br />
+                    {orderData.email}
                     <br />
                     {orderData.address}
                     <br />

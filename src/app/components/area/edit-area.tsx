@@ -33,6 +33,16 @@ const EditArea = ({ id }: { id: string }) => {
                 />
 
             </div>
+            <div>
+                          <FormField
+                            title="charge"
+                            isRequired={true}
+                            placeHolder="charge"
+                            register={register}
+                            errors={errors}
+                            defaultValue={sliderData?.charge}
+                          />
+            </div>
 
               <div>
                 <button className="tp-btn px-7 py-2">Update</button>

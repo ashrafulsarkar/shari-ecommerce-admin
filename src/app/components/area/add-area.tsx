@@ -21,6 +21,15 @@ const AddArea = () => {
               />
             </div>
             <div>
+              <FormField
+                title="charge"
+                isRequired={true}
+                placeHolder="charge"
+                register={register}
+                errors={errors}
+              />
+            </div>
+            <div>
 
             </div>
             <div>
