@@ -55,5 +55,6 @@ export const apiSlice = createApi({
     "getSlider",
     "AllArea",
     "getArea",
+    "SingleProduct",
   ],
 });

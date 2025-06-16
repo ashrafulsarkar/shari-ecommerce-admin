@@ -8,7 +8,11 @@ import { IProduct, IBrand, IType } from "@/types/product-type";
 
 const EditProduct = ({ params }: { params: Promise<{ id: string }> }) => {
 	const { id } = React.use(params);
-	const { data: productData, isLoading } = useGetProductQuery(id);
+	const { data: productData, isLoading, refetch } = useGetProductQuery(id);
+
+	React.useEffect(() => {
+	refetch(); // This forces a fresh fetch
+	}, []);
 
 	// Transform the product data to handle brand and type objects
 	const transformedProductData = React.useMemo(() => {

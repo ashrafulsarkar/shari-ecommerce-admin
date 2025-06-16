@@ -49,7 +49,6 @@ export const authApi = apiSlice.injectEndpoints({
 		// edit product
 		statusProduct: builder.mutation({
 			query({ id, data }) {
-				console.log(data)
 				return {
 					url: `/api/product/product_status/ja/lee/${id}`,
 					method: "PUT",
@@ -61,6 +60,8 @@ export const authApi = apiSlice.injectEndpoints({
 		// get single product
 		getProduct: builder.query<IAddProduct, string>({
 			query: (id) => `/api/product/single-product/${id}`,
+			providesTags: ["SingleProduct"],
+			keepUnusedDataFor: 0,
 		}),
 		// get single product
 		getReviewProducts: builder.query<IReviewProductRes, void>({

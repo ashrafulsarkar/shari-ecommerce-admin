@@ -93,6 +93,9 @@ const AreaTables = () => {
 									<th scope="col" className="px-3 py-3 text-tiny text-text2 uppercase font-semibold w-[180px]">
 										Name
 									</th>
+									<th scope="col" className="px-3 py-3 text-tiny text-text2 uppercase font-semibold w-[180px]">
+										Charge
+									</th>
 									<th scope="col" className="px-9 py-3 text-tiny text-text2 uppercase  font-semibold w-[12%] text-start">
 										Action
 									</th>
@@ -113,6 +116,11 @@ const AreaTables = () => {
 													</div>
 												</div>
 											</a>
+										</td>
+										<td className="pr-8 py-5 whitespace-normal">
+											<div className="font-medium text-heading text-hover-primary transition">
+														{item.charge}
+													</div>
 										</td>
 										<td className="px-9 py-3 text-end">
 											<div className="flex items-center justify-end space-x-2">

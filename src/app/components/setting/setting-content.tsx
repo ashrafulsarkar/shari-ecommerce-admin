@@ -42,10 +42,11 @@ const SettingContent = () => {
   useEffect(() => {
     if (settings?.app_name || settings?.inside_dhaka || settings?.outside_dhaka || settings?.is_feature_enabled !== undefined) {
       reset({
-        app_name: settings?.app_name || "",
-        inside_dhaka: settings?.inside_dhaka || "",
-        outside_dhaka: settings?.outside_dhaka || "",
-        limit: settings?.limit || 10,
+        app_name: settings?.app_name ,
+        inside_dhaka: settings?.inside_dhaka ,
+        outside_dhaka: settings?.outside_dhaka ,
+        dhaka: settings?.dhaka ,
+        limit: settings?.limit,
         is_feature_enabled: settings?.is_feature_enabled ?? false,
       });
     }
@@ -56,6 +57,7 @@ const SettingContent = () => {
     app_name?: string;
     outside_dhaka?: string;
     inside_dhaka?: string;
+    dhaka?: string;
     limit?: number;
     is_feature_enabled?: boolean;
   }) => {
@@ -65,6 +67,7 @@ const SettingContent = () => {
         { key: "app_name", value: formData.app_name },
         { key: "inside_dhaka", value: formData.inside_dhaka },
         { key: "outside_dhaka", value: formData.outside_dhaka },
+        { key: "dhaka", value: formData.dhaka },
         { key: "is_feature_enabled", value: formData.is_feature_enabled },
         { key: "limit", value: formData.limit },
         { key: "popular_type", value: type },
@@ -120,7 +123,7 @@ const SettingContent = () => {
                 {...register("inside_dhaka")}
                 name="inside_dhaka"
                 className="input w-full h-[49px] rounded-md border border-gray6 px-6 text-base text-black"
-                type="text"
+                type="number"
                 placeholder="Inside Dhaka"
               />
             </div>
@@ -131,8 +134,20 @@ const SettingContent = () => {
                   {...register("outside_dhaka")}
                   name="outside_dhaka"
                   className="input w-full h-[49px] rounded-md border border-gray6 px-6 text-base text-black"
-                  type="text"
+                  type="number"
                   placeholder="Outside Dhaka"
+                />
+              </div>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-1 gap-5">
+              <div className="mb-5">
+                <p className="mb-0 text-base text-black">প্রডাক্ট কোয়ান্টিটি ১ এর বেশি</p>
+                <input
+                  {...register("dhaka")}
+                  name="dhaka"
+                  className="input w-full h-[49px] rounded-md border border-gray6 px-6 text-base text-black"
+                  type="number"
+                  placeholder="0"
                 />
               </div>
             </div>
