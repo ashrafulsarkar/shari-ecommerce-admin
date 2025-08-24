@@ -39,6 +39,13 @@ const sidebar_menu: Array<ISidebarMenus> = [
     title: "Slider",
     roles: ["Admin", "Manager"], // Both roles can access
   },
+    {
+    id: 1,
+    icon: Dashboard,
+    link: "/media",
+    title: "Media",
+    roles: ["Admin", "Manager"], // Both roles can access
+  },
   //   {
   //   id: 1,
   //   icon: Dashboard,
