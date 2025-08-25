@@ -74,20 +74,20 @@ const AddAlbum = () => {
                 setImgUrl={setIcon}
               />
             </div>
-            <div>
+            {/* <div>
               <h4>Mobile slider</h4>
               <GlobalImageUpload
                 imgUrl={mobileImage}
                 setImgUrl={setMobileImage}
               />
-            </div>
-            <div>
+            </div> */}
+            {/* <div>
               <h4>Tablet slider</h4>
               <GlobalImageUpload
                 imgUrl={tabletImage}
                 setImgUrl={setTabletImage}
               />
-            </div>
+            </div> */}
            </div>
 
             <div>

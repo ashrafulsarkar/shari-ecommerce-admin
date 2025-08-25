@@ -97,22 +97,22 @@ const EditAlbum = ({ id }: { id: string }) => {
                     default_img={sliderData?.icon}
                   />
                 </div>
-                <div>
+                {/* <div>
                   <h4>Mobile slider</h4>
                   <GlobalImageUpload
                     imgUrl={mobileImage}
                     setImgUrl={setMobileImage}
                     default_img={sliderData?.mobileImage}
                   />
-                </div>
-                <div>
+                </div> */}
+                {/* <div>
                   <h4>Tablet slider</h4>
                   <GlobalImageUpload
                     imgUrl={tabletImage}
                     setImgUrl={setTabletImage}
                     default_img={sliderData?.tabletImage}
                   />
-                </div>
+                </div> */}
               </div>
               <div>
                 <button className="tp-btn px-7 py-2">Update</button>
