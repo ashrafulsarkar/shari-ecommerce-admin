@@ -20,7 +20,6 @@ export const authApi = apiSlice.injectEndpoints({
 		getAllProducts: builder.query<ProductResponse, void>({
 			query: () => `/api/product/all`,
 			providesTags: ["AllProducts"],
-			keepUnusedDataFor: 600,
 		}),
 		// add product
 		addProduct: builder.mutation<IProductResponse, IAddProduct>({
@@ -48,10 +47,7 @@ export const authApi = apiSlice.injectEndpoints({
 			invalidatesTags: ["AllProducts"],
 		}),
 		// edit product
-		statusProduct: builder.mutation<
-			IProductEditResponse,
-			{ id: string; data: Partial<any> }
-		>({
+		statusProduct: builder.mutation({
 			query({ id, data }) {
 				return {
 					url: `/api/product/product_status/ja/lee/${id}`,
@@ -64,6 +60,8 @@ export const authApi = apiSlice.injectEndpoints({
 		// get single product
 		getProduct: builder.query<IAddProduct, string>({
 			query: (id) => `/api/product/single-product/${id}`,
+			providesTags: ["SingleProduct"],
+			keepUnusedDataFor: 0,
 		}),
 		// get single product
 		getReviewProducts: builder.query<IReviewProductRes, void>({

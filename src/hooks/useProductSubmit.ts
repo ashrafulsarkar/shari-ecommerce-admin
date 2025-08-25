@@ -13,6 +13,7 @@ export type ImageURL = string | {
 
 interface ProductData {
 	title: any;
+	brand_type?: any;
 	img: string;
 	description: any;
 	imageURLs: string[];
@@ -43,6 +44,7 @@ const useProductSubmit = () => {
 	const [type, setType] = useState<{ name?: string; id?: string }>({ name: "", id: "" });
 	const [imageURLs, setImageURLs] = useState<ImageURL[]>([]);
 	const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
+	const [description, setDescription] = useState<string>("");
 	const router = useRouter();
 
 	// handle product status update (ja/lee)
@@ -50,7 +52,8 @@ const useProductSubmit = () => {
 		try {
 			const res = await statusProduct({
 				id,
-				data: { [field]: checked }
+				data: { [field]: checked,type:field, },
+
 			});
 			if ("error" in res) {
 				if ("data" in res.error) {
@@ -76,10 +79,12 @@ const useProductSubmit = () => {
 
 	// handle submit product
 	const handleSubmitProduct = async (data: any) => {
+
 		const productData: ProductData = {
 			title: data.title,
+			brand_type: data.brand_type,
 			img: img,
-			description: data.description,
+			description: description,
 			imageURLs: imageURLs.map(url => typeof url === 'string' ? url : url.img || ''),
 			slug: slugify(data.title, { replacement: "-", lower: true }),
 			parent: parent,
@@ -105,9 +110,9 @@ const useProductSubmit = () => {
 		if (!category.name || !category.id) {
 			return notifyError("Category is required");
 		}
-		if (!brand.name || !brand.id) {
-			return notifyError("Brand is required");
-		}
+		// if (!brand.name || !brand.id) {
+		// 	return notifyError("Brand is required");
+		// }
 		if (!data.title) {
 			return notifyError("Product title is required");
 		}
@@ -144,6 +149,8 @@ const useProductSubmit = () => {
 
 	// handle edit product
 	const handleEditProduct = async (data: any, id: string) => {
+		console.log(data)
+
 		// Validate required fields
 		if (!img) {
 			return notifyError("Product image is required");
@@ -151,9 +158,9 @@ const useProductSubmit = () => {
 		if (!category.name || !category.id) {
 			return notifyError("Category is required");
 		}
-		if (!brand.name || !brand.id) {
-			return notifyError("Brand is required");
-		}
+		// if (!brand.name || !brand.id) {
+		// 	return notifyError("Brand is required");
+		// }
 		if (!data.title) {
 			return notifyError("Product title is required");
 		}
@@ -166,8 +173,9 @@ const useProductSubmit = () => {
 
 		const productData: ProductData = {
 			title: data.title,
+			brand_type: data.brand_type,
 			img: img,
-			description: data.description,
+			description: description,
 			imageURLs: imageURLs.map(url => typeof url === 'string' ? url : url.img || ''),
 			slug: slugify(data.title, { replacement: "-", lower: true }),
 			parent: parent,
@@ -228,6 +236,8 @@ const useProductSubmit = () => {
 		setImageURLs,
 		isSubmitted,
 		imageURLs,
+		setDescription,
+		description
 	};
 };
 

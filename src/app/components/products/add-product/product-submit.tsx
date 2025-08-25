@@ -11,6 +11,7 @@ import Tags from "./tags";
 import FormField from "../form-field";
 import useMultipleImageUpload from "@/hooks/useMultipleImageUpload";
 import ThumbItems from "./thumb-items";
+import TiptapEditor from "../../TiptapEditor/TiptapEditor";
 
 const ProductSubmit = () => {
 	const {
@@ -32,6 +33,8 @@ const ProductSubmit = () => {
 		setImageURLs,
 		isSubmitted,
 		imageURLs,
+		setDescription,
+		description
 	} = useProductSubmit();
 
 	const { handleMultipleImageUpload, isUploading } = useMultipleImageUpload(setImageURLs);
@@ -57,6 +60,7 @@ const ProductSubmit = () => {
 			fileInputRef.current.value = '';
 		}
 	}, [imageURLs.length]);
+	console.log(description)
 
 	return (
 		<form onSubmit={handleSubmit(handleSubmitProduct)}>
@@ -72,7 +76,11 @@ const ProductSubmit = () => {
 							register={register}
 							errors={errors}
 						/>
-						<DescriptionTextarea register={register} errors={errors} />
+						{/* <DescriptionTextarea register={register} errors={errors} /> */}
+					</div>
+					<div className="mb-6 bg-white px-8 py-8 rounded-md">
+						<h4>Product description</h4>
+						<TiptapEditor onChange={(html) => setDescription(html)} />
 					</div>
 
 					<div className="bg-white px-8 py-8 rounded-md mb-6">
@@ -100,7 +108,7 @@ const ProductSubmit = () => {
 								type="number"
 								isRequired={false}
 								placeHolder="Discount"
-								bottomTitle="Product Discount Percentage."
+								bottomTitle="Product Discount flat."
 								register={register}
 								errors={errors}
 							/>
@@ -189,6 +197,19 @@ const ProductSubmit = () => {
 					</div>
 
 					<div className="bg-white px-8 py-8 rounded-md mb-6">
+						<div className="mb-5">
+							<p className="mb-5 text-base text-black">Selected Brand type</p>
+							<select className="input w-full  rounded-md border  px-6 text-base"
+						style={{ border: "1px solid #e2e8f0" }}
+								{...register("brand_type", {
+									required: true,
+								})}
+							>
+								<option value="jo">JO</option>
+								<option value="lee">LEE</option>
+							</select>
+						</div>
+
 						<p className="mb-5 text-base text-black">Product Tags</p>
 						{/* tags start */}
 						<div className="grid grid-cols-1 sm:grid-cols-1 gap-3 mb-5">

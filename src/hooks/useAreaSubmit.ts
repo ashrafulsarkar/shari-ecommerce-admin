@@ -1,29 +1,21 @@
 import { notifySuccess, notifyError } from "@/utils/toast";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useRouter } from 'next/navigation'
-import { useAddSliderMutation, useEditSliderMutation } from "@/redux/slider/sliderApi";
+import { useAddAreaMutation, useEditAreaMutation } from "@/redux/area/areaApi";
 
-const useSliderSubmit = () => {
-  const [parent, setParent] = useState<string>("");
-  const [description, setDescription] = useState<string>("");
+const useAreaSubmit = () => {
   const [error, setError] = useState<string>("");
-  const [img, setImg] = useState<string>("");
-  const [icon, setIcon] = useState<string>("");
-  const [mobileImage, setMobileImage] = useState<string>("");
-  const [tabletImage, setTabletImage] = useState<string>("");
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
-  const router = useRouter();
   // add
   const [
-    addSlider,
+    addArea,
     { data: categoryData, isError, isLoading, error: addCateErr },
-  ] = useAddSliderMutation();
+  ] = useAddAreaMutation();
   // edit
   const [
-    editSlider,
+    editArea,
     { data: editCateData, isError: editErr, isLoading: editLoading, error: editCateErr },
-  ] = useEditSliderMutation();
+  ] = useEditAreaMutation();
 
   // react hook form
   const {
@@ -35,10 +27,10 @@ const useSliderSubmit = () => {
     reset,
   } = useForm();
 
-  //handleSubmitAlbum
-  const handleSubmitAlbum = async (data: any) => {
+  //handleSubmitArea
+  const handleSubmitArea = async (data: any) => {
     try {
-      const res = await addSlider({...data,img:img,icon:icon,mobileImage:mobileImage,tabletImage:tabletImage});
+      const res = await addArea({...data});
       if ("error" in res) {
         if ("data" in res.error) {
           const errorData = res.error.data as { message?: string };
@@ -47,10 +39,8 @@ const useSliderSubmit = () => {
           }
         }
       } else {
-        notifySuccess("Slider added successfully");
+        notifySuccess("Area added successfully");
         setIsSubmitted(true);
-        setImg("")
-        setIcon("")
         reset();
       }
     } catch (error) {
@@ -59,15 +49,11 @@ const useSliderSubmit = () => {
     }
   };
   //handle Submit edit Category
-  const handleSubmitEditSlider = async (data: any, id: string) => {
+  const handleSubmitEditArea = async (data: any, id: string) => {
     try {
 
-      const res = await editSlider({ id, data:{
-        ...data,
-        img:img,
-        icon:icon,
-        mobileImage:mobileImage,
-        tabletImage:tabletImage
+      const res = await editArea({ id, data:{
+        ...data
       } });
       // console.log(res)
       if ("error" in res) {
@@ -78,7 +64,7 @@ const useSliderSubmit = () => {
           }
         }
       } else {
-        notifySuccess("Slider update successfully");
+        notifySuccess("Area update successfully");
 
         setIsSubmitted(true);
         // reset();
@@ -95,19 +81,11 @@ const useSliderSubmit = () => {
     setValue,
     errors,
     control,
-    parent,
-    setParent,
-    description,
-    setDescription,
-    handleSubmitAlbum,
+    handleSubmitArea,
     error,
     isSubmitted,
-    handleSubmitEditSlider,
-    img, setImg,
-    icon, setIcon,
-    mobileImage, setMobileImage,
-    tabletImage, setTabletImage
+    handleSubmitEditArea,
   };
 };
 
-export default useSliderSubmit;
+export default useAreaSubmit;

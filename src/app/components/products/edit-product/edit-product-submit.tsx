@@ -11,6 +11,7 @@ import Tags from "../add-product/tags";
 import FormField from "../form-field";
 import ThumbItems from "../add-product/thumb-items";
 import useMultipleImageUpload from "@/hooks/useMultipleImageUpload";
+import TiptapEditor from "../../TiptapEditor/TiptapEditor";
 
 const EditProductSubmit = ({ id, product }: { id: string; product: any }) => {
 	const {
@@ -31,6 +32,8 @@ const EditProductSubmit = ({ id, product }: { id: string; product: any }) => {
 		setImageURLs,
 		isSubmitted,
 		imageURLs,
+		setDescription,
+		description
 	} = useProductSubmit();
 
 	const { handleMultipleImageUpload } = useMultipleImageUpload(setImageURLs);
@@ -119,11 +122,15 @@ const EditProductSubmit = ({ id, product }: { id: string; product: any }) => {
 							errors={errors}
 							defaultValue={product.title}
 						/>
-						<DescriptionTextarea
+						{/* <DescriptionTextarea
 							register={register}
 							errors={errors}
 							defaultValue={product.description}
-						/>
+						/> */}
+					</div>
+					<div className="mb-6 bg-white px-8 py-8 rounded-md">
+						<h4>Product description</h4>
+						<TiptapEditor content={product.description} onChange={(html) => setDescription(html)} />
 					</div>
 
 					{/* Pricing Section */}
@@ -154,7 +161,7 @@ const EditProductSubmit = ({ id, product }: { id: string; product: any }) => {
 								type="number"
 								isRequired={false}
 								placeHolder="Discount"
-								bottomTitle="Product Discount Percentage."
+								bottomTitle="Product Discount flat."
 								register={register}
 								errors={errors}
 								defaultValue={product.discount}
@@ -247,7 +254,20 @@ const EditProductSubmit = ({ id, product }: { id: string; product: any }) => {
 							/>
 						</div>
 					</div>
+
 					<div className="bg-white px-8 py-8 rounded-md mb-6">
+						<div className="mb-5">
+							<p className="mb-5 text-base text-black">Selected Brand type</p>
+							<select className="input w-full  rounded-md border  px-6 text-base"
+						style={{ border: "1px solid #e2e8f0" }}
+								{...register("brand_type", {
+									required: true,
+								})}
+								defaultValue={product.brand_type}>
+								<option value="jo">JO</option>
+								<option value="lee">LEE</option>
+							</select>
+						</div>
 						<p className="mb-5 text-base text-black">Product Tags</p>
 						<div className="grid grid-cols-1 gap-3 mb-5">
 							<Tags tags={tags} setTags={setTags} />

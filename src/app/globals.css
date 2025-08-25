@@ -58,6 +58,8 @@
 
 
 }
+
+
  @layer components {
      .tp-svg-2 svg {
          @apply -translate-y-[2px];
@@ -169,3 +171,12 @@ input[type=number] {
     }
 
   }
+
+  @keyframes fade-in {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-in-out;
+}

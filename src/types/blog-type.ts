@@ -27,7 +27,8 @@ export interface IAddBlog {
   meta_description: string | undefined;
   meta_title: string | number | undefined;
   title: string;
-  description: string;
+  description?: string;
+  long_description?: string;
   img: string;
   category: { name: string, id: string };
   parent: string;

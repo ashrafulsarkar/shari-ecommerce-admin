@@ -53,5 +53,8 @@ export const apiSlice = createApi({
     "businessSettingAll",
     "AllSlider",
     "getSlider",
+    "AllArea",
+    "getArea",
+    "SingleProduct",
   ],
 });

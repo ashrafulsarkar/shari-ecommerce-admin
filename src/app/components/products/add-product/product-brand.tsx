@@ -73,6 +73,7 @@ const ProductBrand = ({ errors, control, setSelectBrand, default_value }: IPropT
 			label: "Select..",
 			value: ''
 		};
+		console.log(defaultBrandValue)
 
 		content = (
 			<div className="mb-5">
@@ -81,7 +82,7 @@ const ProductBrand = ({ errors, control, setSelectBrand, default_value }: IPropT
 					name="brand"
 					control={control}
 					rules={{
-						required: default_value?.brand ? false : "Brand is required!",
+						required: defaultBrandValue?.label ? false : "Brand is required!",
 					}}
 					render={({ field }) => (
 						<ReactSelect

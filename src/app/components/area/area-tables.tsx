@@ -6,17 +6,17 @@ import usePagination from "@/hooks/use-pagination";
 import Image from "next/image";
 import Link from "next/link";
 import { Search } from "@/svg";
-import { useGetAllSlidersQuery } from "@/redux/slider/sliderApi";
-import SliderEditDelete from "./edit-delete-slider";
+import { useGetAllAreasQuery } from "@/redux/area/areaApi";
+import AreaEditDelete from "./edit-delete-area";
 
 
 
-const SliderTables = () => {
+const AreaTables = () => {
 	const {
 		data: allSlider = [],
 		isError,
 		isLoading,
-	} = useGetAllSlidersQuery();
+	} = useGetAllAreasQuery();
 	const [items, setItems] = useState<any[]>([]);
 
 	// Update categories when allSlider change
@@ -76,8 +76,8 @@ const SliderTables = () => {
 						</div>
 						<div className="flex justify-end space-x-6">
 							<div className="product-add-btn flex">
-								<Link href="/slider/add" className="tp-btn">
-									Add Slider
+								<Link href="/area/add" className="tp-btn">
+									Add area
 								</Link>
 							</div>
 						</div>
@@ -91,10 +91,10 @@ const SliderTables = () => {
 										ID
 									</th>
 									<th scope="col" className="px-3 py-3 text-tiny text-text2 uppercase font-semibold w-[180px]">
-										Title 1
+										Name
 									</th>
-									<th scope="col" className="px-9 py-3 text-tiny text-text2 uppercase  font-semibold w-[12%] text-start">
-										Type
+									<th scope="col" className="px-3 py-3 text-tiny text-text2 uppercase font-semibold w-[180px]">
+										Charge
 									</th>
 									<th scope="col" className="px-9 py-3 text-tiny text-text2 uppercase  font-semibold w-[12%] text-start">
 										Action
@@ -109,30 +109,22 @@ const SliderTables = () => {
 										</td>
 										<td className="pr-8 py-5 whitespace-normal">
 											<a href="#" className="flex items-center space-x-5">
-												<Image
-													className="w-[60px] h-[60px] rounded-md object-cover bg-[#F2F3F5]"
-													src={item.img || "/"}
-													width={60}
-													height={60}
-													alt="product img"
-												/>
+
 												<div>
 													<div className="font-medium text-heading text-hover-primary transition">
-														{item.title_1}
+														{item.name}
 													</div>
 												</div>
 											</a>
 										</td>
-										<td className="px-9 py-3 text-end">
-											<div className="flex items-center justify-end space-x-2">
-												<div className="font-medium text-heading text-hover-primary transition">
-														{item.type}
+										<td className="pr-8 py-5 whitespace-normal">
+											<div className="font-medium text-heading text-hover-primary transition">
+														{item.charge}
 													</div>
-											</div>
 										</td>
 										<td className="px-9 py-3 text-end">
 											<div className="flex items-center justify-end space-x-2">
-												<SliderEditDelete id={item._id} />
+												<AreaEditDelete id={item._id} />
 											</div>
 										</td>
 									</tr>
@@ -162,4 +154,4 @@ const SliderTables = () => {
 	);
 };
 
-export default SliderTables;
+export default AreaTables;
