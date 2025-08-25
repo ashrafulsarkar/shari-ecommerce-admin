@@ -6,7 +6,7 @@ import useSliderSubmit from "@/hooks/useSliderSubmit";
 import SelectOption from "../CustomInput/SelectOption";
 
 const AddAlbum = () => {
-  const {img, setImg,icon, setIcon, errors, register, handleSubmit, handleSubmitAlbum } =
+  const { img, setImg, icon, setIcon, mobileImage, setMobileImage, tabletImage, setTabletImage, errors, register, handleSubmit, handleSubmitAlbum } =
     useSliderSubmit();
   return (
     <div className="grid grid-cols-12 gap-6">
@@ -60,18 +60,36 @@ const AddAlbum = () => {
               <div>
                 <h4>Slider Image</h4>
                 <GlobalImageUpload
-                imgUrl={img}
-                setImgUrl={setImg}
-              />
+                  imgUrl={img}
+                  setImgUrl={setImg}
+                />
               </div>
-               <div>
-                <h4>Icon Image</h4>
+
+            </div>
+           <div>
+             <div>
+              <h4>Icon Image</h4>
               <GlobalImageUpload
                 imgUrl={icon}
                 setImgUrl={setIcon}
               />
             </div>
+            <div>
+              <h4>Mobile slider</h4>
+              <GlobalImageUpload
+                imgUrl={mobileImage}
+                setImgUrl={setMobileImage}
+              />
             </div>
+            <div>
+              <h4>Tablet slider</h4>
+              <GlobalImageUpload
+                imgUrl={tabletImage}
+                setImgUrl={setTabletImage}
+              />
+            </div>
+           </div>
+
             <div>
 
             </div>

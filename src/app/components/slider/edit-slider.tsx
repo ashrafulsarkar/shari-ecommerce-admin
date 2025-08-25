@@ -12,6 +12,8 @@ const EditAlbum = ({ id }: { id: string }) => {
     img,
     setImg,
     icon, setIcon,
+    mobileImage, setMobileImage,
+    tabletImage, setTabletImage,
     errors,
     register,
     handleSubmit,
@@ -37,63 +39,81 @@ const EditAlbum = ({ id }: { id: string }) => {
                   defaultValue={sliderData?.title_1}
                 />
                 <FormField
-                                title="sub_title_1"
-                                isRequired={true}
-                                placeHolder="Sub Title 1"
-                                register={register}
-                                errors={errors}
-                                defaultValue={sliderData?.sub_title_1}
-                              />
-                              <FormField
-                                title="title_2"
-                                isRequired={false}
-                                placeHolder="Title 2"
-                                register={register}
-                                errors={errors}
-                                defaultValue={sliderData?.title_2}
-                              />
-                              <FormField
-                                title="sub_title_2"
-                                isRequired={false}
-                                placeHolder="Sub Title 2"
-                                register={register}
-                                errors={errors}
-                                defaultValue={sliderData?.sub_title_2}
-                              />
-
-              <div>
-                <SelectOption
-                  title="type"
+                  title="sub_title_1"
                   isRequired={true}
-                  options={[
-                    { label: "Slider", value: "slider" },
-                    { label: "Jo", value: "jo" },
-                    { label: "Lee", value: "lee" },
-                  ]}
+                  placeHolder="Sub Title 1"
                   register={register}
                   errors={errors}
-                  defaultValue={sliderData?.type}
+                  defaultValue={sliderData?.sub_title_1}
+                />
+                <FormField
+                  title="title_2"
+                  isRequired={false}
+                  placeHolder="Title 2"
+                  register={register}
+                  errors={errors}
+                  defaultValue={sliderData?.title_2}
+                />
+                <FormField
+                  title="sub_title_2"
+                  isRequired={false}
+                  placeHolder="Sub Title 2"
+                  register={register}
+                  errors={errors}
+                  defaultValue={sliderData?.sub_title_2}
                 />
 
-              </div>
-              <div>
-                <h4>Slider Image</h4>
-                <GlobalImageUpload
-                  imgUrl={img}
-                  setImgUrl={setImg}
-                  default_img={sliderData?.img}
-                />
-              </div>
+                <div>
+                  <SelectOption
+                    title="type"
+                    isRequired={true}
+                    options={[
+                      { label: "Slider", value: "slider" },
+                      { label: "Jo", value: "jo" },
+                      { label: "Lee", value: "lee" },
+                    ]}
+                    register={register}
+                    errors={errors}
+                    defaultValue={sliderData?.type}
+                  />
+
+                </div>
+                <div>
+                  <h4>Slider Image</h4>
+                  <GlobalImageUpload
+                    imgUrl={img}
+                    setImgUrl={setImg}
+                    default_img={sliderData?.img}
+                  />
+                </div>
               </div>
 
-               <div>
-                <h4>Icon Image</h4>
-              <GlobalImageUpload
-                imgUrl={icon}
-                setImgUrl={setIcon}
-                default_img={sliderData?.icon}
-              />
-            </div>
+              <div className="left">
+                <div>
+                  <h4>Icon Image</h4>
+                  <GlobalImageUpload
+                    imgUrl={icon}
+                    setImgUrl={setIcon}
+                    default_img={sliderData?.icon}
+                  />
+                </div>
+                <div>
+                  <h4>Mobile slider</h4>
+                  <GlobalImageUpload
+                    imgUrl={mobileImage}
+                    setImgUrl={setMobileImage}
+                    default_img={sliderData?.mobileImage}
+                  />
+                </div>
+                <div>
+                  <h4>Tablet slider</h4>
+                  <GlobalImageUpload
+                    imgUrl={tabletImage}
+                    setImgUrl={setTabletImage}
+                    default_img={sliderData?.tabletImage}
+                  />
+                </div>
+              </div>
               <div>
                 <button className="tp-btn px-7 py-2">Update</button>
               </div>

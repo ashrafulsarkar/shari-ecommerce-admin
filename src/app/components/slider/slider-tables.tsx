@@ -94,6 +94,9 @@ const SliderTables = () => {
 										Title 1
 									</th>
 									<th scope="col" className="px-9 py-3 text-tiny text-text2 uppercase  font-semibold w-[12%] text-start">
+										Type
+									</th>
+									<th scope="col" className="px-9 py-3 text-tiny text-text2 uppercase  font-semibold w-[12%] text-start">
 										Action
 									</th>
 								</tr>
@@ -119,6 +122,13 @@ const SliderTables = () => {
 													</div>
 												</div>
 											</a>
+										</td>
+										<td className="px-9 py-3 text-end">
+											<div className="flex items-center justify-end space-x-2">
+												<div className="font-medium text-heading text-hover-primary transition">
+														{item.type}
+													</div>
+											</div>
 										</td>
 										<td className="px-9 py-3 text-end">
 											<div className="flex items-center justify-end space-x-2">

@@ -10,6 +10,8 @@ const useSliderSubmit = () => {
   const [error, setError] = useState<string>("");
   const [img, setImg] = useState<string>("");
   const [icon, setIcon] = useState<string>("");
+  const [mobileImage, setMobileImage] = useState<string>("");
+  const [tabletImage, setTabletImage] = useState<string>("");
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
   const router = useRouter();
   // add
@@ -36,7 +38,7 @@ const useSliderSubmit = () => {
   //handleSubmitAlbum
   const handleSubmitAlbum = async (data: any) => {
     try {
-      const res = await addSlider({...data,img:img,icon:icon});
+      const res = await addSlider({...data,img:img,icon:icon,mobileImage:mobileImage,tabletImage:tabletImage});
       if ("error" in res) {
         if ("data" in res.error) {
           const errorData = res.error.data as { message?: string };
@@ -63,7 +65,9 @@ const useSliderSubmit = () => {
       const res = await editSlider({ id, data:{
         ...data,
         img:img,
-        icon:icon
+        icon:icon,
+        mobileImage:mobileImage,
+        tabletImage:tabletImage
       } });
       // console.log(res)
       if ("error" in res) {
@@ -100,7 +104,9 @@ const useSliderSubmit = () => {
     isSubmitted,
     handleSubmitEditSlider,
     img, setImg,
-    icon, setIcon
+    icon, setIcon,
+    mobileImage, setMobileImage,
+    tabletImage, setTabletImage
   };
 };
 
